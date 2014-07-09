@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
-
+import android.widget.ImageButton;
 
 
 public class MainActivity extends Activity {
@@ -24,6 +24,9 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        ActionBar actionBar = getActionBar();
+        actionBar.show();
+        actionBar.setTitle("Travel Mumbai");
     }
 
 
@@ -60,5 +63,49 @@ public class MainActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            ImageButton metro= (ImageButton) getActivity().findViewById(R.id.imageButtonMetro);
+            ImageButton auto= (ImageButton) getActivity().findViewById(R.id.imageButtonAuto);
+            ImageButton taxi= (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
+
+            metro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.container, new MetroFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+
+            auto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.container, new AutoFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+
+            taxi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.container, new TaxiFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+        }
+
     }
 }
