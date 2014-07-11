@@ -9,8 +9,12 @@
     <string name="calculate_fare">Calculate Fare</string>
     <string name="source">Source</string>
     <string name="destination">Destination</string>
+    <string name="fare_for_token_user">Fare for Token users : </string>
+    <string name="fare_for_smartcard_user">Fare for SmartCard users : </string>
+    <string name="invalid_option_selected">Invalid Option(s) Selected</string>
 
     <string-array name="metro_stations_array">
+        <item>"Select"</item>
         <item>"Versova"</item>
         <item>"D. N. Nagar"</item>
         <item>"Azad Nagar"</item>
@@ -23,6 +27,5 @@
         <item>"Asalpha"</item>
         <item>"Jagruti Nagar"</item>
         <item>"Ghatkopar"</item>
-        <item>"Select"</item>
     </string-array>
 </resources>

@@ -8,7 +8,7 @@ public class MetroFareBase {
     int FaresCard[][];
 
 
-    public void MetroFareBase() {
+    public MetroFareBase() {
         FaresToken=new int[MetroStations.COUNT][MetroStations.COUNT];
         FaresCard=new int[MetroStations.COUNT][MetroStations.COUNT];
         AssignFare();
