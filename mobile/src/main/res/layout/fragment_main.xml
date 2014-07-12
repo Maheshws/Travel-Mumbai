@@ -33,7 +33,7 @@
             android:id="@+id/imageButtonAuto"
             android:layout_alignParentStart="true"
             android:clickable="true"
-            android:src="@drawable/ic_metro_token"
+            android:src="@drawable/ic_rickshaw"
             android:layout_weight="0.5" />
 
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageButtonTaxi"
             android:clickable="true"
-            android:src="@drawable/ic_metro_token"
+            android:src="@drawable/ic_taxi"
             android:layout_weight="0.5" />
 
     </LinearLayout>
