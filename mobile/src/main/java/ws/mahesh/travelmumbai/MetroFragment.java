@@ -1,5 +1,6 @@
 package ws.mahesh.travelmumbai;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -42,6 +43,8 @@ public class MetroFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ActionBar ab=getActivity().getActionBar();
+        ab.setTitle("Travel Mumbai - Metro");
         tokenfare= (TextView) getActivity().findViewById(R.id.textViewTokenFare);
         cardfare= (TextView) getActivity().findViewById(R.id.textViewCardFare);
         source= (Spinner) getActivity().findViewById(R.id.spinnerSource);

@@ -72,6 +72,10 @@ public class MainActivity extends Activity {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
+
+            ActionBar ab=getActivity().getActionBar();
+            ab.setTitle("Travel Mumbai");
+
             ImageButton metro= (ImageButton) getActivity().findViewById(R.id.imageButtonMetro);
             ImageButton auto= (ImageButton) getActivity().findViewById(R.id.imageButtonAuto);
             ImageButton taxi= (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
