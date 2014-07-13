@@ -10,14 +10,32 @@ public class TaxiFareBase {
     DecimalFormat df2 = new DecimalFormat("00.00");
 
     public void distanceBased(double tdist) {
-        dist=Double.valueOf(df2.format(tdist));
-        calculateReading();
-        calculateFare();
+        if(tdist<TaxiBase.MIN_DISTANCE)
+            defaultValues();
+        else {
+            dist = Double.valueOf(df2.format(tdist));
+            calculateReading();
+            calculateFare();
+        }
     }
+
+    private void defaultValues() {
+        dist=TaxiBase.MIN_DISTANCE;
+        fare=TaxiBase.MIN_FARE;
+        meter=1.0;
+        int tempfare=(int) Math.round(fare);
+        night_fare=tempfare+(tempfare*TaxiBase.NIGHT_RATE_FACTOR);
+    }
+
     public void readingBased(double tread) {
-        double tempread=tread-1.0;
-        tempread=(tempread*1.67)+TaxiBase.MIN_DISTANCE;
-        distanceBased(tempread);
+        if(tread<1.0) {
+            defaultValues();
+        }
+        else {
+            double tempread = tread - 1.0;
+            tempread = (tempread * 1.67) + TaxiBase.MIN_DISTANCE;
+            distanceBased(tempread);
+        }
     }
 
     public void calculateReading() {

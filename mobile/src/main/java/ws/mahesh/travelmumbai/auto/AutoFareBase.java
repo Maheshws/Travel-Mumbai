@@ -10,14 +10,33 @@ public class AutoFareBase {
     DecimalFormat df2 = new DecimalFormat("00.00");
 
     public void distanceBased(double tdist) {
-        dist=calculateFdistance(tdist);
-        calculateReading();
-        calculateFare();
+        if(tdist<AutoBase.MIN_DISTANCE)
+            defaultValues();
+        else {
+            dist=calculateFdistance(tdist);
+            calculateReading();
+            calculateFare();
+        }
     }
+
+    private void defaultValues() {
+        dist=AutoBase.MIN_DISTANCE;
+        fare=AutoBase.MIN_FARE;
+        meter=1.0;
+        int tempfare=(int) Math.round(fare);
+        night_fare=tempfare+(tempfare*AutoBase.NIGHT_RATE_FACTOR);
+    }
+
     public void readingBased(double tread) {
-        double tempread=tread-1.0;
-        tempread=(tempread*2)+AutoBase.MIN_DISTANCE;
-        distanceBased(tempread);
+        if(tread<1.0) {
+            defaultValues();
+        }
+        else {
+            double tempread=tread-1.0;
+            tempread=(tempread*2)+AutoBase.MIN_DISTANCE;
+            distanceBased(tempread);
+        }
+
     }
 
     public void calculateReading() {
