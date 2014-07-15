@@ -170,7 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/show_complete_chart"
-            android:id="@+id/button"
+            android:id="@+id/buttonChart"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
 

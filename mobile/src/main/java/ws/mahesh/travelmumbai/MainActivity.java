@@ -1,7 +1,7 @@
 package ws.mahesh.travelmumbai;
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.ImageButton;
 
 
@@ -59,7 +58,7 @@ public class MainActivity extends Activity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
@@ -73,12 +72,12 @@ public class MainActivity extends Activity {
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
 
-            ActionBar ab=getActivity().getActionBar();
+            ActionBar ab = getActivity().getActionBar();
             ab.setTitle("Travel Mumbai");
 
-            ImageButton metro= (ImageButton) getActivity().findViewById(R.id.imageButtonMetro);
-            ImageButton auto= (ImageButton) getActivity().findViewById(R.id.imageButtonAuto);
-            ImageButton taxi= (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
+            ImageButton metro = (ImageButton) getActivity().findViewById(R.id.imageButtonMetro);
+            ImageButton auto = (ImageButton) getActivity().findViewById(R.id.imageButtonAuto);
+            ImageButton taxi = (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
 
             metro.setOnClickListener(new View.OnClickListener() {
                 @Override
