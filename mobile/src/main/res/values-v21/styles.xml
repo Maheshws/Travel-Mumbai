@@ -3,6 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material">
         <!-- Customize your theme here. -->
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
 
 </resources>
