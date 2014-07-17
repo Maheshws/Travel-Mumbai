@@ -17,6 +17,7 @@
     <string name="day_fare">Day Fare</string>
     <string name="night_fare">Night Fare</string>
     <string name="show_complete_chart">Show Complete Chart</string>
+    <string name="contact_developer_uri">mailto:mahesh@mahesh.ws</string>
 
     <string-array name="metro_stations_array">
         <item>"Select"</item>

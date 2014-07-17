@@ -3,6 +3,7 @@ package ws.mahesh.travelmumbai;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -78,6 +79,8 @@ public class MainActivity extends Activity {
             ImageButton metro = (ImageButton) getActivity().findViewById(R.id.imageButtonMetro);
             ImageButton auto = (ImageButton) getActivity().findViewById(R.id.imageButtonAuto);
             ImageButton taxi = (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
+            ImageButton mono = (ImageButton) getActivity().findViewById(R.id.imageButtonMono);
+            ImageButton prefs = (ImageButton) getActivity().findViewById(R.id.imageButtonPreferences);
 
             metro.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,6 +109,23 @@ public class MainActivity extends Activity {
                             .replace(R.id.container, new TaxiFragment())
                             .addToBackStack(null)
                             .commit();
+                }
+            });
+
+            mono.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /* getFragmentManager().beginTransaction()
+                            .replace(R.id.container, new TaxiFragment())
+                            .addToBackStack(null)
+                            .commit(); */
+                }
+            });
+
+            prefs.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   startActivity(new Intent(getActivity(),PreferencesActivity.class));
                 }
             });
         }
