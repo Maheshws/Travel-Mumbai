@@ -47,7 +47,7 @@ public class MetroFareBase {
         FaresToken[2][4] = FaresToken[4][2] = 15;
         FaresToken[2][5] = FaresToken[5][2] = 15;
         FaresToken[2][6] = FaresToken[6][2] = 15;
-        FaresToken[2][7] = FaresToken[7][2] = 20;
+        FaresToken[2][7] = FaresToken[7][2] = 15;
         FaresToken[2][8] = FaresToken[8][2] = 20;
         FaresToken[2][9] = FaresToken[9][2] = 20;
         FaresToken[2][10] = FaresToken[10][2] = 20;
@@ -58,7 +58,7 @@ public class MetroFareBase {
         FaresToken[3][5] = FaresToken[5][3] = 15;
         FaresToken[3][6] = FaresToken[6][3] = 15;
         FaresToken[3][7] = FaresToken[7][3] = 15;
-        FaresToken[3][8] = FaresToken[8][3] = 20;
+        FaresToken[3][8] = FaresToken[8][3] = 15;
         FaresToken[3][9] = FaresToken[9][3] = 20;
         FaresToken[3][10] = FaresToken[10][3] = 20;
         FaresToken[3][11] = FaresToken[11][3] = 20;
@@ -68,24 +68,24 @@ public class MetroFareBase {
         FaresToken[4][6] = FaresToken[6][4] = 15;
         FaresToken[4][7] = FaresToken[7][4] = 15;
         FaresToken[4][8] = FaresToken[8][4] = 15;
-        FaresToken[4][9] = FaresToken[9][4] = 20;
+        FaresToken[4][9] = FaresToken[9][4] = 15;
         FaresToken[4][10] = FaresToken[10][4] = 20;
         FaresToken[4][11] = FaresToken[11][4] = 20;
         //Chakala
         FaresToken[5][5] = 0;
         FaresToken[5][6] = FaresToken[6][5] = 10;
-        FaresToken[5][7] = FaresToken[7][5] = 15;
+        FaresToken[5][7] = FaresToken[7][5] = 10;
         FaresToken[5][8] = FaresToken[8][5] = 15;
         FaresToken[5][9] = FaresToken[9][5] = 15;
-        FaresToken[5][10] = FaresToken[10][5] = 20;
+        FaresToken[5][10] = FaresToken[10][5] = 15;
         FaresToken[5][11] = FaresToken[11][5] = 20;
         //Airport Road
         FaresToken[6][6] = 0;
         FaresToken[6][7] = FaresToken[7][6] = 10;
-        FaresToken[6][8] = FaresToken[8][6] = 15;
+        FaresToken[6][8] = FaresToken[8][6] = 10;
         FaresToken[6][9] = FaresToken[9][6] = 15;
         FaresToken[6][10] = FaresToken[10][6] = 15;
-        FaresToken[6][11] = FaresToken[11][6] = 20;
+        FaresToken[6][11] = FaresToken[11][6] = 15;
         // Marol Naka
         FaresToken[7][7] = 0;
         FaresToken[7][8] = FaresToken[8][7] = 10;
@@ -95,12 +95,12 @@ public class MetroFareBase {
         //Saki Naka
         FaresToken[8][8] = 0;
         FaresToken[8][9] = FaresToken[9][8] = 10;
-        FaresToken[8][10] = FaresToken[10][8] = 15;
+        FaresToken[8][10] = FaresToken[10][8] = 10;
         FaresToken[8][11] = FaresToken[11][8] = 15;
         //Asalpha
         FaresToken[9][9] = 0;
         FaresToken[9][10] = FaresToken[10][9] = 10;
-        FaresToken[9][11] = FaresToken[11][9] = 15;
+        FaresToken[9][11] = FaresToken[11][9] = 10;
         //Jagruti Nagar
         FaresToken[10][10] = 0;
         FaresToken[10][11] = FaresToken[11][10] = 10;
