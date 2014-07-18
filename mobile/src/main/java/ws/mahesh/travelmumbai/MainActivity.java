@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
         actionBar.setTitle("Travel Mumbai");
     }
 
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+*/
 
     /**
      * A placeholder fragment containing a simple view.
