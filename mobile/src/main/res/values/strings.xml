@@ -34,4 +34,14 @@
         <item>"Jagruti Nagar"</item>
         <item>"Ghatkopar"</item>
     </string-array>
+    <string-array name="mono_stations_array">
+        <item>"Select"</item>
+        <item>"Chembur"</item>
+        <item>"VNP Marg Junction"</item>
+        <item>"Fertilizer Township"</item>
+        <item>"Bharat Petroleum"</item>
+        <item>"Mysore Colony"</item>
+        <item>"Bhakti Park"</item>
+        <item>"Wadala Depot"</item>
+    </string-array>
 </resources>

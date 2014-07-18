@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -115,10 +116,10 @@ public class MainActivity extends Activity {
             mono.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /* getFragmentManager().beginTransaction()
-                            .replace(R.id.container, new TaxiFragment())
+                     getFragmentManager().beginTransaction()
+                            .replace(R.id.container, new MonorailFragment())
                             .addToBackStack(null)
-                            .commit(); */
+                            .commit();
                 }
             });
 
