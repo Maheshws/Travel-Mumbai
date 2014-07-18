@@ -21,7 +21,7 @@ public class MyTagHandler implements Html.TagHandler {
         if(tag.equals("li")){
             if(parent.equals("ul")){
                 if(first){
-                    output.append("\n\t•");
+                    output.append("\n• ");
                     first= false;
                 }else{
                     first = true;
