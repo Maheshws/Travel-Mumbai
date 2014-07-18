@@ -76,8 +76,8 @@ public class MetroFragment extends Fragment {
         if (src < 0 || dest < 0 || src == dest) {
             Toast.makeText(getActivity(), getResources().getString(R.string.invalid_option_selected), Toast.LENGTH_LONG).show();
         } else {
-            cardfare.setText(getResources().getString(R.string.fare_for_smartcard_user) + metro.getCardFare(src, dest));
-            tokenfare.setText(getResources().getString(R.string.fare_for_token_user) + metro.getTokenFare(src, dest));
+            cardfare.setText(getResources().getString(R.string.fare_for_smartcard_user) +"  "+ metro.getCardFare(src, dest));
+            tokenfare.setText(getResources().getString(R.string.fare_for_token_user) +"  "+ metro.getTokenFare(src, dest));
         }
 
     }
