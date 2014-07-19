@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import ws.mahesh.travelmumbai.taxi.TaxiCompleteFareList;
 import ws.mahesh.travelmumbai.taxi.TaxiFareBase;
+import ws.mahesh.travelmumbai.utils.TravelInfo;
 
 /**
  * Created by Mahesh on 7/9/2014.
@@ -50,6 +51,7 @@ public class TaxiFragment extends Fragment {
         reading = (TextView) getActivity().findViewById(R.id.textViewReading);
         day_fare = (TextView) getActivity().findViewById(R.id.textViewDayFare);
         night_fare = (TextView) getActivity().findViewById(R.id.textViewNightFare);
+        info_txt= (TextView) getActivity().findViewById(R.id.textViewInformation);
 
         meter_reading = (EditText) getActivity().findViewById(R.id.editTextMeter);
         distance_km = (EditText) getActivity().findViewById(R.id.editTextDistance);
@@ -57,6 +59,8 @@ public class TaxiFragment extends Fragment {
         calcDistance = (Button) getActivity().findViewById(R.id.buttoncalcDistance);
         calcReading = (Button) getActivity().findViewById(R.id.buttoncalcReading);
         show_chart = (Button) getActivity().findViewById(R.id.buttonChart);
+
+        info_txt.setText(TravelInfo.TAXI_INFO);
 
         calcDistance.setOnClickListener(new View.OnClickListener() {
             @Override

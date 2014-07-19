@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import ws.mahesh.travelmumbai.auto.AutoCompleteFareList;
 import ws.mahesh.travelmumbai.auto.AutoFareBase;
+import ws.mahesh.travelmumbai.utils.TravelInfo;
 
 /**
  * Created by Mahesh on 7/9/2014.
@@ -23,6 +24,7 @@ public class AutoFragment extends Fragment {
     TextView distance, reading, day_fare, night_fare, info_txt;
     Button calcReading, calcDistance, show_chart;
     EditText meter_reading, distance_km;
+
 
     AutoFareBase auto = new AutoFareBase();
 
@@ -53,6 +55,7 @@ public class AutoFragment extends Fragment {
         reading = (TextView) getActivity().findViewById(R.id.textViewReading);
         day_fare = (TextView) getActivity().findViewById(R.id.textViewDayFare);
         night_fare = (TextView) getActivity().findViewById(R.id.textViewNightFare);
+        info_txt= (TextView) getActivity().findViewById(R.id.textViewInformation);
 
         meter_reading = (EditText) getActivity().findViewById(R.id.editTextMeter);
         distance_km = (EditText) getActivity().findViewById(R.id.editTextDistance);
@@ -60,6 +63,8 @@ public class AutoFragment extends Fragment {
         calcDistance = (Button) getActivity().findViewById(R.id.buttoncalcDistance);
         calcReading = (Button) getActivity().findViewById(R.id.buttoncalcReading);
         show_chart = (Button) getActivity().findViewById(R.id.buttonChart);
+
+        info_txt.setText(TravelInfo.AUTO_INFO);
 
         calcDistance.setOnClickListener(new View.OnClickListener() {
             @Override
