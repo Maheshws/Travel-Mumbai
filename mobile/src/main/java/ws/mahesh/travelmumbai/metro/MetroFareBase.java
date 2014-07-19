@@ -166,7 +166,7 @@ public class MetroFareBase {
         //Chakala
         FaresCard[5][5] = 0;
         FaresCard[5][6] = FaresCard[6][5] = 10;
-        FaresCard[5][7] = FaresCard[7][5] = 15;
+        FaresCard[5][7] = FaresCard[7][5] = 10;
         FaresCard[5][8] = FaresCard[8][5] = 15;
         FaresCard[5][9] = FaresCard[9][5] = 15;
         FaresCard[5][10] = FaresCard[10][5] = 15;
@@ -174,7 +174,7 @@ public class MetroFareBase {
         //Airport Road
         FaresCard[6][6] = 0;
         FaresCard[6][7] = FaresCard[7][6] = 10;
-        FaresCard[6][8] = FaresCard[8][6] = 15;
+        FaresCard[6][8] = FaresCard[8][6] = 10;
         FaresCard[6][9] = FaresCard[9][6] = 15;
         FaresCard[6][10] = FaresCard[10][6] = 15;
         FaresCard[6][11] = FaresCard[11][6] = 15;
@@ -187,12 +187,12 @@ public class MetroFareBase {
         //Saki Naka
         FaresCard[8][8] = 0;
         FaresCard[8][9] = FaresCard[9][8] = 10;
-        FaresCard[8][10] = FaresCard[10][8] = 15;
+        FaresCard[8][10] = FaresCard[10][8] = 10;
         FaresCard[8][11] = FaresCard[11][8] = 15;
         //Asalpha
         FaresCard[9][9] = 0;
         FaresCard[9][10] = FaresCard[10][9] = 10;
-        FaresCard[9][11] = FaresCard[11][9] = 15;
+        FaresCard[9][11] = FaresCard[11][9] = 10;
         //Jagruti Nagar
         FaresCard[10][10] = 0;
         FaresCard[10][11] = FaresCard[11][10] = 10;
