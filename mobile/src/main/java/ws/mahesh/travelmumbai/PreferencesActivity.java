@@ -7,6 +7,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Mahesh on 7/17/2014.
@@ -39,6 +40,14 @@ public class PreferencesActivity extends PreferenceActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+
+        CurrentVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+            Toast.makeText(PreferencesActivity.this, "Mahesh Liked IT!", Toast.LENGTH_LONG).show();
+                return false;
+                }
+            });
 
 
         Preference AboutApp = findPreference("AboutApp");
