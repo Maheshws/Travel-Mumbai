@@ -42,7 +42,7 @@ public class AutoCompleteFareList extends Fragment {
     private void populate() {
         for (double i = 1.0; i < 10.0; i = (i + 0.1)) {
             abc.readingBased(i);
-            auto.add(new AutoListItem("" + abc.getReading(), "" + abc.getDistance(), "" + abc.getFare(), "" + abc.getNightFare()));
+            auto.add(new AutoListItem("" + abc.getReading(), "" + abc.getDistance(), "Rs." + abc.getFare(), "Rs." + abc.getNightFare()));
         }
         AutoListAdapter adapter = new AutoListAdapter(getActivity(), R.layout.auto_taxi_item, auto);
         ListView list = (ListView) getActivity().findViewById(R.id.listView);
