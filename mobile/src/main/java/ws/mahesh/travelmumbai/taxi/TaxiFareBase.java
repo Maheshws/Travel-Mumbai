@@ -1,5 +1,7 @@
 package ws.mahesh.travelmumbai.taxi;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 
 /**
@@ -8,13 +10,15 @@ import java.text.DecimalFormat;
 public class TaxiFareBase {
     public double dist, fare, meter, night_fare;
     DecimalFormat df2 = new DecimalFormat("00.00");
+    boolean distbased=true;
 
     public void distanceBased(double tdist) {
-        if (tdist < TaxiBase.MIN_DISTANCE)
+        if (tdist <= TaxiBase.MIN_DISTANCE)
             defaultValues();
         else {
             dist = tdist;
-            calculateReading();
+            if(distbased)
+                calculateReading();
             calculateFare();
         }
     }
@@ -23,16 +27,19 @@ public class TaxiFareBase {
         dist = TaxiBase.MIN_DISTANCE;
         fare = TaxiBase.MIN_FARE;
         meter = 1.0;
-        int tempfare = (int) Math.round(fare);
-        night_fare = tempfare + (tempfare * TaxiBase.NIGHT_RATE_FACTOR);
+        night_fare = fare + (fare * TaxiBase.NIGHT_RATE_FACTOR)-1;
     }
 
     public void readingBased(double tread) {
-        if (tread < 1.0) {
+        if (tread <= 1.0) {
             defaultValues();
         } else {
             double tempread = tread - 1.0;
             tempread = (tempread * 1.67) + TaxiBase.MIN_DISTANCE;
+            distbased=false;
+            tempread = Double.valueOf(df2.format(tempread));
+            tread = Double.valueOf(df2.format(tread));
+            meter=tread;
             distanceBased(tempread);
         }
     }
@@ -52,7 +59,6 @@ public class TaxiFareBase {
 
     public void calculateFare() {
         fare = dist * TaxiBase.PER_KM;
-        int tempfare = (int) Math.round(fare);
         night_fare = fare + (fare * TaxiBase.NIGHT_RATE_FACTOR);
     }
 
