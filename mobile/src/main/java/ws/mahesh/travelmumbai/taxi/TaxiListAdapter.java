@@ -1,7 +1,6 @@
 package ws.mahesh.travelmumbai.taxi;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,28 +16,28 @@ import ws.mahesh.travelmumbai.R;
  */
 public class TaxiListAdapter extends ArrayAdapter<TaxiListItem> {
 
-    private  Context context;
+    private Context context;
     private List<TaxiListItem> values;
+
     public TaxiListAdapter(Context context, int resource, List<TaxiListItem> values) {
         super(context, resource, values);
-        this.context=context;
-        this.values=values;
+        this.context = context;
+        this.values = values;
 
     }
-
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView=inflater.inflate(R.layout.auto_taxi_item, parent, false);
+        View rowView = inflater.inflate(R.layout.auto_taxi_item, parent, false);
         TextView meter = (TextView) rowView.findViewById(R.id.textViewListMeter);
         TextView distance = (TextView) rowView.findViewById(R.id.textViewListDistance);
         TextView day_fare = (TextView) rowView.findViewById(R.id.textViewListDayFare);
         TextView night_fare = (TextView) rowView.findViewById(R.id.textViewListNightFare);
 
-        TaxiListItem auto=values.get(position);
+        TaxiListItem auto = values.get(position);
 
         meter.setText(auto.getREADING());
         distance.setText(auto.getDISTANCE());

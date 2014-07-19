@@ -51,12 +51,12 @@ public class MetroFragment extends Fragment {
         ab.setTitle("Travel Mumbai - Metro");
         tokenfare = (TextView) getActivity().findViewById(R.id.textViewTokenFare);
         cardfare = (TextView) getActivity().findViewById(R.id.textViewCardFare);
-        timing=(TextView) getActivity().findViewById(R.id.textViewTiming);
+        timing = (TextView) getActivity().findViewById(R.id.textViewTiming);
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
         destination = (Spinner) getActivity().findViewById(R.id.spinnerDestination);
         calcFare = (Button) getActivity().findViewById(R.id.buttonCalcFare);
 
-        timing.setText(Html.fromHtml(readFromFile("metro/timing.tm"),null, new MyTagHandler()));
+        timing.setText(Html.fromHtml(readFromFile("metro/timing.tm"), null, new MyTagHandler()));
 
         calcFare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,16 +76,16 @@ public class MetroFragment extends Fragment {
         if (src < 0 || dest < 0 || src == dest) {
             Toast.makeText(getActivity(), getResources().getString(R.string.invalid_option_selected), Toast.LENGTH_LONG).show();
         } else {
-            cardfare.setText(getResources().getString(R.string.fare_for_smartcard_user) +"  "+ metro.getCardFare(src, dest));
-            tokenfare.setText(getResources().getString(R.string.fare_for_token_user) +"  "+ metro.getTokenFare(src, dest));
+            cardfare.setText(getResources().getString(R.string.fare_for_smartcard_user) + "  " + metro.getCardFare(src, dest));
+            tokenfare.setText(getResources().getString(R.string.fare_for_token_user) + "  " + metro.getTokenFare(src, dest));
         }
 
     }
 
     private String readFromFile(String fname) {
-        String str="";
+        String str = "";
         try {
-            InputStream in= getActivity().getAssets().open(fname);
+            InputStream in = getActivity().getAssets().open(fname);
             int size = in.available();
             byte[] buffer = new byte[size];
             in.read(buffer);

@@ -44,10 +44,10 @@ public class PreferencesActivity extends PreferenceActivity {
         CurrentVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-            Toast.makeText(PreferencesActivity.this, "Mahesh Liked IT!", Toast.LENGTH_LONG).show();
+                Toast.makeText(PreferencesActivity.this, "Mahesh Liked IT!", Toast.LENGTH_LONG).show();
                 return false;
-                }
-            });
+            }
+        });
 
 
         Preference AboutApp = findPreference("AboutApp");

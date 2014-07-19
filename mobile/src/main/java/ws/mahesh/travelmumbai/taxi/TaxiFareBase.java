@@ -13,7 +13,7 @@ public class TaxiFareBase {
         if (tdist < TaxiBase.MIN_DISTANCE)
             defaultValues();
         else {
-            dist=tdist;
+            dist = tdist;
             calculateReading();
             calculateFare();
         }
@@ -38,11 +38,11 @@ public class TaxiFareBase {
     }
 
     public void calculateReading() {
-        double tempdist2=TaxiBase.MIN_DISTANCE;
-        while(tempdist2<dist) {
-            tempdist2=tempdist2+(TaxiBase.DISTANCE_PER_METER);
+        double tempdist2 = TaxiBase.MIN_DISTANCE;
+        while (tempdist2 < dist) {
+            tempdist2 = tempdist2 + (TaxiBase.DISTANCE_PER_METER);
         }
-        dist=tempdist2;
+        dist = tempdist2;
         dist = Double.valueOf(df2.format(dist));
         double tempdist = dist - TaxiBase.MIN_DISTANCE;
         tempdist = tempdist / 1.67;

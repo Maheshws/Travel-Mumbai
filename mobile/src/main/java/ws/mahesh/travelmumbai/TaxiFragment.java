@@ -56,7 +56,7 @@ public class TaxiFragment extends Fragment {
 
         calcDistance = (Button) getActivity().findViewById(R.id.buttoncalcDistance);
         calcReading = (Button) getActivity().findViewById(R.id.buttoncalcReading);
-        show_chart= (Button) getActivity().findViewById(R.id.buttonChart);
+        show_chart = (Button) getActivity().findViewById(R.id.buttonChart);
 
         calcDistance.setOnClickListener(new View.OnClickListener() {
             @Override

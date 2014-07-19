@@ -17,8 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-import ws.mahesh.travelmumbai.R;
-import ws.mahesh.travelmumbai.metro.MetroFareBase;
 import ws.mahesh.travelmumbai.monorail.MonoFareBase;
 import ws.mahesh.travelmumbai.utils.MyTagHandler;
 
@@ -53,12 +51,12 @@ public class MonorailFragment extends Fragment {
         ab.setTitle("Travel Mumbai - MonoRail");
         tokenfare = (TextView) getActivity().findViewById(R.id.textViewTokenFare);
         cardfare = (TextView) getActivity().findViewById(R.id.textViewCardFare);
-        timing=(TextView) getActivity().findViewById(R.id.textViewTiming);
+        timing = (TextView) getActivity().findViewById(R.id.textViewTiming);
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
         destination = (Spinner) getActivity().findViewById(R.id.spinnerDestination);
         calcFare = (Button) getActivity().findViewById(R.id.buttonCalcFare);
 
-        timing.setText(Html.fromHtml(readFromFile("monorail/timing.tm"),null, new MyTagHandler()));
+        timing.setText(Html.fromHtml(readFromFile("monorail/timing.tm"), null, new MyTagHandler()));
 
         calcFare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,16 +76,16 @@ public class MonorailFragment extends Fragment {
         if (src < 0 || dest < 0 || src == dest) {
             Toast.makeText(getActivity(), getResources().getString(R.string.invalid_option_selected), Toast.LENGTH_LONG).show();
         } else {
-            cardfare.setText(getResources().getString(R.string.fare_for_smartcard_user) +"  "+ mono.getCardFare(src, dest));
-            tokenfare.setText(getResources().getString(R.string.fare_for_token_user)+"  "+ mono.getTokenFare(src, dest));
+            cardfare.setText(getResources().getString(R.string.fare_for_smartcard_user) + "  " + mono.getCardFare(src, dest));
+            tokenfare.setText(getResources().getString(R.string.fare_for_token_user) + "  " + mono.getTokenFare(src, dest));
         }
 
     }
 
     private String readFromFile(String fname) {
-        String str="";
+        String str = "";
         try {
-            InputStream in= getActivity().getAssets().open(fname);
+            InputStream in = getActivity().getAssets().open(fname);
             int size = in.available();
             byte[] buffer = new byte[size];
             in.read(buffer);

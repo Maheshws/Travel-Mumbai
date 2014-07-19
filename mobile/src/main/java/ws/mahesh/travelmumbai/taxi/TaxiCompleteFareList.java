@@ -12,15 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ws.mahesh.travelmumbai.R;
-import ws.mahesh.travelmumbai.auto.AutoFareBase;
 
 /**
  * Created by Mahesh on 7/15/2014.
  */
 public class TaxiCompleteFareList extends Fragment {
 
-    private List<TaxiListItem> auto=new ArrayList<TaxiListItem>();
-    TaxiFareBase abc=new TaxiFareBase();
+    TaxiFareBase abc = new TaxiFareBase();
+    private List<TaxiListItem> auto = new ArrayList<TaxiListItem>();
 
     @Override
     public void onAttach(Activity activity) {
@@ -41,12 +40,12 @@ public class TaxiCompleteFareList extends Fragment {
     }
 
     private void populate() {
-        for(double i=1.0;i<10.0;i=(i+0.1)) {
+        for (double i = 1.0; i < 10.0; i = (i + 0.1)) {
             abc.readingBased(i);
-                auto.add(new TaxiListItem("" + abc.getReading(), "" + abc.getDistance(), "" + abc.getFare(), "" + abc.getNightFare()));
+            auto.add(new TaxiListItem("" + abc.getReading(), "" + abc.getDistance(), "" + abc.getFare(), "" + abc.getNightFare()));
         }
-        TaxiListAdapter adapter=new TaxiListAdapter(getActivity(),R.layout.auto_taxi_item,auto);
-        ListView list= (ListView) getActivity().findViewById(R.id.listView);
+        TaxiListAdapter adapter = new TaxiListAdapter(getActivity(), R.layout.auto_taxi_item, auto);
+        ListView list = (ListView) getActivity().findViewById(R.id.listView);
         list.setAdapter(adapter);
     }
 }

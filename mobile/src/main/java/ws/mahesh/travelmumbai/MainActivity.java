@@ -6,8 +6,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -116,7 +114,7 @@ public class MainActivity extends Activity {
             mono.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                     getFragmentManager().beginTransaction()
+                    getFragmentManager().beginTransaction()
                             .replace(R.id.container, new MonorailFragment())
                             .addToBackStack(null)
                             .commit();
@@ -126,7 +124,7 @@ public class MainActivity extends Activity {
             prefs.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   startActivity(new Intent(getActivity(),PreferencesActivity.class));
+                    startActivity(new Intent(getActivity(), PreferencesActivity.class));
                 }
             });
         }
