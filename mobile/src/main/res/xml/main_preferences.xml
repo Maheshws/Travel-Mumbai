@@ -12,6 +12,9 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Miscellaneous">
         <Preference
+            android:key="RailMap"
+            android:title="View Rail Map"></Preference>
+        <Preference
             android:key="AboutApp"
             android:title="About Travel Mumbai"></Preference>
         <Preference

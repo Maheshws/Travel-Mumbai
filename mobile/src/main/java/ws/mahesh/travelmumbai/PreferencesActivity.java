@@ -1,5 +1,6 @@
 package ws.mahesh.travelmumbai;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -58,6 +59,20 @@ public class PreferencesActivity extends PreferenceActivity {
                 return false;
             }
         });
+
+        Preference RailMap =findPreference("RailMap");
+        RailMap.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
+                i.putExtra("asset",true);
+                i.putExtra("location","railmap/railmap.html");
+                startActivity(i);
+                return false;
+            }
+        });
+
+
 
         editor.commit();
     }
