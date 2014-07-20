@@ -45,4 +45,7 @@
         <item>"Bhakti Park"</item>
         <item>"Wadala Depot"</item>
     </string-array>
+
+    <string name="title_activity_web_view">WebViewActivity</string>
+
 </resources>
