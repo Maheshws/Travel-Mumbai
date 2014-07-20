@@ -3,121 +3,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/scrollView2" >
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:id="@+id/linearLayout"
-                android:baselineAligned="false">
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_vertical|center_horizontal"
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/source"
-                        android:id="@+id/textView" />
+                        android:id="@+id/textView"
+                        android:layout_gravity="center_vertical" />
 
                     <Spinner
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spinnerSource"
                         android:entries="@array/mono_stations_array"
-                        android:layout_margin="5dp"
-                        android:layout_gravity="center"
-                        android:gravity="center_horizontal" />
+                        android:layout_gravity="center_vertical"
+                        android:padding="5dp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_info"
+                        android:id="@+id/buttonmoreInfo"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:padding="5dp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <ListView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:gravity="center_horizontal">
+                    android:id="@+id/listView1"
+                    android:headerDividersEnabled="false" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/destination"
-                        android:id="@+id/textView2" />
-
-                    <Spinner
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/spinnerDestination"
-                        android:entries="@array/mono_stations_array"
-                        android:layout_margin="5dp"
-                        android:layout_gravity="center"
-                        android:gravity="center_horizontal" />
-                </LinearLayout>
             </LinearLayout>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/calculate_fare"
-                android:id="@+id/buttonCalcFare"
-                android:layout_below="@+id/linearLayout"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="5dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fare_for_token_user"
-                android:id="@+id/textViewTokenFare"
-                android:layout_below="@+id/buttonCalcFare"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:layout_alignWithParentIfMissing="false"
-                android:padding="5dp"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fare_for_smartcard_user"
-                android:id="@+id/textViewCardFare"
-                android:layout_below="@+id/textViewTokenFare"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:layout_alignWithParentIfMissing="false"
-                android:padding="5dp"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/textViewTiming"
-                android:layout_below="@+id/textViewCardFare"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="10dp"
-                android:layout_alignWithParentIfMissing="false"
-                android:padding="5dp" />
-            </RelativeLayout>
-
-
-    </ScrollView>
 </RelativeLayout>
