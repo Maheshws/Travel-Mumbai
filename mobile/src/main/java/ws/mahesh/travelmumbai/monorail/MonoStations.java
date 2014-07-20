@@ -5,5 +5,5 @@ package ws.mahesh.travelmumbai.monorail;
  */
 public interface MonoStations {
     public static final int COUNT = 7;
-    public static final String STATIONS[] = {"Chembur", "V.N.Purav/RC Marg Junction", "Fertilizer Township", "Bharat Petroleum", "Mysore Colony", "Bhakti Park", "Wadala Depot"};
+    public static final String STATIONS[] = {"Chembur", "VNP Marg Junction", "Fertilizer Township", "Bharat Petroleum", "Mysore Colony", "Bhakti Park", "Wadala Depot"};
 }
