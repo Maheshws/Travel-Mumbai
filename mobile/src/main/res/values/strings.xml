@@ -19,6 +19,8 @@
     <string name="show_complete_chart">Show Complete Chart</string>
     <string name="contact_developer_uri">mailto:mahesh@mahesh.ws</string>
     <string name="more_info">More Info</string>
+    <string name="parseAppID">hesAG6XgGKorCU56iDp7KpsxGl0Vl2JdglUXqbR6</string>
+    <string name="parseClientKey">BlBpRTpRboxOQHpuSgZ1yBVnGyR7iV9AZ022lrqL</string>
 
     <string-array name="metro_stations_array">
         <item>"Select"</item>
