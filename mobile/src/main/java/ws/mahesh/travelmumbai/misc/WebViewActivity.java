@@ -1,9 +1,7 @@
-package ws.mahesh.travelmumbai;
+package ws.mahesh.travelmumbai.misc;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.webkit.WebView;
 
 import ws.mahesh.travelmumbai.R;
