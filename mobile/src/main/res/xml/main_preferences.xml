@@ -6,7 +6,7 @@
         <CheckBoxPreference
             android:title="Turn off Notification"
             android:summary="Turn off notifications for MegaBlock."
-            android:key="Notification"
+            android:key="MegaBlock"
             android:defaultValue="FALSE" />
 
     </PreferenceCategory>

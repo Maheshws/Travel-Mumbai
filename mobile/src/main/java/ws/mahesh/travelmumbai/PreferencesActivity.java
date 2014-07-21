@@ -10,6 +10,11 @@ import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.parse.PushService;
+
+import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;
+import ws.mahesh.travelmumbai.misc.WebViewActivity;
+
 /**
  * Created by Mahesh on 7/17/2014.
  */
@@ -23,12 +28,21 @@ public class PreferencesActivity extends PreferenceActivity {
 
         SharedPreferences pref = getSharedPreferences("user_settings", 0); // 0 - for private mode
         editor = pref.edit();
-        final CheckBoxPreference Notification = (CheckBoxPreference) getPreferenceManager().findPreference("Notification");
+        final CheckBoxPreference Notification = (CheckBoxPreference) getPreferenceManager().findPreference("MegaBlock");
         Notification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Log.d("MyApp", "Pref " + preference.getKey() + " changed to " + newValue.toString());
-                editor.putBoolean("Notification", (Boolean) newValue);
-                editor.commit();
+                editor.putBoolean("MegaBlock", (Boolean) newValue);
+                editor.apply();
+                if((Boolean)newValue) {
+                    PushService.setDefaultPushCallback(PreferencesActivity.this, null);
+                    Notification.setSummary("Turn on notifications for MegaBlock.");
+                }
+                else {
+                    PushService.setDefaultPushCallback(PreferencesActivity.this, MegaBlockInfoActivity.class);
+                    Notification.setSummary("Turn off notifications for MegaBlock.");
+                }
+
                 return true;
             }
         });
