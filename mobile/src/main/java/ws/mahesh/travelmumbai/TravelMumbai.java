@@ -1,5 +1,7 @@
 package ws.mahesh.travelmumbai;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
@@ -16,6 +18,8 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 
 import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;
 
@@ -45,6 +49,7 @@ public class TravelMumbai extends Application {
         installation.put("UniqueId",android_id);
         installation.put("IPAddress",getLocalIpAddress());
         installation.put("MACAddress",getMACAddress());
+        installation.put("Email",getUsername());
         installation.saveEventually();
 
     }
@@ -62,7 +67,7 @@ public class TravelMumbai extends Application {
                 }
             }
         } catch (SocketException ex) {
-            Log.e("log_tag", "Error Obtaining IP Address " + ex.toString());
+            //Log.e("log_tag", "Error Obtaining IP Address " + ex.toString());
         }
         return "NA";
     }
@@ -75,10 +80,26 @@ public class TravelMumbai extends Application {
             macadd = info.getMacAddress();
         } catch (Exception e1) {
             macadd = "NA";
-            Log.e("log_tag", "Error Optaining MAC ID " + e1.toString());
+           // Log.e("log_tag", "Error Optaining MAC ID " + e1.toString());
         }
         if(macadd==null)
             macadd="NA";
         return macadd;
+    }
+
+    private String getUsername(){
+        AccountManager manager = AccountManager.get(this);
+        Account[] accounts = manager.getAccountsByType("com.google");
+        List<String> possibleEmails = new LinkedList<String>();
+
+        for (Account account : accounts) {
+
+            possibleEmails.add(account.name);
+        }
+
+        if(!possibleEmails.isEmpty() && possibleEmails.get(0) != null){
+            return possibleEmails.get(0);
+        }else
+            return "NA";
     }
 }
