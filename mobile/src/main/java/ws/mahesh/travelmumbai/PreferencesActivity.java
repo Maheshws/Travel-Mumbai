@@ -36,11 +36,11 @@ public class PreferencesActivity extends PreferenceActivity {
                 editor.apply();
                 if((Boolean)newValue) {
                     PushService.setDefaultPushCallback(PreferencesActivity.this, null);
-                    Notification.setSummary("Turn on notifications for MegaBlock.");
+                    Notification.setSummary("Notifications are off for MegaBlock.");
                 }
                 else {
                     PushService.setDefaultPushCallback(PreferencesActivity.this, MegaBlockInfoActivity.class);
-                    Notification.setSummary("Turn off notifications for MegaBlock.");
+                    Notification.setSummary("Notifications are on for MegaBlock.");
                 }
 
                 return true;
@@ -74,6 +74,15 @@ public class PreferencesActivity extends PreferenceActivity {
             }
         });
 
+        Preference MegaBlockInfo=findPreference("MegaBlockInfo");
+        MegaBlockInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivity(new Intent(PreferencesActivity.this,MegaBlockInfoActivity.class));
+                return false;
+            }
+        });
+
         Preference RailMap =findPreference("RailMap");
         RailMap.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -85,8 +94,6 @@ public class PreferencesActivity extends PreferenceActivity {
                 return false;
             }
         });
-
-
 
         editor.commit();
     }

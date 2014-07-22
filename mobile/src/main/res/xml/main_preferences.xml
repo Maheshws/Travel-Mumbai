@@ -15,6 +15,10 @@
             android:key="RailMap"
             android:title="View Rail Map"></Preference>
         <Preference
+            android:key="MegaBlockInfo"
+            android:title="Mega Block"
+            android:summary="Get all information about upcoming Mega Blocks"></Preference>
+        <Preference
             android:key="AboutApp"
             android:title="About Travel Mumbai"></Preference>
         <Preference
