@@ -7,7 +7,7 @@
     <string name="distance_in_km">Distance in KM</string>
     <string name="meter_reading">Meter Reading</string>
     <string name="calculate_fare">Calculate Fare</string>
-    <string name="source">Source</string>
+    <string name="source">Source : </string>
     <string name="destination">Destination</string>
     <string name="fare_for_token_user">Fare for Token users : </string>
     <string name="fare_for_smartcard_user">Fare for SmartCard users : </string>
