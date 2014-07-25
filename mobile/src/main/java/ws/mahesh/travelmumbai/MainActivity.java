@@ -80,6 +80,17 @@ public class MainActivity extends Activity {
             ImageButton taxi = (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
             ImageButton mono = (ImageButton) getActivity().findViewById(R.id.imageButtonMono);
             ImageButton prefs = (ImageButton) getActivity().findViewById(R.id.imageButtonPreferences);
+            ImageButton local= (ImageButton) getActivity().findViewById(R.id.imageButtonLocal);
+
+            local.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.container, new LocalFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
 
             metro.setOnClickListener(new View.OnClickListener() {
                 @Override
