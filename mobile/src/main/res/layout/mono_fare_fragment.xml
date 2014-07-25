@@ -28,7 +28,8 @@
                         android:id="@+id/spinnerSource"
                         android:entries="@array/mono_stations_array"
                         android:layout_gravity="center_vertical"
-                        android:padding="5dp" />
+                        android:padding="5dp"
+                        android:gravity="center_vertical|center_horizontal" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -37,7 +38,10 @@
                         android:id="@+id/buttonmoreInfo"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:padding="5dp" />
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp" />
                 </LinearLayout>
 
                 <ListView

@@ -45,11 +45,11 @@ public class MonoListAdapter extends ArrayAdapter<MonoListItem> {
         dest.setText(mono.getDESTINATION());
         token.setText(mono.getTOKEN());
         card.setText(mono.getCARD());
-        if (mono.getCARD().equals("Rs.0")) {
-            token.setText("");
-            card.setText("");
-            dest.setTypeface(null, Typeface.BOLD_ITALIC);
-            dest.setGravity(Gravity.CENTER);
+        if(mono.getCARD().equals("Rs.0"))
+        {
+            rowView = inflater.inflate(R.layout.metro_mono_current_list_item, parent, false);
+            TextView curr = (TextView) rowView.findViewById(R.id.textView);
+            curr.setText(mono.getDESTINATION());
         }
         return rowView;
     }
