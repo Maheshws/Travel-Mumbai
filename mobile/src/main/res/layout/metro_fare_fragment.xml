@@ -20,23 +20,25 @@
                         android:layout_height="wrap_content"
                         android:text="@string/source"
                         android:id="@+id/textView"
-                        android:layout_gravity="center_vertical" />
+                        android:layout_gravity="center"
+                        android:gravity="center|right" />
 
                     <Spinner
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spinnerSource"
                         android:entries="@array/metro_stations_array"
-                        android:layout_gravity="center_vertical"
                         android:padding="5dp"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_weight="1"
+                        android:layout_gravity="center" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/more_info"
                         android:id="@+id/buttonmoreInfo"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_gravity="center"
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
