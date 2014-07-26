@@ -50,6 +50,7 @@
                 <category android:name="ws.mahesh.travelmumbai" />
             </intent-filter>
         </receiver>
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="b8fe08f91e61cf7d02123a549628ffa20e04bfbe"/>
 
     </application>
 
