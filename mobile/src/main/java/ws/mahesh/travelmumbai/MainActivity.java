@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.support.v4.app.Fragment;
 import com.crashlytics.android.Crashlytics;
 
-
 public class MainActivity extends ActionBarActivity {
 
     @Override
@@ -28,6 +27,8 @@ public class MainActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.show();
         actionBar.setTitle("Travel Mumbai");
+
+
     }
 
     public void setActionBarTitle(String title){
@@ -80,8 +81,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai");
+            ((MainActivity) getActivity()).getSupportActionBar().hide();
             ImageButton metro = (ImageButton) getActivity().findViewById(R.id.imageButtonMetro);
             ImageButton auto = (ImageButton) getActivity().findViewById(R.id.imageButtonAuto);
             ImageButton taxi = (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
@@ -92,6 +92,7 @@ public class MainActivity extends ActionBarActivity {
             local.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((MainActivity) getActivity()).getSupportActionBar().show();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.container, new LocalFragment())
                             .addToBackStack(null)
@@ -102,6 +103,7 @@ public class MainActivity extends ActionBarActivity {
             metro.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((MainActivity) getActivity()).getSupportActionBar().show();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.container, new MetroFragment())
                             .addToBackStack(null)
@@ -112,6 +114,7 @@ public class MainActivity extends ActionBarActivity {
             auto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((MainActivity) getActivity()).getSupportActionBar().show();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.container, new AutoFragment())
                             .addToBackStack(null)
@@ -122,6 +125,7 @@ public class MainActivity extends ActionBarActivity {
             taxi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((MainActivity) getActivity()).getSupportActionBar().show();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.container, new TaxiFragment())
                             .addToBackStack(null)
@@ -132,6 +136,7 @@ public class MainActivity extends ActionBarActivity {
             mono.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((MainActivity) getActivity()).getSupportActionBar().show();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.container, new MonorailFragment())
                             .addToBackStack(null)
