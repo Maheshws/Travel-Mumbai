@@ -1,7 +1,7 @@
 package ws.mahesh.travelmumbai.auto;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ws.mahesh.travelmumbai.MainActivity;
 import ws.mahesh.travelmumbai.R;
 
 /**
@@ -35,6 +36,7 @@ public class AutoCompleteFareList extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Auto Fare List");
         populate();
 
     }

@@ -1,12 +1,13 @@
 package ws.mahesh.travelmumbai.misc;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.webkit.WebView;
 
 import ws.mahesh.travelmumbai.R;
 
-public class WebViewActivity extends Activity {
+public class WebViewActivity extends ActionBarActivity {
     String location;
     WebView wv;
     @Override
@@ -27,8 +28,9 @@ public class WebViewActivity extends Activity {
     }
 
     private void setAssetView() {
-        getActionBar().setTitle("Travel Mumbai - Rail Map");
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.show();
+        actionBar.setTitle("Travel Mumbai - Rail Map");
         wv.getSettings().setUseWideViewPort(true);
         wv.getSettings().setBuiltInZoomControls(true);
         wv.getSettings().setLoadWithOverviewMode(true);

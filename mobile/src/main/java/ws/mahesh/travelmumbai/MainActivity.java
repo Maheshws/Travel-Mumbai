@@ -1,30 +1,37 @@
 package ws.mahesh.travelmumbai;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.support.v4.app.Fragment;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.show();
         actionBar.setTitle("Travel Mumbai");
+    }
+
+    public void setActionBarTitle(String title){
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.show();
+        actionBar.setTitle(title);
     }
 
 /*
@@ -72,9 +79,7 @@ public class MainActivity extends Activity {
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
 
-            ActionBar ab = getActivity().getActionBar();
-            ab.setTitle("Travel Mumbai");
-
+            ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai");
             ImageButton metro = (ImageButton) getActivity().findViewById(R.id.imageButtonMetro);
             ImageButton auto = (ImageButton) getActivity().findViewById(R.id.imageButtonAuto);
             ImageButton taxi = (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);

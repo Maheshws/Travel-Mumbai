@@ -2,7 +2,6 @@ package ws.mahesh.travelmumbai;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
 import ws.mahesh.travelmumbai.auto.AutoCompleteFareList;
 import ws.mahesh.travelmumbai.auto.AutoFareBase;
@@ -48,8 +48,7 @@ public class AutoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ActionBar ab = getActivity().getActionBar();
-        ab.setTitle("Travel Mumbai - Auto");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Auto");
 
         distance = (TextView) getActivity().findViewById(R.id.textViewDistance);
         reading = (TextView) getActivity().findViewById(R.id.textViewReading);

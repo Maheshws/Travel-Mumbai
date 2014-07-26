@@ -3,7 +3,7 @@ package ws.mahesh.travelmumbai;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
@@ -14,8 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,8 +55,7 @@ public class MonorailFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ActionBar ab = getActivity().getActionBar();
-        ab.setTitle("Travel Mumbai - MonoRail");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Monorail");
 
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
 
