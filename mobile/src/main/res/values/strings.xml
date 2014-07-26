@@ -49,5 +49,6 @@
     </string-array>
 
     <string name="title_activity_web_view">WebViewActivity</string>
+    <string name="destination2">Destination : </string>
 
 </resources>

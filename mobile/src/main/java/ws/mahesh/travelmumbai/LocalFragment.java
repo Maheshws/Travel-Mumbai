@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import ws.mahesh.travelmumbai.local.Base;
+import ws.mahesh.travelmumbai.local.LocalSelectorFragment;
 import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;
 import ws.mahesh.travelmumbai.misc.WebViewActivity;
 
@@ -17,7 +19,7 @@ import ws.mahesh.travelmumbai.misc.WebViewActivity;
  */
 public class LocalFragment extends Fragment {
 
-    Button MegaBlock,RailMap;
+    Button MegaBlock,RailMap,WR,CR,HR;
 
     @Override
     public void onAttach(Activity activity) {
@@ -36,6 +38,41 @@ public class LocalFragment extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Local");
         MegaBlock= (Button) getActivity().findViewById(R.id.buttonMegaBlockInfo);
         RailMap= (Button) getActivity().findViewById(R.id.buttonRailMap);
+        WR= (Button) getActivity().findViewById(R.id.buttonWR);
+        CR= (Button) getActivity().findViewById(R.id.buttonCR);
+        HR= (Button) getActivity().findViewById(R.id.buttonHR);
+
+        WR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Base.trainLine="WR";
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new LocalSelectorFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        CR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Base.trainLine="CR";
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new LocalSelectorFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        HR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Base.trainLine="HR";
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new LocalSelectorFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
 
         MegaBlock.setOnClickListener(new View.OnClickListener() {
             @Override
