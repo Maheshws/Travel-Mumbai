@@ -22,9 +22,6 @@
             android:key="AboutApp"
             android:title="About Travel Mumbai"></Preference>
         <Preference
-            android:key="ClearData"
-            android:title="Clear Application Data"></Preference>
-        <Preference
             android:key="Contact"
             android:title="Contact App Developer"
             android:summary="via Email">
@@ -35,8 +32,6 @@
         <Preference
             android:key="CurrentVersion"
             android:title="Current Version"></Preference>
-
-
     </PreferenceCategory>
     <PreferenceCategory android:title="Credits">
         <Preference android:title="App Developer" android:summary="Mahesh"></Preference>
