@@ -3,3 +3,5 @@
 /.idea/workspace.xml
 .DS_Store
 /build
+
+mobile/src/main/res/values/com_crashlytics_export_strings.xml
