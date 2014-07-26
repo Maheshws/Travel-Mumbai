@@ -40,7 +40,7 @@ public class Base {
             Sourcevalcode = "temp";
             Destinationvaltxt = "temp";
             Destinationvalcode = "temp";
-            Fast_Trains_checkbox = "temp";
+            Fast_Trains_checkbox = "No";
             trainkeydd = "temp";
             startstat = "temp";
             deststat = "temp";
@@ -56,6 +56,7 @@ public class Base {
             respMess = "";
             respMessDisplayed = "No";
             respMessChecked = "No";
+            trainLine = "CR";
         }
 
 }

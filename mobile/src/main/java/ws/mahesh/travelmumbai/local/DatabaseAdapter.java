@@ -104,18 +104,18 @@ public class DatabaseAdapter extends SQLiteOpenHelper
 
     private boolean checkDataBase()
     {
-        SQLiteDatabase localSQLiteDatabase1;
-        DB_PATH = this.myContext.getDatabasePath(DB_NAME).getPath();
-        Log.i(getClass().getSimpleName(), "Checking DB existence at " + DB_PATH);
+        SQLiteDatabase localSQLiteDatabase1 = null;
+
         try
         {
+            DB_PATH = this.myContext.getDatabasePath(DB_NAME).getPath();
+            Log.i(getClass().getSimpleName(), "Checking DB existence at " + DB_PATH);
             SQLiteDatabase localSQLiteDatabase2 = SQLiteDatabase.openDatabase(DB_PATH, null, 1);
             localSQLiteDatabase1 = localSQLiteDatabase2;
         }
-        catch (SQLiteException localSQLiteException)
-        {
-
+        catch (SQLiteException localSQLiteException)    {
                 localSQLiteDatabase1 = null;
+        } catch (NullPointerException e) {
 
         }
         if (localSQLiteDatabase1 != null) {
@@ -567,8 +567,11 @@ public class DatabaseAdapter extends SQLiteOpenHelper
         }
     }
 
-    public void openDataBase() throws SQLException
-    {
+    public void openDataBase() throws SQLException, IOException {
+        if(!checkDataBase())
+        {
+            createDataBase();
+        }
         Log.i(getClass().getSimpleName(), "Inside openDatabse DB being opened");
         DB_PATH = this.myContext.getDatabasePath(DB_NAME).getPath();
         String str = DB_PATH;
