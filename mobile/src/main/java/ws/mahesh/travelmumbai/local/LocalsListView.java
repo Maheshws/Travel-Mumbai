@@ -42,7 +42,7 @@ public class LocalsListView extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         info= (TextView) getActivity().findViewById(R.id.textViewInfo);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai"+Base.Sourcevaltxt+"-"+Base.Destinationvaltxt);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai -> "+Base.Sourcevaltxt+"-"+Base.Destinationvaltxt);
         dattabase = new DatabaseAdapter(getActivity());
         info.setText("Trains from "+Base.Sourcevaltxt+" to "+Base.Destinationvaltxt+" in next 2 hrs");
        populate();
