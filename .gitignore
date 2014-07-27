@@ -5,3 +5,5 @@
 /build
 
 mobile/src/main/res/values/com_crashlytics_export_strings.xml
+mobile/src/main/assets/crashlytics-build.properties
+mobile/src/main/assets/crashlytics-build.properties
