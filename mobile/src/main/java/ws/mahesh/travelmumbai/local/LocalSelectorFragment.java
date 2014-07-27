@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 import ws.mahesh.travelmumbai.MainActivity;
 import ws.mahesh.travelmumbai.R;
@@ -29,14 +27,12 @@ import ws.mahesh.travelmumbai.R;
  */
 public class LocalSelectorFragment extends Fragment {
 
-    private DatabaseAdapter dattabase;
     ArrayAdapter<String> destinationadapter;
     ArrayAdapter<String> sourceadapter;
-
-    Spinner src,dest;
-    ImageButton locsrc,locdest;
+    Spinner src, dest;
+    ImageButton locsrc, locdest;
     Button findTrains;
-
+    private DatabaseAdapter dattabase;
 
     @Override
     public void onAttach(Activity activity) {
@@ -45,19 +41,19 @@ public class LocalSelectorFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.local_spinner_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.local_selector_fragment, container, false);
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        src= (Spinner) getActivity().findViewById(R.id.spinnerSource);
-        dest= (Spinner) getActivity().findViewById(R.id.spinnerDestination);
-        locsrc= (ImageButton) getActivity().findViewById(R.id.imageButtonLocsrc);
-        locdest= (ImageButton) getActivity().findViewById(R.id.imageButtonLocdest);
-        findTrains= (Button) getActivity().findViewById(R.id.buttonFindTrains);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Select Destination");
+        src = (Spinner) getActivity().findViewById(R.id.spinnerSource);
+        dest = (Spinner) getActivity().findViewById(R.id.spinnerDestination);
+        locsrc = (ImageButton) getActivity().findViewById(R.id.imageButtonLocsrc);
+        locdest = (ImageButton) getActivity().findViewById(R.id.imageButtonLocdest);
+        findTrains = (Button) getActivity().findViewById(R.id.buttonFindTrains);
 
 
         dattabase = new DatabaseAdapter(getActivity());
@@ -65,9 +61,9 @@ public class LocalSelectorFragment extends Fragment {
         try {
             dattabase.openDataBase();
             String[] arrayOfString = dattabase.getAllStations();
-            sourceadapter=new ArrayAdapter<String>(getActivity(),R.layout.local_spinner_item,arrayOfString);
+            sourceadapter = new ArrayAdapter<String>(getActivity(), R.layout.local_spinner_item, arrayOfString);
             src.setAdapter(sourceadapter);
-            destinationadapter=new ArrayAdapter<String>(getActivity(),R.layout.local_spinner_item,arrayOfString);
+            destinationadapter = new ArrayAdapter<String>(getActivity(), R.layout.local_spinner_item, arrayOfString);
             dest.setAdapter(destinationadapter);
             dattabase.close();
         } catch (SQLException e) {
@@ -123,10 +119,13 @@ public class LocalSelectorFragment extends Fragment {
         Base.time_in_minutes = now.minute + now.hour * 60;
         Base.time_in_minutes_max = 120 + Base.time_in_minutes;
 
-        if (Base.Sourcevaltxt.equals(Base.Destinationvaltxt))
-        {
+        if (Base.Sourcevaltxt.equals(Base.Destinationvaltxt)) {
             Toast.makeText(getActivity(), "Select different source/destination stations", Toast.LENGTH_LONG).show();
-
+        } else {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, new LocalsListView())
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 
@@ -137,17 +136,15 @@ public class LocalSelectorFragment extends Fragment {
     }
 
     private void getLocation() {
-        int i=0;
-        LocationManager localLocationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        int i = 0;
+        LocationManager localLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (Base.lastKnownLocation != null)
-        {
+        if (Base.lastKnownLocation != null) {
             Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
             Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
         }
-        do
-        {
-            if(i==10)
+        do {
+            if (i == 10)
                 return;
             Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             i++;
