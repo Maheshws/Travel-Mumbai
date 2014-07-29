@@ -21,9 +21,6 @@ public class Base {
         public static String latitudesou;
         public static String longitudesou;
         public static String nearbystation;
-        public static String respMess;
-        public static String respMessChecked;
-        public static String respMessDisplayed;
         public static String route;
         public static String routename;
         public static String startstat;
@@ -53,9 +50,6 @@ public class Base {
             routename = "1";
             updown = "blank";
             info = "callMap";
-            respMess = "";
-            respMessDisplayed = "No";
-            respMessChecked = "No";
             trainLine = "CR";
         }
 
