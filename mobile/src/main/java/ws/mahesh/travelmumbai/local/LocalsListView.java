@@ -76,7 +76,7 @@ public class LocalsListView extends Fragment {
                 dattabase.close();
                 return;
             }
-            dattabase.close();
+            dattabase.deleteTempTimetableTableCloseDB();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

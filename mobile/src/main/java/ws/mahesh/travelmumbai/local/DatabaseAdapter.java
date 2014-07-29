@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     private static int sr3;
     private static int sr4;
     private static String start;
-    private static int poscount;
+    private int poscount=0;
     private static String dest;
     private static String stname;
     private final Context myContext;
@@ -276,14 +277,6 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 sqlitess = "INSERT INTO sourcetimetable SELECT _id, trainkey, stkey, time, timemin FROM " + DB_TABLE_TIMETABLE + " WHERE stkey = " + "\"" + Base.Sourcevalcode + "\""+ " ORDER BY CAST(timemin AS INTEGER)";
                 this.myDataBase.execSQL(sqlitess);
 
-                sqlitess = "SELECT Count(*) FROM sourcetimetable  WHERE CAST(timemin AS INTEGER) < " + Base.time_in_minutes ;
-                Cursor c1=this.myDataBase.rawQuery(sqlitess, null);
-                if (c1.moveToFirst()) {
-                    poscount= c1.getInt(0);
-                }
-                c1.close();
-
-
                 Log.i(getClass().getSimpleName(), "Source selection executed");
                 this.myDataBase.execSQL("CREATE TEMPORARY TABLE destinationtimetable (_id INTEGER,trainkey TEXT,stkey TEXT,time TEXT,timemin INTEGER)");
                 sqliteds = "INSERT INTO destinationtimetable SELECT _id, trainkey, stkey, time, timemin FROM " + DB_TABLE_TIMETABLE + " WHERE stkey = " + "\"" + Base.Destinationvalcode + "\"";
@@ -299,6 +292,8 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     }
 
     public void deleteTempTimetableTableCloseDB() {
+        this.myDataBase.execSQL("DROP TABLE destinationtimetable");
+        this.myDataBase.execSQL("DROP TABLE sourcetimetable");
         if (this.myDataBase != null) {
             this.myDataBase.close();
         }
@@ -376,6 +371,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     }
 
     public List<LocalItem> getTimeTable() {
+        poscount=0;
         if (Base.trainLine.equals("CR")) {
             DB_TABLE_STATIONS = DB_TABLE_CRSTATIONS;
         }
@@ -396,6 +392,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
             do {
                 String str1 = localCursor1.getString(localCursor1.getColumnIndex("trainkey"));
                 localCursor1.getInt(localCursor1.getColumnIndex("timemin"));
+
                 seltrain = "SELECT * FROM " + DB_TABLE_TRAINS + " WHERE CAST (trainkey AS TEXT) = " + "\"" + str1 + "\"" + " LIMIT 1";
                 Cursor localCursor2 = this.myDataBase.rawQuery(seltrain, null);
                 if (localCursor2.moveToFirst()) {
@@ -423,7 +420,6 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 Cursor localCursor3 = this.myDataBase.rawQuery(destinationtimetablequery, null);
                 if (localCursor3 != null) {
                     if (localCursor3.moveToFirst()) {
-
                         localCursor3.getString(localCursor3.getColumnIndex("trainkey"));
                         localCursor3.getInt(localCursor3.getColumnIndex("timemin"));
                         String str2 = localCursor1.getString(localCursor1.getColumnIndex("time"));
@@ -431,6 +427,8 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                         fullstationcode = "SELECT * FROM "+DB_TABLE_STATIONS+" WHERE code = \"" + start + "\"";
                         try {
                             localArrayList.add(new LocalItem(str1, f2.format(f1.parse(str2)), f2.format(f1.parse(str3)), start, dest, cars, speed));
+                            if(localCursor1.getInt(localCursor1.getColumnIndex("timemin"))<Base.time_in_minutes)
+                                poscount++;
                         } catch (ParseException e) {
                             localArrayList.add(new LocalItem(str1, str2,str3, start, dest, cars, speed));
                         }
