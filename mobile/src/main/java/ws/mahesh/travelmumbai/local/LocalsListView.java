@@ -42,7 +42,7 @@ public class LocalsListView extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         info= (TextView) getActivity().findViewById(R.id.textViewInfo);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai -> "+Base.Sourcevaltxt+"-"+Base.Destinationvaltxt);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Local -> "+Base.Sourcevaltxt+"-"+Base.Destinationvaltxt);
         dattabase = new DatabaseAdapter(getActivity());
         info.setText("Trains from "+Base.Sourcevaltxt+" to "+Base.Destinationvaltxt+" in next 2 hrs");
        populate();
@@ -55,7 +55,7 @@ public class LocalsListView extends Fragment {
             local = dattabase.getTimeTable();
             if(local==null) {
                 Toast.makeText(getActivity(),"No Trains Found",Toast.LENGTH_LONG).show();
-                info.setText("No Direct Train available on Selected Route");
+                info.setText("No Direct Train available on selected route");
                 dattabase.close();
                 return;
             }
@@ -68,5 +68,7 @@ public class LocalsListView extends Fragment {
         LocalsAdapter adapter = new LocalsAdapter(getActivity(), R.layout.local_listview_item, local);
         ListView list = (ListView) getActivity().findViewById(R.id.listViewRoute);
         list.setAdapter(adapter);
+        if(list.getCount()<1)
+            info.setText("No Direct Train available on selected route");
     }
 }

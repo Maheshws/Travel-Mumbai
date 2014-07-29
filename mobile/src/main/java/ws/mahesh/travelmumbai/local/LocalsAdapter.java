@@ -1,6 +1,7 @@
 package ws.mahesh.travelmumbai.local;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +40,14 @@ public class LocalsAdapter extends ArrayAdapter<LocalItem> {
 
         LocalItem local = values.get(position);
 
-        startTime.setText(local.getLEAVES_AT());
+        startTime.setText(local.getLEAVES_AT().toUpperCase());
         reachTime.setText("Reaches "+dest+" by : "+local.getREACHES_DEST());
-        srcdest.setText(local.getSOURCE() + " - " + local.getDESTINATION());
-        cars.setText(local.getCARS() + " Cars");
-        speed.setText(local.getTYPE());
+        srcdest.setText(local.getSOURCE().toUpperCase() + " - " + local.getDESTINATION().toUpperCase());
+        cars.setText(local.getCARS());
+        speed.setText(local.getTYPE().toUpperCase());
 
+        if(local.getTYPE().equalsIgnoreCase("FAST"))
+            speed.setTextColor(Color.CYAN);
         return rowView;
     }
 }
