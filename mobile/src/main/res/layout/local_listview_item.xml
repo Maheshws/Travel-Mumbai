@@ -7,12 +7,14 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,29 +37,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Speed"
-                android:id="@+id/textViewSpeed" />
+                android:text="Cars"
+                android:id="@+id/textViewCars"
+                android:gravity="center|right" />
+
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="2dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Time"
                 android:id="@+id/textViewArrTime"
-                android:layout_weight="0.25" />
+                android:layout_weight="0.2" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cars"
-                android:id="@+id/textViewCars"
-                android:layout_weight="0.75"
+                android:text="Speed"
+                android:id="@+id/textViewSpeed"
+                android:layout_weight="0.8"
                 android:gravity="center|right" />
         </LinearLayout>
     </LinearLayout>
