@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -33,16 +34,19 @@ public class LocalSelectorFragment extends Fragment {
     ImageButton locsrc, locdest;
     Button findTrains;
     private DatabaseAdapter dattabase;
+    private CheckBox alltrains;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        Base.alltrains = false;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.local_selector_fragment, container, false);
         return rootView;
+
     }
 
     @Override
@@ -54,7 +58,7 @@ public class LocalSelectorFragment extends Fragment {
         locsrc = (ImageButton) getActivity().findViewById(R.id.imageButtonLocsrc);
         locdest = (ImageButton) getActivity().findViewById(R.id.imageButtonLocdest);
         findTrains = (Button) getActivity().findViewById(R.id.buttonFindTrains);
-
+        alltrains = (CheckBox) getActivity().findViewById(R.id.checkBoxTrains);
 
         dattabase = new DatabaseAdapter(getActivity());
 
@@ -102,6 +106,16 @@ public class LocalSelectorFragment extends Fragment {
             }
         });
 
+        alltrains.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alltrains.isChecked())
+                    Base.alltrains = true;
+                else
+                    Base.alltrains = false;
+            }
+        });
+
         findTrains.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +130,7 @@ public class LocalSelectorFragment extends Fragment {
         now.setToNow();
         Base.Sourcevaltxt = src.getSelectedItem().toString();
         Base.Destinationvaltxt = dest.getSelectedItem().toString();
-        Base.time_in_minutes = now.minute + now.hour * 60;
+        Base.time_in_minutes = (now.minute + now.hour * 60) - 5;
         Base.time_in_minutes_max = 120 + Base.time_in_minutes;
 
         if (Base.Sourcevaltxt.equals(Base.Destinationvaltxt)) {

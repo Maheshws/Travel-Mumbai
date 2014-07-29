@@ -90,6 +90,12 @@
             </LinearLayout>
         </LinearLayout>
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show all trains"
+            android:id="@+id/checkBoxTrains" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

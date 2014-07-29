@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +26,9 @@ import ws.mahesh.travelmumbai.R;
 public class LocalsListView extends Fragment {
     TextView info;
     private DatabaseAdapter dattabase;
-    private List<LocalItem> local=new ArrayList<LocalItem>();
+    private List<LocalItem> local = new ArrayList<LocalItem>();
     private ProgressDialog progressBar;
-    private int posCount=0;
+    private int posCount = 0;
 
     @Override
     public void onAttach(Activity activity) {
@@ -44,10 +43,14 @@ public class LocalsListView extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        info= (TextView) getActivity().findViewById(R.id.textViewInfo);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Local -> "+Base.Sourcevaltxt+"-"+Base.Destinationvaltxt);
+        info = (TextView) getActivity().findViewById(R.id.textViewInfo);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Local -> " + Base.Sourcevaltxt + "-" + Base.Destinationvaltxt);
         dattabase = new DatabaseAdapter(getActivity());
-        info.setText("Trains from "+Base.Sourcevaltxt+" to "+Base.Destinationvaltxt);
+        if (Base.alltrains)
+            info.setText("Trains from " + Base.Sourcevaltxt + " to " + Base.Destinationvaltxt);
+        else
+            info.setText("Trains from " + Base.Sourcevaltxt + " to " + Base.Destinationvaltxt + " in next 2 hrs");
+
         progressBar = ProgressDialog.show(getActivity(), "Please Wait", "Loading...");
         new Thread(new Runnable() {
             public void run() {
@@ -67,11 +70,14 @@ public class LocalsListView extends Fragment {
 
         try {
             dattabase.openDataBase();
-            dattabase.createTempTimetableTable();
+            if (Base.alltrains)
+                dattabase.createTempTimetableTableAllTrains();
+            else
+                dattabase.createTempTimetableTable();
             local = dattabase.getTimeTable();
-            posCount=dattabase.getPosCount();
-            if(local==null) {
-                Toast.makeText(getActivity(),"No Trains Found",Toast.LENGTH_LONG).show();
+            posCount = dattabase.getPosCount();
+            if (local == null) {
+                Toast.makeText(getActivity(), "No Trains Found", Toast.LENGTH_LONG).show();
                 info.setText("No Direct Train available on selected route");
                 dattabase.close();
                 return;
@@ -89,7 +95,7 @@ public class LocalsListView extends Fragment {
                 ListView list = (ListView) getActivity().findViewById(R.id.listViewRoute);
                 list.setAdapter(adapter);
                 list.setSelection(posCount);
-                if(list.getCount()<1)
+                if (list.getCount() < 1)
                     info.setText("No Direct Train available on selected route");
                 if (progressBar.isShowing()) {
                     progressBar.dismiss();
