@@ -47,7 +47,7 @@ public class LocalsListView extends Fragment {
         info= (TextView) getActivity().findViewById(R.id.textViewInfo);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Local -> "+Base.Sourcevaltxt+"-"+Base.Destinationvaltxt);
         dattabase = new DatabaseAdapter(getActivity());
-        info.setText("Trains from "+Base.Sourcevaltxt+" to "+Base.Destinationvaltxt+" in next 2 hrs");
+        info.setText("Trains from "+Base.Sourcevaltxt+" to "+Base.Destinationvaltxt);
         progressBar = ProgressDialog.show(getActivity(), "Please Wait", "Loading...");
         new Thread(new Runnable() {
             public void run() {
