@@ -54,6 +54,6 @@ public class LocalItem {
 
     @Override
     public String toString() {
-        return ("Train id:"+TRAIN_ID+" SRC :"+SOURCE+" DEST : "+DESTINATION+" Leaves at:"+LEAVES_AT+" Arrives : "+REACHES_DEST+" Cars :"+CARS+" Type:"+TYPE);
+        return ("Train id:" + TRAIN_ID + " SRC :" + SOURCE + " DEST : " + DESTINATION + " Leaves at:" + LEAVES_AT + " Arrives : " + REACHES_DEST + " Cars :" + CARS + " Type:" + TYPE);
     }
 }

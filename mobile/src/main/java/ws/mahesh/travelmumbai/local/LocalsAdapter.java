@@ -24,7 +24,7 @@ public class LocalsAdapter extends ArrayAdapter<LocalItem> {
         super(context, resource, objects);
         this.context = context;
         values = objects;
-        dest=Base.Destinationvaltxt;
+        dest = Base.Destinationvaltxt;
     }
 
     @Override
@@ -41,12 +41,12 @@ public class LocalsAdapter extends ArrayAdapter<LocalItem> {
         LocalItem local = values.get(position);
 
         startTime.setText(local.getLEAVES_AT().toUpperCase());
-        reachTime.setText("Reaches "+dest+" by : "+local.getREACHES_DEST());
+        reachTime.setText("Reaches " + dest + " by : " + local.getREACHES_DEST());
         srcdest.setText(local.getSOURCE().toUpperCase() + " - " + local.getDESTINATION().toUpperCase());
         cars.setText(local.getCARS());
         speed.setText(local.getTYPE().toUpperCase());
 
-        if(local.getTYPE().equalsIgnoreCase("FAST"))
+        if (local.getTYPE().equalsIgnoreCase("FAST"))
             speed.setTextColor(Color.CYAN);
         return rowView;
     }
