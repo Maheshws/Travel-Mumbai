@@ -63,6 +63,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     private static int sr3;
     private static int sr4;
     private static String start;
+    private static int poscount;
     private static String dest;
     private static String stname;
     private final Context myContext;
@@ -272,13 +273,22 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 }
                 Base.time_in_minutes_max = 120 + Base.time_in_minutes;
                 this.myDataBase.execSQL("CREATE TEMPORARY TABLE sourcetimetable (_id INTEGER,trainkey TEXT,stkey TEXT,time TEXT,timemin INTEGER)");
-                sqlitess = "INSERT INTO sourcetimetable SELECT _id, trainkey, stkey, time, timemin FROM " + DB_TABLE_TIMETABLE + " WHERE stkey = " + "\"" + Base.Sourcevalcode + "\"" + " AND CAST(timemin AS INTEGER) >= " + Base.time_in_minutes + " AND CAST(timemin AS INTEGER) < " + Base.time_in_minutes_max + " ORDER BY CAST(timemin AS INTEGER)";
+
+                sqlitess = "INSERT INTO sourcetimetable SELECT _id, trainkey, stkey, time, timemin FROM " + DB_TABLE_TIMETABLE + " WHERE stkey = " + "\"" + Base.Sourcevalcode + "\""+ " ORDER BY CAST(timemin AS INTEGER)";
                 this.myDataBase.execSQL(sqlitess);
-                if (Base.time_in_minutes_max > 1439) {
+
+                sqlitess = "SELECT Count(*) FROM sourcetimetable  WHERE CAST(timemin AS INTEGER) < " + Base.time_in_minutes ;
+                Cursor c1=this.myDataBase.rawQuery(sqlitess, null);
+                if (c1.moveToFirst()) {
+                    poscount= c1.getInt(0);
+                }
+                c1.close();
+
+                /*if (Base.time_in_minutes_max > 1439) {
                     Base.time_in_minutes_max = -1439 + Base.time_in_minutes_max;
                     sqlitess = "INSERT INTO sourcetimetable SELECT _id, trainkey, stkey, time, timemin FROM " + DB_TABLE_TIMETABLE + " WHERE stkey = " + "\"" + Base.Sourcevalcode + "\"" + " AND CAST(timemin AS INTEGER) < " + Base.time_in_minutes_max + " ORDER BY CAST(timemin AS INTEGER)";
                     this.myDataBase.execSQL(sqlitess);
-                }
+                }*/
                 Log.i(getClass().getSimpleName(), "Source selection executed");
                 this.myDataBase.execSQL("CREATE TEMPORARY TABLE destinationtimetable (_id INTEGER,trainkey TEXT,stkey TEXT,time TEXT,timemin INTEGER)");
                 sqliteds = "INSERT INTO destinationtimetable SELECT _id, trainkey, stkey, time, timemin FROM " + DB_TABLE_TIMETABLE + " WHERE stkey = " + "\"" + Base.Destinationvalcode + "\"";
@@ -299,6 +309,9 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         }
     }
 
+    public int getPosCount() {
+        return poscount;
+    }
     public String[] getAllStations() {
         if (Base.trainLine.equals("CR")) {
             DB_TABLE_STATIONS = DB_TABLE_CRSTATIONS;

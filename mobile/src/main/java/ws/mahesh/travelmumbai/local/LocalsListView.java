@@ -1,6 +1,7 @@
 package ws.mahesh.travelmumbai.local;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,8 @@ public class LocalsListView extends Fragment {
     TextView info;
     private DatabaseAdapter dattabase;
     private List<LocalItem> local=new ArrayList<LocalItem>();
+    private ProgressDialog progressBar;
+    private int posCount=0;
 
     @Override
     public void onAttach(Activity activity) {
@@ -45,14 +48,28 @@ public class LocalsListView extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Local -> "+Base.Sourcevaltxt+"-"+Base.Destinationvaltxt);
         dattabase = new DatabaseAdapter(getActivity());
         info.setText("Trains from "+Base.Sourcevaltxt+" to "+Base.Destinationvaltxt+" in next 2 hrs");
-       populate();
+        progressBar = ProgressDialog.show(getActivity(), "Please Wait", "Loading...");
+        new Thread(new Runnable() {
+            public void run() {
+                populate();
+            }
+        }).start();
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     private void populate() {
+
         try {
             dattabase.openDataBase();
             dattabase.createTempTimetableTable();
             local = dattabase.getTimeTable();
+            posCount=dattabase.getPosCount();
             if(local==null) {
                 Toast.makeText(getActivity(),"No Trains Found",Toast.LENGTH_LONG).show();
                 info.setText("No Direct Train available on selected route");
@@ -65,10 +82,20 @@ public class LocalsListView extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LocalsAdapter adapter = new LocalsAdapter(getActivity(), R.layout.local_listview_item, local);
-        ListView list = (ListView) getActivity().findViewById(R.id.listViewRoute);
-        list.setAdapter(adapter);
-        if(list.getCount()<1)
-            info.setText("No Direct Train available on selected route");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                LocalsAdapter adapter = new LocalsAdapter(getActivity(), R.layout.local_listview_item, local);
+                ListView list = (ListView) getActivity().findViewById(R.id.listViewRoute);
+                list.setAdapter(adapter);
+                list.setSelection(posCount);
+                if(list.getCount()<1)
+                    info.setText("No Direct Train available on selected route");
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+            }
+        });
+
     }
 }
