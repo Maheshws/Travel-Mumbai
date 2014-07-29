@@ -100,7 +100,7 @@ public class TaxiFragment extends Fragment {
 
     private void FareonDistance() {
         double distanced = Double.parseDouble(distance_km.getText().toString());
-        taxi.distanceBased(distanced);
+        taxi.calcDistanceBased(distanced);
         distance.setText("" + taxi.getDistance());
         reading.setText("" + taxi.getReading());
         day_fare.setText("" + taxi.getFare());

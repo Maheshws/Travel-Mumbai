@@ -12,6 +12,11 @@ public class TaxiFareBase {
     DecimalFormat df2 = new DecimalFormat("00.00");
     boolean distbased=true;
 
+    public void calcDistanceBased(double tdist) {
+        distbased=true;
+        distanceBased(tdist);
+    }
+
     public void distanceBased(double tdist) {
         if (tdist <= TaxiBase.MIN_DISTANCE)
             defaultValues();
