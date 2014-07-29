@@ -77,6 +77,7 @@
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/linearLayout2"
                 android:layout_below="@+id/linearLayout1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -102,7 +103,25 @@
                     android:layout_weight="0.5" />
 
             </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center_horizontal"
+                android:translationZ="5dp">
 
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButtonWear"
+                    android:clickable="true"
+                    android:src="@drawable/ic_wear"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
