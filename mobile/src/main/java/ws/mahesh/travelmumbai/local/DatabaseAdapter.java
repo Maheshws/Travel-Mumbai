@@ -391,8 +391,6 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
             Log.i(getClass().getSimpleName(), "First Source record called");
             do {
                 String str1 = localCursor1.getString(localCursor1.getColumnIndex("trainkey"));
-                localCursor1.getInt(localCursor1.getColumnIndex("timemin"));
-
                 seltrain = "SELECT * FROM " + DB_TABLE_TRAINS + " WHERE CAST (trainkey AS TEXT) = " + "\"" + str1 + "\"" + " LIMIT 1";
                 Cursor localCursor2 = this.myDataBase.rawQuery(seltrain, null);
                 if (localCursor2.moveToFirst()) {
@@ -420,8 +418,6 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 Cursor localCursor3 = this.myDataBase.rawQuery(destinationtimetablequery, null);
                 if (localCursor3 != null) {
                     if (localCursor3.moveToFirst()) {
-                        localCursor3.getString(localCursor3.getColumnIndex("trainkey"));
-                        localCursor3.getInt(localCursor3.getColumnIndex("timemin"));
                         String str2 = localCursor1.getString(localCursor1.getColumnIndex("time"));
                         String str3 = localCursor3.getString(localCursor3.getColumnIndex("time"));
                         fullstationcode = "SELECT * FROM "+DB_TABLE_STATIONS+" WHERE code = \"" + start + "\"";
