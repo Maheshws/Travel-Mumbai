@@ -21,14 +21,15 @@
                         android:text="@string/source"
                         android:id="@+id/textView"
                         android:layout_gravity="center"
-                        android:gravity="center|right" />
+                        android:gravity="center|right"
+                        android:padding="5dp" />
 
                     <Spinner
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spinnerSource"
                         android:entries="@array/mono_stations_array"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:gravity="center_vertical|center_horizontal"
                         android:layout_gravity="center"
                         android:layout_weight="1" />

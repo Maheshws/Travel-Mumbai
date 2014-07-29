@@ -105,7 +105,7 @@ public class MonorailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 StationFinder sf=new StationFinder();
-                source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
+                source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
             }
         });
     }
