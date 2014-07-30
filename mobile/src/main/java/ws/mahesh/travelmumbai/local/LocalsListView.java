@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +27,7 @@ import ws.mahesh.travelmumbai.R;
 public class LocalsListView extends Fragment {
     TextView info;
     private DatabaseAdapter dattabase;
-    private List<LocalItem> local = new ArrayList<LocalItem>();
+    private List<LocalsItem> local = new ArrayList<LocalsItem>();
     private ProgressDialog progressBar;
     private int posCount = 0;
 
@@ -82,7 +83,7 @@ public class LocalsListView extends Fragment {
                 dattabase.close();
                 return;
             }
-            dattabase.deleteTempTimetableTableCloseDB();
+            dattabase.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -100,6 +101,18 @@ public class LocalsListView extends Fragment {
                 if (progressBar.isShowing()) {
                     progressBar.dismiss();
                 }
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        LocalsItem current=local.get(i);
+                        Base.trainkeydd=current.getTRAIN_ID();
+                        Base.detmes=(current.getSOURCE()+" - "+current.getDESTINATION()+" "+current.getTYPE()+" Local\nLeaving "+Base.Sourcevaltxt+" at "+current.getLEAVES_AT()).toUpperCase();
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.container, new LocalViewListView())
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
             }
         });
 
