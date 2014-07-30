@@ -103,6 +103,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         stname = "Starts";
     }
     private int poscount = 0;
+    private int poscount2=0;
     private SQLiteDatabase myDataBase;
 
     public DatabaseAdapter(Context paramContext) {
@@ -408,7 +409,9 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     public int getPosCount() {
         return poscount;
     }
-
+    public int getPosCount2() {
+        return poscount2;
+    }
     public String[] getAllStations() {
         if (Base.trainLine.equals("CR")) {
             DB_TABLE_STATIONS = DB_TABLE_CRSTATIONS;
@@ -438,46 +441,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         return new String[0];
     }
 
-    public ArrayList<HashMap<String, String>> getRouteDetails() {
-        if (Base.trainLine.equals("CR")) {
-            DB_TABLE_STATIONS = DB_TABLE_CRSTATIONS;
-        }
-        if (Base.trainLine.equals("WR")) {
-            DB_TABLE_STATIONS = DB_TABLE_WRSTATIONS;
-        }
-        if (Base.trainLine.equals("HR")) {
-            DB_TABLE_STATIONS = DB_TABLE_HRSTATIONS;
-        }
-        ArrayList localArrayList = new ArrayList();
-        HashMap localHashMap1 = new HashMap();
-        String str1 = "SELECT " + Base.route + ",name,latitude,longitude from " + DB_TABLE_STATIONS + " WHERE " + Base.route + " <> '' ORDER BY CAST(" + Base.route + " AS INTEGER)";
-        localHashMap1.put("1", Base.trainLine);
-        localHashMap1.put("2", "Route: " + Base.routename);
-        localHashMap1.put("3", "");
-        localHashMap1.put("4", "");
-        localArrayList.add(localHashMap1);
-        Cursor localCursor = this.myDataBase.rawQuery(str1, null);
-        if (localCursor != null) {
-            if (localCursor.moveToFirst()) {
-                do {
-                    String str2 = localCursor.getString(localCursor.getColumnIndex(Base.route));
-                    String str3 = localCursor.getString(localCursor.getColumnIndex("name"));
-                    String str4 = localCursor.getString(localCursor.getColumnIndex("latitude"));
-                    String str5 = localCursor.getString(localCursor.getColumnIndex("longitude"));
-                    HashMap localHashMap2 = new HashMap();
-                    localHashMap2.put("1", str2);
-                    localHashMap2.put("2", str3);
-                    localHashMap2.put("3", str4);
-                    localHashMap2.put("4", str5);
-                    localArrayList.add(localHashMap2);
-                } while (localCursor.moveToNext());
-            }
-            localCursor.close();
-        }
-        return localArrayList;
-    }
-
-    public List<LocalItem> getTimeTable() {
+    public List<LocalsItem> getTimeTable() {
         poscount = 0;
         if (Base.trainLine.equals("CR")) {
             DB_TABLE_STATIONS = DB_TABLE_CRSTATIONS;
@@ -488,7 +452,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         if (Base.trainLine.equals("HR")) {
             DB_TABLE_STATIONS = DB_TABLE_HRSTATIONS;
         }
-        List localArrayList = new ArrayList();
+        List<LocalsItem> localArrayList = new ArrayList<LocalsItem>();
         Cursor localCursor1 = this.myDataBase.rawQuery("SELECT * FROM sourcetimetable ", null);
         if (localCursor1 != null) {
             if (!localCursor1.moveToFirst()) {
@@ -529,11 +493,11 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                         String str3 = localCursor3.getString(localCursor3.getColumnIndex("time"));
                         fullstationcode = "SELECT * FROM " + DB_TABLE_STATIONS + " WHERE code = \"" + start + "\"";
                         try {
-                            localArrayList.add(new LocalItem(str1, f2.format(f1.parse(str2)), f2.format(f1.parse(str3)), start, dest, cars, speed));
+                            localArrayList.add(new LocalsItem(str1, f2.format(f1.parse(str2)), f2.format(f1.parse(str3)), start, dest, cars, speed));
                             if (localCursor1.getInt(localCursor1.getColumnIndex("timemin")) < Base.time_in_minutes)
                                 poscount++;
                         } catch (ParseException e) {
-                            localArrayList.add(new LocalItem(str1, str2, str3, start, dest, cars, speed));
+                            localArrayList.add(new LocalsItem(str1, str2, str3, start, dest, cars, speed));
                         }
                         if (localCursor3.moveToNext()) {
                             //Log.i(getClass().getSimpleName(), "No First Source record");
@@ -547,31 +511,10 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         return localArrayList;
     }
 
-    public ArrayList<HashMap<String, String>> getTrainDetails() {
-        ArrayList localArrayList = new ArrayList();
-        HashMap localHashMap1 = new HashMap();
-        String str1 = "SELECT * FROM " + DB_TABLE_STATIONS + " WHERE CODE = " + "\"" + Base.startstat + "\"";
-        Cursor localCursor1 = this.myDataBase.rawQuery(str1, null);
-        if (localCursor1 != null) {
-            if (localCursor1.moveToFirst()) {
-                stname = localCursor1.getString(localCursor1.getColumnIndex("name"));
-            }
-            localCursor1.close();
-        }
-        String str2 = "SELECT * FROM " + DB_TABLE_STATIONS + " WHERE CODE = " + "\"" + Base.deststat + "\"";
-        Cursor localCursor2 = this.myDataBase.rawQuery(str2, null);
-        if (localCursor2 != null) {
-            if (localCursor2.moveToFirst()) {
-                dename = localCursor2.getString(localCursor2.getColumnIndex("name"));
-            }
-            localCursor2.close();
-        }
-        String str3 = stname + " => " + dename + " " + Base.detmes;
-        Base.textctrip = str3;
-        localHashMap1.put("1", "");
-        localHashMap1.put("2", str3);
-        localHashMap1.put("3", "");
-        localArrayList.add(localHashMap1);
+    public List<LocalViewItem> getTrainDetails() {
+        int temp=0;
+       List<LocalViewItem> localArrayList = new ArrayList<LocalViewItem>();
+
         String str4 = "SELECT " + DB_TABLE_TIMETABLE + ".time, " + DB_TABLE_STATIONS + ".name, " + DB_TABLE_STATIONS + ".latitude, " + DB_TABLE_STATIONS + ".longitude FROM  " + DB_TABLE_TIMETABLE + ", " + DB_TABLE_STATIONS + " WHERE " + DB_TABLE_TIMETABLE + ".trainkey = " + "\"" + Base.trainkeydd + "\"" + " AND " + DB_TABLE_TIMETABLE + ".stkey = " + DB_TABLE_STATIONS + ".code";
         Cursor localCursor3 = this.myDataBase.rawQuery(str4, null);
         if (localCursor3 != null) {
@@ -579,14 +522,15 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 do {
                     String str5 = localCursor3.getString(localCursor3.getColumnIndex("time"));
                     String str6 = localCursor3.getString(localCursor3.getColumnIndex("name"));
-                    String str7 = localCursor3.getString(localCursor3.getColumnIndex("latitude"));
-                    String str8 = localCursor3.getString(localCursor3.getColumnIndex("longitude"));
-                    HashMap localHashMap2 = new HashMap();
-                    localHashMap2.put("1", str5);
-                    localHashMap2.put("2", str6);
-                    localHashMap2.put("3", str7);
-                    localHashMap2.put("4", str8);
-                    localArrayList.add(localHashMap2);
+                    try {
+                        temp++;
+                        if(str6.equalsIgnoreCase(Base.Sourcevaltxt))
+                            poscount2=temp;
+                        localArrayList.add(new LocalViewItem( f2.format(f1.parse(str5)),str6));
+
+                    } catch (ParseException e) {
+                        localArrayList.add(new LocalViewItem(str5,str6));
+                    }
                 } while (localCursor3.moveToNext());
             }
             localCursor3.close();
