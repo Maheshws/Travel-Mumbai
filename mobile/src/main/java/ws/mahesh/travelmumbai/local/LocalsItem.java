@@ -3,7 +3,7 @@ package ws.mahesh.travelmumbai.local;
 /**
  * Created by Mahesh on 7/27/2014.
  */
-public class LocalItem {
+public class LocalsItem {
     String TRAIN_ID;
     String REACHES_DEST;
     String LEAVES_AT;
@@ -12,7 +12,7 @@ public class LocalItem {
     String CARS;
     String TYPE;
 
-    public LocalItem(String TRAIN_ID, String LEAVES_AT, String REACHES_DEST, String SOURCE, String DESTINATION, String CARS, String TYPE) {
+    public LocalsItem(String TRAIN_ID, String LEAVES_AT, String REACHES_DEST, String SOURCE, String DESTINATION, String CARS, String TYPE) {
         this.TRAIN_ID = TRAIN_ID;
         this.REACHES_DEST = REACHES_DEST;
         this.LEAVES_AT = LEAVES_AT;
