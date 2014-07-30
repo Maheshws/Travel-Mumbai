@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -27,7 +25,7 @@ public class LocalViewListView extends Fragment {
     TextView info;
     private DatabaseAdapter dattabase;
     private List<LocalViewItem> local = new ArrayList<LocalViewItem>();
-    private  int pos;
+    private int pos;
 
     @Override
     public void onAttach(Activity activity) {
@@ -36,7 +34,7 @@ public class LocalViewListView extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.local_view_list_view_fragment, container,false);
+        return inflater.inflate(R.layout.local_view_list_view_fragment, container, false);
     }
 
     @Override
@@ -54,7 +52,7 @@ public class LocalViewListView extends Fragment {
         try {
             dattabase.openDataBase();
             local = dattabase.getTrainDetails();
-            pos=dattabase.getPosCount2();
+            pos = dattabase.getPosCount2();
             dattabase.close();
         } catch (SQLException e) {
             e.printStackTrace();

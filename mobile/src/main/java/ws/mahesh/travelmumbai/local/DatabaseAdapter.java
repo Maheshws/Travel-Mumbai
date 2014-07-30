@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DatabaseAdapter extends SQLiteOpenHelper {
@@ -68,6 +67,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     private final Context myContext;
     DateFormat f1 = new SimpleDateFormat("H:mm");
     DateFormat f2 = new SimpleDateFormat("h:mm a");
+
     static {
         DB_NAME = "timetable.sqlite";
         DB_NAME_PATH = "local/timetable.sqlite";
@@ -102,8 +102,9 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         seltrain = "null";
         stname = "Starts";
     }
+
     private int poscount = 0;
-    private int poscount2=0;
+    private int poscount2 = 0;
     private SQLiteDatabase myDataBase;
 
     public DatabaseAdapter(Context paramContext) {
@@ -409,9 +410,11 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     public int getPosCount() {
         return poscount;
     }
+
     public int getPosCount2() {
         return poscount2;
     }
+
     public String[] getAllStations() {
         if (Base.trainLine.equals("CR")) {
             DB_TABLE_STATIONS = DB_TABLE_CRSTATIONS;
@@ -512,8 +515,8 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     }
 
     public List<LocalViewItem> getTrainDetails() {
-        int temp=0;
-       List<LocalViewItem> localArrayList = new ArrayList<LocalViewItem>();
+        int temp = 0;
+        List<LocalViewItem> localArrayList = new ArrayList<LocalViewItem>();
 
         String str4 = "SELECT " + DB_TABLE_TIMETABLE + ".time, " + DB_TABLE_STATIONS + ".name, " + DB_TABLE_STATIONS + ".latitude, " + DB_TABLE_STATIONS + ".longitude FROM  " + DB_TABLE_TIMETABLE + ", " + DB_TABLE_STATIONS + " WHERE " + DB_TABLE_TIMETABLE + ".trainkey = " + "\"" + Base.trainkeydd + "\"" + " AND " + DB_TABLE_TIMETABLE + ".stkey = " + DB_TABLE_STATIONS + ".code";
         Cursor localCursor3 = this.myDataBase.rawQuery(str4, null);
@@ -524,12 +527,12 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                     String str6 = localCursor3.getString(localCursor3.getColumnIndex("name"));
                     try {
                         temp++;
-                        if(str6.equalsIgnoreCase(Base.Sourcevaltxt))
-                            poscount2=temp;
-                        localArrayList.add(new LocalViewItem( f2.format(f1.parse(str5)),str6));
+                        if (str6.equalsIgnoreCase(Base.Sourcevaltxt))
+                            poscount2 = temp;
+                        localArrayList.add(new LocalViewItem(f2.format(f1.parse(str5)), str6));
 
                     } catch (ParseException e) {
-                        localArrayList.add(new LocalViewItem(str5,str6));
+                        localArrayList.add(new LocalViewItem(str5, str6));
                     }
                 } while (localCursor3.moveToNext());
             }

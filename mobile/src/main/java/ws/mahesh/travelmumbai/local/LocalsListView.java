@@ -104,9 +104,9 @@ public class LocalsListView extends Fragment {
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        LocalsItem current=local.get(i);
-                        Base.trainkeydd=current.getTRAIN_ID();
-                        Base.detmes=(current.getSOURCE()+" - "+current.getDESTINATION()+" "+current.getTYPE()+" Local\nLeaving "+Base.Sourcevaltxt+" at "+current.getLEAVES_AT()).toUpperCase();
+                        LocalsItem current = local.get(i);
+                        Base.trainkeydd = current.getTRAIN_ID();
+                        Base.detmes = (current.getSOURCE() + " - " + current.getDESTINATION() + " " + current.getTYPE() + " Local\nLeaving " + Base.Sourcevaltxt + " at " + current.getLEAVES_AT()).toUpperCase();
                         getFragmentManager().beginTransaction()
                                 .replace(R.id.container, new LocalViewListView())
                                 .addToBackStack(null)

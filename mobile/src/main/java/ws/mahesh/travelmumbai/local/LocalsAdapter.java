@@ -15,12 +15,12 @@ import ws.mahesh.travelmumbai.R;
 /**
  * Created by Mahesh on 7/27/2014.
  */
-public class LocalsAdapter extends ArrayAdapter<LocalItem> {
+public class LocalsAdapter extends ArrayAdapter<LocalsItem> {
     private Context context;
-    private List<LocalItem> values;
+    private List<LocalsItem> values;
     private String dest;
 
-    public LocalsAdapter(Context context, int resource, List<LocalItem> objects) {
+    public LocalsAdapter(Context context, int resource, List<LocalsItem> objects) {
         super(context, resource, objects);
         this.context = context;
         values = objects;
@@ -38,7 +38,7 @@ public class LocalsAdapter extends ArrayAdapter<LocalItem> {
         TextView cars = (TextView) rowView.findViewById(R.id.textViewCars);
         TextView speed = (TextView) rowView.findViewById(R.id.textViewSpeed);
 
-        LocalItem local = values.get(position);
+        LocalsItem local = values.get(position);
 
         startTime.setText(local.getLEAVES_AT().toUpperCase());
         reachTime.setText("Reaches " + dest + " by : " + local.getREACHES_DEST());
