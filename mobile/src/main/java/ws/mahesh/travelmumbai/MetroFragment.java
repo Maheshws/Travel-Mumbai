@@ -101,6 +101,7 @@ public class MetroFragment extends Fragment {
         getLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getLocation();
                 StationFinder sf=new StationFinder();
                 source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
             }

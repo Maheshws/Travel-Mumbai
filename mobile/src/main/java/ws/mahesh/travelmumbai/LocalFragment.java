@@ -45,6 +45,7 @@ public class LocalFragment extends Fragment {
         WR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Base.alltrains = false;
                 Base.trainLine="WR";
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new LocalSelectorFragment())
@@ -55,6 +56,7 @@ public class LocalFragment extends Fragment {
         CR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Base.alltrains = false;
                 Base.trainLine="CR";
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new LocalSelectorFragment())
@@ -65,6 +67,7 @@ public class LocalFragment extends Fragment {
         HR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Base.alltrains = false;
                 Base.trainLine="HR";
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new LocalSelectorFragment())

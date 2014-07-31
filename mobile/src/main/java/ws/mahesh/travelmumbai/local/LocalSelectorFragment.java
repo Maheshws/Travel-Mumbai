@@ -39,7 +39,6 @@ public class LocalSelectorFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Base.alltrains = false;
     }
 
     @Override
@@ -60,6 +59,7 @@ public class LocalSelectorFragment extends Fragment {
         findTrains = (Button) getActivity().findViewById(R.id.buttonFindTrains);
         alltrains = (CheckBox) getActivity().findViewById(R.id.checkBoxTrains);
 
+
         dattabase = new DatabaseAdapter(getActivity());
 
         try {
@@ -78,6 +78,7 @@ public class LocalSelectorFragment extends Fragment {
         locsrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getLocation();
                 try {
                     dattabase.openDataBase();
                     dattabase.searchStationNearby();
@@ -93,6 +94,7 @@ public class LocalSelectorFragment extends Fragment {
         locdest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getLocation();
                 try {
                     dattabase.openDataBase();
                     dattabase.searchStationNearby();

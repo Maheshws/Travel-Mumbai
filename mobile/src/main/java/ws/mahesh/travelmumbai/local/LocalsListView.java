@@ -95,7 +95,8 @@ public class LocalsListView extends Fragment {
                 LocalsAdapter adapter = new LocalsAdapter(getActivity(), R.layout.local_listview_item, local);
                 ListView list = (ListView) getActivity().findViewById(R.id.listViewRoute);
                 list.setAdapter(adapter);
-                list.setSelection(posCount);
+                if(Base.alltrains)
+                    list.setSelection(posCount);
                 if (list.getCount() < 1)
                     info.setText("No Direct Train available on selected route");
                 if (progressBar.isShowing()) {

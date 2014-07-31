@@ -104,6 +104,7 @@ public class MonorailFragment extends Fragment {
         getLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getLocation();
                 StationFinder sf=new StationFinder();
                 source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
             }
