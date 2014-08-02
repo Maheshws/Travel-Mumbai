@@ -2,6 +2,7 @@ package ws.mahesh.travelmumbai;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,11 +47,15 @@ public class TaxiFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Taxi");
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font/rupee.ttf");
         distance = (TextView) getActivity().findViewById(R.id.textViewDistance);
         reading = (TextView) getActivity().findViewById(R.id.textViewReading);
         day_fare = (TextView) getActivity().findViewById(R.id.textViewDayFare);
         night_fare = (TextView) getActivity().findViewById(R.id.textViewNightFare);
         info_txt= (TextView) getActivity().findViewById(R.id.textViewInformation);
+
+        day_fare.setTypeface(tf);
+        night_fare.setTypeface(tf);
 
         meter_reading = (EditText) getActivity().findViewById(R.id.editTextMeter);
         distance_km = (EditText) getActivity().findViewById(R.id.editTextDistance);
@@ -103,8 +108,8 @@ public class TaxiFragment extends Fragment {
         taxi.calcDistanceBased(distanced);
         distance.setText("" + taxi.getDistance());
         reading.setText("" + taxi.getReading());
-        day_fare.setText("" + taxi.getFare());
-        night_fare.setText("" + taxi.getNightFare());
+        day_fare.setText("` " + taxi.getFare());
+        night_fare.setText("` " + taxi.getNightFare());
     }
 
     private void FareonReading() {
@@ -112,7 +117,7 @@ public class TaxiFragment extends Fragment {
         taxi.readingBased(meterd);
         distance.setText("" + taxi.getDistance());
         reading.setText("" + taxi.getReading());
-        day_fare.setText("" + taxi.getFare());
-        night_fare.setText("" + taxi.getNightFare());
+        day_fare.setText("` " + taxi.getFare());
+        night_fare.setText("` " + taxi.getNightFare());
     }
 }

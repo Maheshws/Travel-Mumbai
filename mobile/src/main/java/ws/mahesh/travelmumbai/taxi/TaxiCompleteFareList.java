@@ -47,7 +47,7 @@ public class TaxiCompleteFareList extends Fragment {
             String tempd=""+abc.getDistance();
             if(tempd.length()<4)
                 tempd=tempd+"0";
-            auto.add(new TaxiListItem("" + abc.getReading(), "" +tempd, "Rs." + abc.getFare(), "Rs." + abc.getNightFare()));
+            auto.add(new TaxiListItem("" + abc.getReading(), "" +tempd, "" + abc.getFare(), "" + abc.getNightFare()));
         }
         TaxiListAdapter adapter = new TaxiListAdapter(getActivity(), R.layout.auto_taxi_item, auto);
         ListView list = (ListView) getActivity().findViewById(R.id.listView);

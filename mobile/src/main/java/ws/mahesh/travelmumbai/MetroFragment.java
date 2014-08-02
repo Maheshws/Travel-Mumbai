@@ -119,7 +119,7 @@ public class MetroFragment extends Fragment {
         metroItem.clear();
         metroItem.add(new MetroListItem("Destination","Token Fare","Card Fare"));
         for(int i=0;i< MetroStations.COUNT;i++) {
-            metroItem.add(new MetroListItem(MetroStations.STATIONS[i], "Rs." + metro.getTokenFare(src, i), "Rs." + metro.getCardFare(src, i)));
+            metroItem.add(new MetroListItem(MetroStations.STATIONS[i], "" + metro.getTokenFare(src, i), "" + metro.getCardFare(src, i)));
         }
         getActivity().runOnUiThread(new Runnable() {
             @Override

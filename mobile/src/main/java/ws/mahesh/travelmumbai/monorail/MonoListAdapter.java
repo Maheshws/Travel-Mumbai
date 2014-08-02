@@ -19,11 +19,13 @@ import ws.mahesh.travelmumbai.R;
 public class MonoListAdapter extends ArrayAdapter<MonoListItem> {
     private Context context;
     private List<MonoListItem> values;
+    private Typeface tf;
 
     public MonoListAdapter(Context context, int resource, List<MonoListItem> values) {
         super(context, resource, values);
         this.context = context;
         this.values = values;
+        tf = Typeface.createFromAsset(context.getAssets(), "font/rupee.ttf");
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -36,16 +38,22 @@ public class MonoListAdapter extends ArrayAdapter<MonoListItem> {
 
         MonoListItem mono = values.get(position);
 
+        token.setTypeface(tf);
+        card.setTypeface(tf);
+
+        dest.setText(mono.getDESTINATION());
+        token.setText("` "+mono.getTOKEN());
+        card.setText("` "+mono.getCARD());
+
         if (position == 0) {
             dest.setTypeface(null, Typeface.BOLD);
             token.setTypeface(null, Typeface.BOLD);
             card.setTypeface(null, Typeface.BOLD);
+            token.setText(""+mono.getTOKEN());
+            card.setText(""+mono.getCARD());
         }
 
-        dest.setText(mono.getDESTINATION());
-        token.setText(mono.getTOKEN());
-        card.setText(mono.getCARD());
-        if(mono.getCARD().equals("Rs.0"))
+        if(mono.getCARD().equals("0"))
         {
             rowView = inflater.inflate(R.layout.metro_mono_current_list_item, parent, false);
             TextView curr = (TextView) rowView.findViewById(R.id.textView);

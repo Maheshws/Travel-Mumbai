@@ -1,6 +1,7 @@
 package ws.mahesh.travelmumbai.taxi;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,13 @@ public class TaxiListAdapter extends ArrayAdapter<TaxiListItem> {
 
     private Context context;
     private List<TaxiListItem> values;
+    private Typeface tf;
 
     public TaxiListAdapter(Context context, int resource, List<TaxiListItem> values) {
         super(context, resource, values);
         this.context = context;
         this.values = values;
-
+        tf = Typeface.createFromAsset(context.getAssets(), "font/rupee.ttf");
     }
 
 
@@ -37,12 +39,15 @@ public class TaxiListAdapter extends ArrayAdapter<TaxiListItem> {
         TextView day_fare = (TextView) rowView.findViewById(R.id.textViewListDayFare);
         TextView night_fare = (TextView) rowView.findViewById(R.id.textViewListNightFare);
 
+        day_fare.setTypeface(tf);
+        night_fare.setTypeface(tf);
+
         TaxiListItem auto = values.get(position);
 
         meter.setText(auto.getREADING());
         distance.setText(auto.getDISTANCE());
-        day_fare.setText(auto.getDAY_FARE());
-        night_fare.setText(auto.getNIGHT_FARE());
+        day_fare.setText("` "+auto.getDAY_FARE());
+        night_fare.setText("` "+auto.getNIGHT_FARE());
 
         return rowView;
     }

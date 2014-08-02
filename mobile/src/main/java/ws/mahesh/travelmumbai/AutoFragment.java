@@ -2,6 +2,7 @@ package ws.mahesh.travelmumbai;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,11 +51,16 @@ public class AutoFragment extends Fragment {
 
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Auto");
 
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font/rupee.ttf");
+
         distance = (TextView) getActivity().findViewById(R.id.textViewDistance);
         reading = (TextView) getActivity().findViewById(R.id.textViewReading);
         day_fare = (TextView) getActivity().findViewById(R.id.textViewDayFare);
         night_fare = (TextView) getActivity().findViewById(R.id.textViewNightFare);
         info_txt= (TextView) getActivity().findViewById(R.id.textViewInformation);
+
+        day_fare.setTypeface(tf);
+        night_fare.setTypeface(tf);
 
         meter_reading = (EditText) getActivity().findViewById(R.id.editTextMeter);
         distance_km = (EditText) getActivity().findViewById(R.id.editTextDistance);
@@ -108,8 +114,8 @@ public class AutoFragment extends Fragment {
         auto.distanceBased(distanced);
         distance.setText("" + auto.getDistance());
         reading.setText("" + auto.getReading());
-        day_fare.setText("" + auto.getFare());
-        night_fare.setText("" + auto.getNightFare());
+        day_fare.setText("` " + auto.getFare());
+        night_fare.setText("` " + auto.getNightFare());
     }
 
     private void FareonReading() {
@@ -117,7 +123,7 @@ public class AutoFragment extends Fragment {
         auto.readingBased(meterd);
         distance.setText("" + auto.getDistance());
         reading.setText("" + auto.getReading());
-        day_fare.setText("" + auto.getFare());
-        night_fare.setText("" + auto.getNightFare());
+        day_fare.setText("` " + auto.getFare());
+        night_fare.setText("` " + auto.getNightFare());
     }
 }

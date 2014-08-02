@@ -121,7 +121,7 @@ public class MonorailFragment extends Fragment {
         monoItem.clear();
         monoItem.add(new MonoListItem("Destination","Token Fare","Card Fare"));
         for(int i=0;i< MonoStations.COUNT;i++) {
-            monoItem.add(new MonoListItem(MonoStations.STATIONS[i], "Rs." + mono.getTokenFare(src, i), "Rs." + mono.getCardFare(src, i)));
+            monoItem.add(new MonoListItem(MonoStations.STATIONS[i], "" + mono.getTokenFare(src, i), "" + mono.getCardFare(src, i)));
         }
         getActivity().runOnUiThread(new Runnable() {
             @Override
