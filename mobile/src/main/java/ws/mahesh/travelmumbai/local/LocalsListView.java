@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import ws.mahesh.travelmumbai.R;
  */
 public class LocalsListView extends Fragment {
     TextView info;
+    Button showFare;
     private DatabaseAdapter dattabase;
     private List<LocalsItem> local = new ArrayList<LocalsItem>();
     private ProgressDialog progressBar;
@@ -38,13 +40,15 @@ public class LocalsListView extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.local_trains_list_view_fragment, container, false);
+        return inflater.inflate(R.layout.locals_list_view_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         info = (TextView) getActivity().findViewById(R.id.textViewInfo);
+        showFare= (Button) getActivity().findViewById(R.id.buttonFare);
+
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Local -> " + Base.Sourcevaltxt + "-" + Base.Destinationvaltxt);
         dattabase = new DatabaseAdapter(getActivity());
         if (Base.alltrains)
@@ -59,6 +63,16 @@ public class LocalsListView extends Fragment {
             }
         }).start();
 
+
+        showFare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new LocalFareFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
     }
 
@@ -78,8 +92,15 @@ public class LocalsListView extends Fragment {
             local = dattabase.getTimeTable();
             posCount = dattabase.getPosCount();
             if (local == null) {
-                Toast.makeText(getActivity(), "No Trains Found", Toast.LENGTH_LONG).show();
-                info.setText("No Direct Train available on selected route");
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "No Trains Found", Toast.LENGTH_LONG).show();
+                        info.setText("No Direct Train available on selected route");
+                        showFare.setVisibility(View.GONE);
+                        progressBar.dismiss();
+                    }
+                });
                 dattabase.close();
                 return;
             }
@@ -92,13 +113,15 @@ public class LocalsListView extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                LocalsAdapter adapter = new LocalsAdapter(getActivity(), R.layout.local_listview_item, local);
+                LocalsAdapter adapter = new LocalsAdapter(getActivity(), R.layout.locals_listview_item, local);
                 ListView list = (ListView) getActivity().findViewById(R.id.listViewRoute);
                 list.setAdapter(adapter);
-                if(Base.alltrains)
+                if (Base.alltrains)
                     list.setSelection(posCount);
-                if (list.getCount() < 1)
+                if (list.getCount() < 1) {
                     info.setText("No Direct Train available on selected route");
+                    showFare.setVisibility(View.GONE);
+                }
                 if (progressBar.isShowing()) {
                     progressBar.dismiss();
                 }
