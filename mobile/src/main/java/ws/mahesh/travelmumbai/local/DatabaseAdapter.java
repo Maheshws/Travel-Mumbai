@@ -75,7 +75,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         DB_TABLE_WRSTATIONS = "wrstations";
         DB_TABLE_HRSTATIONS = "hrstations";
         DB_COLUMN_STATION_NAME = "name";
-        DB_VERSION = 1;
+        DB_VERSION = 2;
         DB_TABLE_TRAINS = "cruptrains";
         DB_TABLE_CRUPTRAINS = "cruptrains";
         DB_TABLE_WRUPTRAINS = "wruptrains";
@@ -165,12 +165,11 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
 
     public void createDataBase()
             throws IOException {
-        Log.i(getClass().getSimpleName(), "Check if DB already exists");
+       // Log.i(getClass().getSimpleName(), "Check if DB already exists");
         if (checkDataBase()) {
-            Log.i(getClass().getSimpleName(), "DB Already exists");
-            Log.i(getClass().getSimpleName(), "Get Writable Database called to check if DBVERSION has increased and if DB needs copying");
+           // Log.i(getClass().getSimpleName(), "DB Already exists");
+           // Log.i(getClass().getSimpleName(), "Get Writable Database called to check if DBVERSION has increased and if DB needs copying");
             this.getWritableDatabase();
-
             return;
         }
         //  Log.i(getClass().getSimpleName(), "DB Does not Exist, to be created");
