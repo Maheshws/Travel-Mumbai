@@ -57,12 +57,12 @@ public class LocalsListView extends Fragment {
             info.setText("Trains from " + Base.Sourcevaltxt + " to " + Base.Destinationvaltxt + " in next 2 hrs");
 
         progressBar = ProgressDialog.show(getActivity(), "Please Wait", "Loading...");
+        progressBar.setCancelable(true);
         new Thread(new Runnable() {
             public void run() {
                 populate();
             }
         }).start();
-
 
         showFare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,6 @@ public class LocalsListView extends Fragment {
                         .commit();
             }
         });
-
     }
 
     @Override
@@ -98,7 +97,9 @@ public class LocalsListView extends Fragment {
                         Toast.makeText(getActivity(), "No Trains Found", Toast.LENGTH_LONG).show();
                         info.setText("No Direct Train available on selected route");
                         showFare.setVisibility(View.GONE);
-                        progressBar.dismiss();
+                        if (progressBar.isShowing()) {
+                            progressBar.dismiss();
+                        }
                     }
                 });
                 dattabase.close();

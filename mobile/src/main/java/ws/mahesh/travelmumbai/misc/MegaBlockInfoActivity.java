@@ -33,6 +33,7 @@ public class MegaBlockInfoActivity extends Activity {
         webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         progressBar = ProgressDialog.show(this, "Please Wait", "Loading...");
+        progressBar.setCancelable(true);
         webview.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
