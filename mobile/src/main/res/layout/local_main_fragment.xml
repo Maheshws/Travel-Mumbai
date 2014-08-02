@@ -78,18 +78,6 @@
             android:layout_marginLeft="10dp"
             android:padding="5dp" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonFare"
-            android:layout_gravity="center_horizontal"
-            android:text="Fare Calculator"
-            android:padding="5dp"
-            android:gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp" />
 
         <Button
             android:layout_width="match_parent"
