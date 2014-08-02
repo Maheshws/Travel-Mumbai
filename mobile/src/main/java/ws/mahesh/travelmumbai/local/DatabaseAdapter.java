@@ -49,25 +49,24 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     private static String dename = "Ends";
     private static String destinationtimetablequery;
     private static String fullstationcode;
-    private static int dr1;
-    private static int dr2;
-    private static int dr3;
-    private static int dr4;
+    private static double dr1;
+    private static double dr2;
+    private static double dr3;
+    private static double dr4;
     private static String seltrain;
     private static String speed;
     private static String sqliteds;
     private static String sqlitess;
-    private static int sr1;
-    private static int sr2;
-    private static int sr3;
-    private static int sr4;
+    private static double sr1;
+    private static double sr2;
+    private static double sr3;
+    private static double sr4;
     private static String start;
     private static String dest;
     private static String stname;
     private final Context myContext;
     DateFormat f1 = new SimpleDateFormat("H:mm");
     DateFormat f2 = new SimpleDateFormat("h:mm a");
-
     static {
         DB_NAME = "timetable.sqlite";
         DB_NAME_PATH = "local/timetable.sqlite";
@@ -102,7 +101,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         seltrain = "null";
         stname = "Starts";
     }
-
+    private double dist = 0.0;
     private int poscount = 0;
     private int poscount2 = 0;
     private SQLiteDatabase myDataBase;
@@ -170,7 +169,8 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         if (checkDataBase()) {
             Log.i(getClass().getSimpleName(), "DB Already exists");
             Log.i(getClass().getSimpleName(), "Get Writable Database called to check if DBVERSION has increased and if DB needs copying");
-            getWritableDatabase();
+            this.getWritableDatabase();
+
             return;
         }
         //  Log.i(getClass().getSimpleName(), "DB Does not Exist, to be created");
@@ -201,10 +201,10 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 if (localCursor1 != null) {
                     if (localCursor1.moveToFirst()) {
                         Base.Sourcevalcode = localCursor1.getString(localCursor1.getColumnIndex("code"));
-                        sr1 = localCursor1.getInt(localCursor1.getColumnIndex("r1"));
-                        sr2 = localCursor1.getInt(localCursor1.getColumnIndex("r2"));
-                        sr3 = localCursor1.getInt(localCursor1.getColumnIndex("r3"));
-                        sr4 = localCursor1.getInt(localCursor1.getColumnIndex("r4"));
+                        sr1 = localCursor1.getDouble(localCursor1.getColumnIndex("r1"));
+                        sr2 = localCursor1.getDouble(localCursor1.getColumnIndex("r2"));
+                        sr3 = localCursor1.getDouble(localCursor1.getColumnIndex("r3"));
+                        sr4 = localCursor1.getDouble(localCursor1.getColumnIndex("r4"));
                     }
                     localCursor1.close();
                 }
@@ -212,34 +212,54 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 if (localCursor2 != null) {
                     if (localCursor2.moveToFirst()) {
                         Base.Destinationvalcode = localCursor2.getString(localCursor2.getColumnIndex("code"));
-                        dr1 = localCursor2.getInt(localCursor2.getColumnIndex("r1"));
-                        dr2 = localCursor2.getInt(localCursor2.getColumnIndex("r2"));
-                        dr3 = localCursor2.getInt(localCursor2.getColumnIndex("r3"));
-                        dr4 = localCursor2.getInt(localCursor2.getColumnIndex("r4"));
+                        dr1 = localCursor2.getDouble(localCursor2.getColumnIndex("r1"));
+                        dr2 = localCursor2.getDouble(localCursor2.getColumnIndex("r2"));
+                        dr3 = localCursor2.getDouble(localCursor2.getColumnIndex("r3"));
+                        dr4 = localCursor2.getDouble(localCursor2.getColumnIndex("r4"));
                     }
                     localCursor2.close();
                 }
                 Base.updown = "blank";
-                if ((sr1 != 0) && (dr1 != 0)) {
+                if ((sr1 != 0.0) && (dr1 != 0.0)) {
                     if (sr1 > dr1) {
                         Base.updown = "U";
-                    } else
+                        dist = sr1 - dr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    } else {
                         Base.updown = "D";
-                } else if ((sr2 != 0) && (dr2 != 0)) {
+                        dist = dr1 - sr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    }
+                } else if ((sr2 != 0.0) && (dr2 != 0.0)) {
                     if (sr2 <= dr2) {
                         Base.updown = "D";
-                    } else
+                        dist = dr1 - sr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    } else {
                         Base.updown = "U";
-                } else if ((sr3 != 0) && (dr3 != 0)) {
+                        dist = sr1 - dr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    }
+                } else if ((sr3 != 0.0) && (dr3 != 0.0)) {
                     if (sr3 <= dr3) {
                         Base.updown = "D";
-                    } else
+                        dist = dr1 - sr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    } else {
                         Base.updown = "U";
-                } else if ((sr4 != 0) && (dr4 != 0)) {
+                        dist = sr1 - dr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    }
+                } else if ((sr4 != 0.0) && (dr4 != 0.0)) {
                     if (sr4 <= dr4) {
                         Base.updown = "D";
-                    } else
+                        dist = dr1 - sr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    } else {
                         Base.updown = "U";
+                        dist = sr1 - dr1 + 0.01;
+                        Log.e("Fare", "" + dist);
+                    }
                 }
                 if (Base.trainLine.equals("CR")) {
                     if (Base.updown.equals("U")) {
@@ -310,10 +330,10 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 if (localCursor1 != null) {
                     if (localCursor1.moveToFirst()) {
                         Base.Sourcevalcode = localCursor1.getString(localCursor1.getColumnIndex("code"));
-                        sr1 = localCursor1.getInt(localCursor1.getColumnIndex("r1"));
-                        sr2 = localCursor1.getInt(localCursor1.getColumnIndex("r2"));
-                        sr3 = localCursor1.getInt(localCursor1.getColumnIndex("r3"));
-                        sr4 = localCursor1.getInt(localCursor1.getColumnIndex("r4"));
+                        sr1 = localCursor1.getDouble(localCursor1.getColumnIndex("r1"));
+                        sr2 = localCursor1.getDouble(localCursor1.getColumnIndex("r2"));
+                        sr3 = localCursor1.getDouble(localCursor1.getColumnIndex("r3"));
+                        sr4 = localCursor1.getDouble(localCursor1.getColumnIndex("r4"));
                     }
                     localCursor1.close();
                 }
@@ -321,30 +341,30 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 if (localCursor2 != null) {
                     if (localCursor2.moveToFirst()) {
                         Base.Destinationvalcode = localCursor2.getString(localCursor2.getColumnIndex("code"));
-                        dr1 = localCursor2.getInt(localCursor2.getColumnIndex("r1"));
-                        dr2 = localCursor2.getInt(localCursor2.getColumnIndex("r2"));
-                        dr3 = localCursor2.getInt(localCursor2.getColumnIndex("r3"));
-                        dr4 = localCursor2.getInt(localCursor2.getColumnIndex("r4"));
+                        dr1 = localCursor2.getDouble(localCursor2.getColumnIndex("r1"));
+                        dr2 = localCursor2.getDouble(localCursor2.getColumnIndex("r2"));
+                        dr3 = localCursor2.getDouble(localCursor2.getColumnIndex("r3"));
+                        dr4 = localCursor2.getDouble(localCursor2.getColumnIndex("r4"));
                     }
                     localCursor2.close();
                 }
                 Base.updown = "blank";
-                if ((sr1 != 0) && (dr1 != 0)) {
+                if ((sr1 != 0.0) && (dr1 != 0.0)) {
                     if (sr1 > dr1) {
                         Base.updown = "U";
                     } else
                         Base.updown = "D";
-                } else if ((sr2 != 0) && (dr2 != 0)) {
+                } else if ((sr2 != 0.0) && (dr2 != 0.0)) {
                     if (sr2 <= dr2) {
                         Base.updown = "D";
                     } else
                         Base.updown = "U";
-                } else if ((sr3 != 0) && (dr3 != 0)) {
+                } else if ((sr3 != 0.0) && (dr3 != 0.0)) {
                     if (sr3 <= dr3) {
                         Base.updown = "D";
                     } else
                         Base.updown = "U";
-                } else if ((sr4 != 0) && (dr4 != 0)) {
+                } else if ((sr4 != 0.0) && (dr4 != 0.0)) {
                     if (sr4 <= dr4) {
                         Base.updown = "D";
                     } else
@@ -442,6 +462,10 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
             localCursor.close();
         }
         return new String[0];
+    }
+
+    public double getDistance() {
+        return dist;
     }
 
     public List<LocalsItem> getTimeTable() {
@@ -545,22 +569,22 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase paramSQLiteDatabase) {
     }
 
+    @Override
     public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {
-        //Log.i(getClass().getSimpleName(), "Inside OnUpgrade");
+
+        Log.i(getClass().getSimpleName(), "Inside OnUpgrade");
         try {
-            //Log.i(DatabaseAdapter.class.getName(), "Upgrading database from version " + paramInt1 + " to " + paramInt2);
-            //Log.i(getClass().getSimpleName(), "Copy Database Method being called from onUpgrade");
+            Log.i(DatabaseAdapter.class.getName(), "Upgrading database from version " + paramInt1 + " to " + paramInt2);
+            Log.i(getClass().getSimpleName(), "Copy Database Method being called from onUpgrade");
             copyDataBase();
-            return;
         } catch (IOException localIOException) {
             throw new Error("Error copying database");
         }
+
     }
 
     public void openDataBase() throws SQLException, IOException {
-        if (!checkDataBase()) {
-            createDataBase();
-        }
+        createDataBase();
         //Log.i(getClass().getSimpleName(), "Inside openDatabse DB being opened");
         DB_PATH = this.myContext.getDatabasePath(DB_NAME).getPath();
         String str = DB_PATH;
