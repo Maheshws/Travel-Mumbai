@@ -31,7 +31,7 @@ public class LocalsAdapter extends ArrayAdapter<LocalsItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.local_listview_item, parent, false);
+        View rowView = inflater.inflate(R.layout.locals_listview_item, parent, false);
         TextView startTime = (TextView) rowView.findViewById(R.id.textViewDeptTime);
         TextView reachTime = (TextView) rowView.findViewById(R.id.textViewArrTime);
         TextView srcdest = (TextView) rowView.findViewById(R.id.textViewSrcDest);
