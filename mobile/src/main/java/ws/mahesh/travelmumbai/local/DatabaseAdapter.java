@@ -67,6 +67,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     private final Context myContext;
     DateFormat f1 = new SimpleDateFormat("H:mm");
     DateFormat f2 = new SimpleDateFormat("h:mm a");
+
     static {
         DB_NAME = "timetable.sqlite";
         DB_NAME_PATH = "local/timetable.sqlite";
@@ -101,6 +102,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         seltrain = "null";
         stname = "Starts";
     }
+
     private double dist = 0.0;
     private int poscount = 0;
     private int poscount2 = 0;
@@ -165,10 +167,10 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
 
     public void createDataBase()
             throws IOException {
-       // Log.i(getClass().getSimpleName(), "Check if DB already exists");
+        // Log.i(getClass().getSimpleName(), "Check if DB already exists");
         if (checkDataBase()) {
-           // Log.i(getClass().getSimpleName(), "DB Already exists");
-           // Log.i(getClass().getSimpleName(), "Get Writable Database called to check if DBVERSION has increased and if DB needs copying");
+            // Log.i(getClass().getSimpleName(), "DB Already exists");
+            // Log.i(getClass().getSimpleName(), "Get Writable Database called to check if DBVERSION has increased and if DB needs copying");
             this.getWritableDatabase();
             return;
         }
@@ -223,43 +225,36 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                     if (sr1 > dr1) {
                         Base.updown = "U";
                         dist = sr1 - dr1 + 0.01;
-                        Log.e("Fare", "" + dist);
                     } else {
                         Base.updown = "D";
                         dist = dr1 - sr1 + 0.01;
-                        Log.e("Fare", "" + dist);
                     }
                 } else if ((sr2 != 0.0) && (dr2 != 0.0)) {
                     if (sr2 <= dr2) {
                         Base.updown = "D";
-                        dist = dr1 - sr1 + 0.01;
-                        Log.e("Fare", "" + dist);
+                        dist = dr2 - sr2 + 0.01;
                     } else {
                         Base.updown = "U";
-                        dist = sr1 - dr1 + 0.01;
-                        Log.e("Fare", "" + dist);
+                        dist = sr2 - dr2 + 0.01;
                     }
                 } else if ((sr3 != 0.0) && (dr3 != 0.0)) {
                     if (sr3 <= dr3) {
                         Base.updown = "D";
-                        dist = dr1 - sr1 + 0.01;
-                        Log.e("Fare", "" + dist);
+                        dist = dr3 - sr3 + 0.01;
                     } else {
                         Base.updown = "U";
-                        dist = sr1 - dr1 + 0.01;
-                        Log.e("Fare", "" + dist);
+                        dist = sr3 - dr3 + 0.01;
                     }
                 } else if ((sr4 != 0.0) && (dr4 != 0.0)) {
                     if (sr4 <= dr4) {
                         Base.updown = "D";
-                        dist = dr1 - sr1 + 0.01;
-                        Log.e("Fare", "" + dist);
+                        dist = dr4 - sr4 + 0.01;
                     } else {
                         Base.updown = "U";
-                        dist = sr1 - dr1 + 0.01;
-                        Log.e("Fare", "" + dist);
+                        dist = sr4 - dr4 + 0.01;
                     }
                 }
+                Base.distancebtn = dist;
                 if (Base.trainLine.equals("CR")) {
                     if (Base.updown.equals("U")) {
                         DB_TABLE_TIMETABLE = DB_TABLE_CRUPTIMETABLE;
@@ -351,24 +346,37 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 if ((sr1 != 0.0) && (dr1 != 0.0)) {
                     if (sr1 > dr1) {
                         Base.updown = "U";
-                    } else
+                        dist = sr1 - dr1 + 0.01;
+                    } else {
                         Base.updown = "D";
+                        dist = dr1 - sr1 + 0.01;
+                    }
                 } else if ((sr2 != 0.0) && (dr2 != 0.0)) {
                     if (sr2 <= dr2) {
                         Base.updown = "D";
-                    } else
+                        dist = dr2 - sr2 + 0.01;
+                    } else {
                         Base.updown = "U";
+                        dist = sr2 - dr2 + 0.01;
+                    }
                 } else if ((sr3 != 0.0) && (dr3 != 0.0)) {
                     if (sr3 <= dr3) {
                         Base.updown = "D";
-                    } else
+                        dist = dr3 - sr3 + 0.01;
+                    } else {
                         Base.updown = "U";
+                        dist = sr3 - dr3 + 0.01;
+                    }
                 } else if ((sr4 != 0.0) && (dr4 != 0.0)) {
                     if (sr4 <= dr4) {
                         Base.updown = "D";
-                    } else
+                        dist = dr4 - sr4 + 0.01;
+                    } else {
                         Base.updown = "U";
+                        dist = sr4 - dr4 + 0.01;
+                    }
                 }
+                Base.distancebtn = dist;
                 if (Base.trainLine.equals("CR")) {
                     if (Base.updown.equals("U")) {
                         DB_TABLE_TIMETABLE = DB_TABLE_CRUPTIMETABLE;
@@ -463,9 +471,6 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         return new String[0];
     }
 
-    public double getDistance() {
-        return dist;
-    }
 
     public List<LocalsItem> getTimeTable() {
         poscount = 0;
