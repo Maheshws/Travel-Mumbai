@@ -575,17 +575,29 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         Log.i(getClass().getSimpleName(), "Inside OnUpgrade");
         try {
-            Log.i(DatabaseAdapter.class.getName(), "Upgrading database from version " + paramInt1 + " to " + paramInt2);
+            Log.i(DatabaseAdapter.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion);
             Log.i(getClass().getSimpleName(), "Copy Database Method being called from onUpgrade");
             copyDataBase();
         } catch (IOException localIOException) {
             throw new Error("Error copying database");
         }
 
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.i(getClass().getSimpleName(), "Inside OnDowngrade");
+        try {
+            Log.i(DatabaseAdapter.class.getName(), "Downgrading database from version " + oldVersion + " to " + newVersion);
+            Log.i(getClass().getSimpleName(), "Copy Database Method being called from onDowngrade");
+            copyDataBase();
+        } catch (IOException localIOException) {
+            throw new Error("Error copying database");
+        }
     }
 
     public void openDataBase() throws SQLException, IOException {
