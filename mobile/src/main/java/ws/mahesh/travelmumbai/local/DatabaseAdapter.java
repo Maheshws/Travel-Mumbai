@@ -76,7 +76,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         DB_TABLE_WRSTATIONS = "wrstations";
         DB_TABLE_HRSTATIONS = "hrstations";
         DB_COLUMN_STATION_NAME = "name";
-        DB_VERSION = 2;
+        DB_VERSION = 1;
         DB_TABLE_TRAINS = "cruptrains";
         DB_TABLE_CRUPTRAINS = "cruptrains";
         DB_TABLE_WRUPTRAINS = "wruptrains";
