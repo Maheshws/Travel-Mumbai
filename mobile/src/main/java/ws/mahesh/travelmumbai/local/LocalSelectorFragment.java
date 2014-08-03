@@ -65,22 +65,27 @@ public class LocalSelectorFragment extends Fragment {
         findTrains = (Button) getActivity().findViewById(R.id.buttonFindTrains);
         alltrains = (CheckBox) getActivity().findViewById(R.id.checkBoxTrains);
 
-
         dattabase = new DatabaseAdapter(getActivity());
 
         try {
             dattabase.openDataBase();
             String[] arrayOfString = dattabase.getAllStations();
+            dattabase.searchStationNearby();
             sourceadapter = new ArrayAdapter<String>(getActivity(), R.layout.local_spinner_item, arrayOfString);
             src.setAdapter(sourceadapter);
+
             destinationadapter = new ArrayAdapter<String>(getActivity(), R.layout.local_spinner_item, arrayOfString);
             dest.setAdapter(destinationadapter);
+
             dattabase.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        dest.setSelection(((ArrayAdapter) dest.getAdapter()).getPosition(Base.nearbystation));
+        src.setSelection(((ArrayAdapter) src.getAdapter()).getPosition(Base.nearbystation));
         locsrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,7 +165,6 @@ public class LocalSelectorFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getLocation();
     }
 
     private void startFragment() {

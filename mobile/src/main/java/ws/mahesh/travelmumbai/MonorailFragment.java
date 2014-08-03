@@ -63,11 +63,15 @@ public class MonorailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Monorail");
 
+        getLocation();
+
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
 
         moreInfo = (Button) getActivity().findViewById(R.id.buttonmoreInfo);
 
         getLoc= (ImageButton) getActivity().findViewById(R.id.imageButtonLoc);
+
+        final StationFinder sf=new StationFinder();
 
         moreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,10 +109,10 @@ public class MonorailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getLocation();
-                StationFinder sf=new StationFinder();
                 source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
             }
         });
+        source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
     }
 
     private void setValues() {

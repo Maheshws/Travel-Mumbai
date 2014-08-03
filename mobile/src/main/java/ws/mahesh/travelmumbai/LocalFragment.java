@@ -1,6 +1,8 @@
 package ws.mahesh.travelmumbai;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +43,8 @@ public class LocalFragment extends Fragment {
         WR= (Button) getActivity().findViewById(R.id.buttonWR);
         CR= (Button) getActivity().findViewById(R.id.buttonCR);
         HR= (Button) getActivity().findViewById(R.id.buttonHR);
+
+        getLocation();
 
         WR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,5 +97,22 @@ public class LocalFragment extends Fragment {
                 startActivity(i);
             }
         });
+    }
+    private void getLocation() {
+        int i = 0;
+        LocationManager localLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (Base.lastKnownLocation != null) {
+            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
+            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
+        }
+        do {
+            if (i == 10)
+                return;
+            Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            i++;
+        } while (Base.lastKnownLocation == null);
+        Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
+        Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
     }
 }
