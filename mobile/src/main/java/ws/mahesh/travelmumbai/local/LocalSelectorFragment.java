@@ -1,6 +1,7 @@
 package ws.mahesh.travelmumbai.local;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ws.mahesh.travelmumbai.MainActivity;
 import ws.mahesh.travelmumbai.R;
@@ -34,7 +37,10 @@ public class LocalSelectorFragment extends Fragment {
     ImageButton locsrc, locdest;
     Button findTrains;
     private DatabaseAdapter dattabase;
+    private List<LocalsItem> local = new ArrayList<LocalsItem>();
     private CheckBox alltrains;
+    private int posCount;
+    private ProgressDialog progressBar;
 
     @Override
     public void onAttach(Activity activity) {
@@ -51,7 +57,7 @@ public class LocalSelectorFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Select Destination");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Select Station");
         src = (Spinner) getActivity().findViewById(R.id.spinnerSource);
         dest = (Spinner) getActivity().findViewById(R.id.spinnerDestination);
         locsrc = (ImageButton) getActivity().findViewById(R.id.imageButtonLocsrc);
@@ -128,6 +134,7 @@ public class LocalSelectorFragment extends Fragment {
     }
 
     private void validateQuery() {
+        progressBar = ProgressDialog.show(getActivity(), "Please Wait", "Getting all trains list...");
         Time now = new Time();
         now.setToNow();
         Base.Sourcevaltxt = src.getSelectedItem().toString();
@@ -136,12 +143,17 @@ public class LocalSelectorFragment extends Fragment {
         Base.time_in_minutes_max = 120 + Base.time_in_minutes;
 
         if (Base.Sourcevaltxt.equals(Base.Destinationvaltxt)) {
+            if (progressBar.isShowing()) {
+                progressBar.dismiss();
+            }
             Toast.makeText(getActivity(), "Select different source/destination stations", Toast.LENGTH_LONG).show();
         } else {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.container, new LocalsListView())
-                    .addToBackStack(null)
-                    .commit();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    startFragment();
+                }
+            }).start();
         }
     }
 
@@ -150,6 +162,39 @@ public class LocalSelectorFragment extends Fragment {
         super.onStart();
         getLocation();
     }
+
+    private void startFragment() {
+        try {
+            dattabase.openDataBase();
+            if (Base.alltrains)
+                dattabase.createTempTimetableTableAllTrains();
+            else
+                dattabase.createTempTimetableTable();
+            local = dattabase.getTimeTable();
+            posCount = dattabase.getPosCount();
+            dattabase.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Base.local=local;
+        Base.pos1=posCount;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new LocalsListView())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+    }
+
 
     private void getLocation() {
         int i = 0;

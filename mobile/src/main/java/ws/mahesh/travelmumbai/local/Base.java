@@ -2,6 +2,8 @@ package ws.mahesh.travelmumbai.local;
 
 import android.location.Location;
 
+import java.util.List;
+
 /**
  * Created by Mahesh on 7/25/2014.
  */
@@ -34,6 +36,8 @@ public class Base {
     public static String updown;
     public static boolean alltrains;
     public static double distancebtn;
+    public static List<LocalsItem> local;
+    public static int pos1;
 
     static {
         Sourcevaltxt = "temp";
