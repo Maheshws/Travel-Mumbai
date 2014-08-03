@@ -134,7 +134,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
 
     private void copyDataBase()
             throws IOException {
-        //  Log.i(getClass().getSimpleName(), "Inside copyDatabase");
+         Log.i(getClass().getSimpleName(), "Inside copyDatabase");
         InputStream localInputStream = this.myContext.getAssets().open(DB_NAME_PATH);
         FileOutputStream localFileOutputStream = new FileOutputStream(DB_PATH);
         byte[] arrayOfByte = new byte[1024];
@@ -144,7 +144,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 localFileOutputStream.flush();
                 localFileOutputStream.close();
                 localInputStream.close();
-                //   Log.i(getClass().getSimpleName(), "Copy Database completed");
+                 Log.i(getClass().getSimpleName(), "Copy Database completed");
                 //    Log.i(getClass().getSimpleName(), "DB copied at " + DB_PATH);
                 return;
             }
@@ -546,21 +546,22 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         int temp = 0;
         List<LocalViewItem> localArrayList = new ArrayList<LocalViewItem>();
 
-        String str4 = "SELECT " + DB_TABLE_TIMETABLE + ".time, " + DB_TABLE_STATIONS + ".name, " + DB_TABLE_STATIONS + ".latitude, " + DB_TABLE_STATIONS + ".longitude FROM  " + DB_TABLE_TIMETABLE + ", " + DB_TABLE_STATIONS + " WHERE " + DB_TABLE_TIMETABLE + ".trainkey = " + "\"" + Base.trainkeydd + "\"" + " AND " + DB_TABLE_TIMETABLE + ".stkey = " + DB_TABLE_STATIONS + ".code";
+        String str4 = "SELECT " + DB_TABLE_TIMETABLE + ".time, " + DB_TABLE_STATIONS + ".name, " + DB_TABLE_STATIONS + ".major, " + DB_TABLE_STATIONS + ".latitude, " + DB_TABLE_STATIONS + ".longitude FROM  " + DB_TABLE_TIMETABLE + ", " + DB_TABLE_STATIONS + " WHERE " + DB_TABLE_TIMETABLE + ".trainkey = " + "\"" + Base.trainkeydd + "\"" + " AND " + DB_TABLE_TIMETABLE + ".stkey = " + DB_TABLE_STATIONS + ".code";
         Cursor localCursor3 = this.myDataBase.rawQuery(str4, null);
         if (localCursor3 != null) {
             if (localCursor3.moveToFirst()) {
                 do {
                     String str5 = localCursor3.getString(localCursor3.getColumnIndex("time"));
                     String str6 = localCursor3.getString(localCursor3.getColumnIndex("name"));
+                    String str7 = localCursor3.getString(localCursor3.getColumnIndex("major"));
                     try {
                         temp++;
                         if (str6.equalsIgnoreCase(Base.Sourcevaltxt))
                             poscount2 = temp;
-                        localArrayList.add(new LocalViewItem(f2.format(f1.parse(str5)), str6));
+                        localArrayList.add(new LocalViewItem(f2.format(f1.parse(str5)), str6, str7));
 
                     } catch (ParseException e) {
-                        localArrayList.add(new LocalViewItem(str5, str6));
+                        localArrayList.add(new LocalViewItem(str5, str6, str7));
                     }
                 } while (localCursor3.moveToNext());
             }
@@ -593,6 +594,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
         DB_PATH = this.myContext.getDatabasePath(DB_NAME).getPath();
         String str = DB_PATH;
         this.myDataBase = SQLiteDatabase.openDatabase(str, null, 0);
+        //Log.e("DB Version",""+myDataBase.getVersion());
         //Log.i(getClass().getSimpleName(), "DB opened at " + str);
     }
 

@@ -62,7 +62,7 @@ public class LocalViewListView extends Fragment {
         LocalViewAdapter adapter = new LocalViewAdapter(getActivity(), R.layout.local_view_item, local);
         ListView list = (ListView) getActivity().findViewById(R.id.listViewStations);
         list.setAdapter(adapter);
-        list.setSelection(pos);
+        list.setSelection(pos-1);
     }
 
     @Override
