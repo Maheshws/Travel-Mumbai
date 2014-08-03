@@ -18,7 +18,6 @@ import ws.mahesh.travelmumbai.R;
 public class LocalViewAdapter extends ArrayAdapter<LocalViewItem> {
     private Context context;
     private List<LocalViewItem> values;
-    private int pos = 0;
 
     public LocalViewAdapter(Context context, int resource, List<LocalViewItem> objects) {
         super(context, resource, objects);
@@ -39,14 +38,15 @@ public class LocalViewAdapter extends ArrayAdapter<LocalViewItem> {
         Time.setText(local.getTIME().toUpperCase());
         Station.setText(local.getSTATION().toUpperCase());
 
-        if (local.getSTATION().equalsIgnoreCase(Base.Sourcevaltxt)) {
+        if(local.getMAJOR()!=null && local.getMAJOR().equalsIgnoreCase("yes")) {
+            Time.setTextColor(Color.CYAN);
             Station.setTextColor(Color.CYAN);
-            pos = position;
+        }
+        if (local.getSTATION().equalsIgnoreCase(Base.Sourcevaltxt)) {
+            Time.setTextColor(Color.parseColor("#FF9900"));
+            Station.setTextColor(Color.parseColor("#FF9900"));
         }
         return rowView;
     }
 
-    public int getPos() {
-        return pos;
-    }
 }

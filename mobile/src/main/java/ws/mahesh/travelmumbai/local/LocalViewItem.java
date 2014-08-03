@@ -6,10 +6,12 @@ package ws.mahesh.travelmumbai.local;
 public class LocalViewItem {
     public String TIME;
     public String STATION;
+    public String MAJOR;
 
-    public LocalViewItem(String TIME, String STATION) {
+    public LocalViewItem(String TIME, String STATION, String MAJOR) {
         this.TIME = TIME;
         this.STATION = STATION;
+        this.MAJOR=MAJOR;
     }
 
     public String getTIME() {
@@ -18,5 +20,9 @@ public class LocalViewItem {
 
     public String getSTATION() {
         return STATION;
+    }
+
+    public String getMAJOR() {
+        return MAJOR;
     }
 }
