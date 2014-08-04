@@ -158,19 +158,20 @@ public class MetroFragment extends Fragment {
     private void getLocation() {
         int i = 0;
         LocationManager localLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (Base.lastKnownLocation != null) {
-            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
-        }
         do {
             if (i == 10)
-                return;
+                break;
             Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             i++;
         } while (Base.lastKnownLocation == null);
         Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
         Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
+
+        Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (Base.lastKnownLocation != null) {
+            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
+            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
+        }
     }
 
     @Override
