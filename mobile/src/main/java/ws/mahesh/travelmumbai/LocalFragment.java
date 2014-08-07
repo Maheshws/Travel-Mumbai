@@ -108,8 +108,10 @@ public class LocalFragment extends Fragment {
             Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             i++;
         } while (Base.lastKnownLocation == null);
-        Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-        Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
+        if (Base.lastKnownLocation != null) {
+            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
+            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
+        }
 
         Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (Base.lastKnownLocation != null) {
