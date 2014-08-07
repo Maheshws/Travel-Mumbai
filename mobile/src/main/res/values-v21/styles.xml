@@ -5,6 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:colorPrimary">#4682c8</item>
+        <item name="android:colorPrimaryDark">#4682c8</item>
     </style>
 
 </resources>
