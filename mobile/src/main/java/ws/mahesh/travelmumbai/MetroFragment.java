@@ -43,6 +43,9 @@ public class MetroFragment extends Fragment {
     MetroFareBase metro=new MetroFareBase();
     private List<MetroListItem> metroItem=new ArrayList<MetroListItem>();
 
+    LocationManager locationManager=null;
+    LocationListener locationListener;
+
     public MetroFragment() {
         super();
     }
@@ -65,9 +68,9 @@ public class MetroFragment extends Fragment {
 
         final StationFinder sf=new StationFinder();
 
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new CustomLocationListener();
+        locationListener = new CustomLocationListener();
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
@@ -160,7 +163,11 @@ public class MetroFragment extends Fragment {
         return str;
     }
 
-
+    public void onPause(){
+        locationManager.removeUpdates(locationListener);
+        locationManager = null;
+        super.onPause();
+    }
 
 
 }

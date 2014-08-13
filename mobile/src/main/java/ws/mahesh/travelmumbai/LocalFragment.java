@@ -24,7 +24,8 @@ import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 public class LocalFragment extends Fragment {
 
     Button MegaBlock,RailMap,WR,CR,HR;
-
+    LocationManager locationManager=null;
+    LocationListener locationListener;
 
     @Override
     public void onAttach(Activity activity) {
@@ -47,9 +48,9 @@ public class LocalFragment extends Fragment {
         CR= (Button) getActivity().findViewById(R.id.buttonCR);
         HR= (Button) getActivity().findViewById(R.id.buttonHR);
 
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new CustomLocationListener();
+        locationListener = new CustomLocationListener();
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
@@ -104,6 +105,12 @@ public class LocalFragment extends Fragment {
                 startActivity(i);
             }
         });
+    }
+    @Override
+    public void onPause(){
+        locationManager.removeUpdates(locationListener);
+        locationManager = null;
+        super.onPause();
     }
 
 }

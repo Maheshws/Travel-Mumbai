@@ -109,7 +109,6 @@ public class TravelMumbai extends Application {
     private void getLocation() {
         int i = 0;
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        LocationListener locationListener = new CustomLocationListener();
         do {
             if (i == 10)
                 break;
@@ -117,13 +116,11 @@ public class TravelMumbai extends Application {
             i++;
         } while (Base.lastKnownLocation == null);
         if (Base.lastKnownLocation != null) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
             Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
             Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
         }
         Base.lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (Base.lastKnownLocation != null) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
             Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
             Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
         }

@@ -42,6 +42,9 @@ public class MonorailFragment extends Fragment {
     ImageButton getLoc;
     MonoFareBase mono=new MonoFareBase();
 
+    LocationManager locationManager=null;
+    LocationListener locationListener;
+
     private List<MonoListItem> monoItem=new ArrayList<MonoListItem>();
 
     public MonorailFragment() {
@@ -64,9 +67,9 @@ public class MonorailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Monorail");
 
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new CustomLocationListener();
+        locationListener = new CustomLocationListener();
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
@@ -157,6 +160,13 @@ public class MonorailFragment extends Fragment {
             e.printStackTrace();
         }
         return str;
+    }
+
+    @Override
+    public void onPause(){
+        locationManager.removeUpdates(locationListener);
+        locationManager = null;
+        super.onPause();
     }
 
 
