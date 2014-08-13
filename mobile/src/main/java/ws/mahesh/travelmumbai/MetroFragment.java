@@ -3,6 +3,7 @@ package ws.mahesh.travelmumbai;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
@@ -28,6 +29,7 @@ import ws.mahesh.travelmumbai.metro.MetroFareBase;
 import ws.mahesh.travelmumbai.metro.MetroListAdapter;
 import ws.mahesh.travelmumbai.metro.MetroListItem;
 import ws.mahesh.travelmumbai.metro.MetroStations;
+import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 import ws.mahesh.travelmumbai.utils.MyTagHandler;
 import ws.mahesh.travelmumbai.utils.StationFinder;
 
@@ -63,7 +65,11 @@ public class MetroFragment extends Fragment {
 
         final StationFinder sf=new StationFinder();
 
-        getLocation();
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener locationListener = new CustomLocationListener();
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
 
@@ -106,7 +112,6 @@ public class MetroFragment extends Fragment {
         getLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation();
                 source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
             }
         });
@@ -155,29 +160,7 @@ public class MetroFragment extends Fragment {
         return str;
     }
 
-    private void getLocation() {
-        int i = 0;
-        LocationManager localLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        do {
-            if (i == 10)
-                break;
-            Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            i++;
-        } while (Base.lastKnownLocation == null);
-        if (Base.lastKnownLocation != null) {
-            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
-        }
-        Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (Base.lastKnownLocation != null) {
-            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
-        }
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getLocation();
-    }
+
+
 }

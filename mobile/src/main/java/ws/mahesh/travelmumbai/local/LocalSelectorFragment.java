@@ -79,17 +79,14 @@ public class LocalSelectorFragment extends Fragment {
 
             dattabase.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (SQLException ignored) {
+        } catch (IOException ignored) {
         }
         dest.setSelection(((ArrayAdapter) dest.getAdapter()).getPosition(Base.nearbystation));
         src.setSelection(((ArrayAdapter) src.getAdapter()).getPosition(Base.nearbystation));
         locsrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation();
                 try {
                     dattabase.openDataBase();
                     dattabase.searchStationNearby();
@@ -105,7 +102,6 @@ public class LocalSelectorFragment extends Fragment {
         locdest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation();
                 try {
                     dattabase.openDataBase();
                     dattabase.searchStationNearby();
@@ -199,26 +195,4 @@ public class LocalSelectorFragment extends Fragment {
 
     }
 
-
-    private void getLocation() {
-        int i = 0;
-        LocationManager localLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        do {
-            if (i == 10)
-                break;
-            Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            i++;
-        } while (Base.lastKnownLocation == null);
-        if (Base.lastKnownLocation != null) {
-            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
-        }
-
-        Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (Base.lastKnownLocation != null) {
-            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
-        }
-    }
 }

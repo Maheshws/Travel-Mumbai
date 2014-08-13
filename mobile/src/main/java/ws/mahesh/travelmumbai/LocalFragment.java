@@ -2,6 +2,7 @@ package ws.mahesh.travelmumbai;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import ws.mahesh.travelmumbai.local.Base;
 import ws.mahesh.travelmumbai.local.LocalSelectorFragment;
 import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;
 import ws.mahesh.travelmumbai.misc.WebViewActivity;
+import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 
 /**
  * Created by Mahesh on 7/25/2014.
@@ -22,6 +24,7 @@ import ws.mahesh.travelmumbai.misc.WebViewActivity;
 public class LocalFragment extends Fragment {
 
     Button MegaBlock,RailMap,WR,CR,HR;
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -44,7 +47,11 @@ public class LocalFragment extends Fragment {
         CR= (Button) getActivity().findViewById(R.id.buttonCR);
         HR= (Button) getActivity().findViewById(R.id.buttonHR);
 
-        getLocation();
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener locationListener = new CustomLocationListener();
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
         WR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,26 +105,5 @@ public class LocalFragment extends Fragment {
             }
         });
     }
-    private void getLocation() {
-        int i = 0;
-        LocationManager localLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        do {
-            if (i == 10)
-                break;
-            Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            i++;
-        } while (Base.lastKnownLocation == null);
-        if (Base.lastKnownLocation != null) {
-            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
-        }
-
-        Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (Base.lastKnownLocation != null) {
-            Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
-            Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
-        }
-
-    }
 }

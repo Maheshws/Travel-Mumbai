@@ -5,29 +5,27 @@ import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
-import android.util.Log;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
 import ws.mahesh.travelmumbai.local.Base;
-import ws.mahesh.travelmumbai.local.DatabaseAdapter;
 import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;
+import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 
 import static android.provider.Settings.Secure;
 
@@ -110,22 +108,27 @@ public class TravelMumbai extends Application {
     }
     private void getLocation() {
         int i = 0;
-        LocationManager localLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new CustomLocationListener();
         do {
             if (i == 10)
                 break;
-            Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Base.lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             i++;
         } while (Base.lastKnownLocation == null);
         if (Base.lastKnownLocation != null) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
             Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
             Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
         }
-        Base.lastKnownLocation = localLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Base.lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (Base.lastKnownLocation != null) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
             Base.lastKnownLat = Base.lastKnownLocation.getLatitude();
             Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
         }
+
+
+
     }
 }
