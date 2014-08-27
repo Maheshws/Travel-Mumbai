@@ -67,12 +67,6 @@ public class MonorailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Monorail");
 
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        locationListener = new CustomLocationListener();
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
 
         moreInfo = (Button) getActivity().findViewById(R.id.buttonmoreInfo);
@@ -121,7 +115,6 @@ public class MonorailFragment extends Fragment {
         });
         source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
     }
-
     private void setValues() {
         int current=source.getSelectedItemPosition();
         if(current>0)
@@ -164,11 +157,20 @@ public class MonorailFragment extends Fragment {
 
     @Override
     public void onPause(){
-        locationManager.removeUpdates(locationListener);
-        locationManager = null;
+        if(locationManager!=null) {
+            locationManager.removeUpdates(locationListener);
+            locationManager = null;
+        }
         super.onPause();
     }
-
-
+    @Override
+    public void onResume() {
+        if(locationManager==null) {
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            locationListener = new CustomLocationListener();
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 2, locationListener);
+        }
+        super.onResume();
+    }
 
 }

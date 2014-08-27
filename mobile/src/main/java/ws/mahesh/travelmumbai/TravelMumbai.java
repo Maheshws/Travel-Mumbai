@@ -125,7 +125,5 @@ public class TravelMumbai extends Application {
             Base.lastKnownLon = Base.lastKnownLocation.getLongitude();
         }
 
-
-
     }
 }

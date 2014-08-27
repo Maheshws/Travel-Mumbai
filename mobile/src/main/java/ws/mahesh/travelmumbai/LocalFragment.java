@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +48,6 @@ public class LocalFragment extends Fragment {
         WR= (Button) getActivity().findViewById(R.id.buttonWR);
         CR= (Button) getActivity().findViewById(R.id.buttonCR);
         HR= (Button) getActivity().findViewById(R.id.buttonHR);
-
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        locationListener = new CustomLocationListener();
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
         WR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,9 +103,19 @@ public class LocalFragment extends Fragment {
     }
     @Override
     public void onPause(){
-        locationManager.removeUpdates(locationListener);
-        locationManager = null;
+        if(locationManager!=null) {
+            locationManager.removeUpdates(locationListener);
+            locationManager = null;
+        }
         super.onPause();
     }
-
+    @Override
+    public void onResume() {
+        if(locationManager==null) {
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            locationListener = new CustomLocationListener();
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 2, locationListener);
+        }
+        super.onResume();
+    }
 }
