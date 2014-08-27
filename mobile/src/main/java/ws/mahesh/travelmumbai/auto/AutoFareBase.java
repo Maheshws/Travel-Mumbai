@@ -47,7 +47,7 @@ public class AutoFareBase {
     }
 
     public void calculateFare() {
-        fare = dist * AutoBase.PER_KM;
+        fare = ((dist - AutoBase.MIN_DISTANCE) * AutoBase.PER_KM) + AutoBase.MIN_FARE;
         int tempfare = (int) Math.round(fare);
         night_fare = tempfare + (tempfare * AutoBase.NIGHT_RATE_FACTOR);
     }

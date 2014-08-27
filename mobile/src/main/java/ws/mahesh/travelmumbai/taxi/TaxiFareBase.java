@@ -1,7 +1,5 @@
 package ws.mahesh.travelmumbai.taxi;
 
-import android.util.Log;
-
 import java.text.DecimalFormat;
 
 /**
@@ -63,7 +61,7 @@ public class TaxiFareBase {
     }
 
     public void calculateFare() {
-        fare = dist * TaxiBase.PER_KM;
+        fare = (dist - TaxiBase.MIN_DISTANCE) * TaxiBase.PER_KM + TaxiBase.MIN_FARE;
         night_fare = fare + (fare * TaxiBase.NIGHT_RATE_FACTOR);
     }
 
