@@ -18,7 +18,7 @@ public class MegaBlockInfoActivity extends Activity {
     private WebView webview;
     private static final String TAG = "Main";
     private ProgressDialog progressBar;
-    private final String Location="http://mobondhrd.appspot.com/megablockinfo.jsp?&isusingapi=false";
+    private final String Location="http://mahesh.ws/sites/tm/megablock.html";
     /**
      * Called when the activity is first created.
      */
