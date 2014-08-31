@@ -5,7 +5,6 @@ import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -25,7 +24,6 @@ import java.util.List;
 
 import ws.mahesh.travelmumbai.local.Base;
 import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;
-import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 
 import static android.provider.Settings.Secure;
 

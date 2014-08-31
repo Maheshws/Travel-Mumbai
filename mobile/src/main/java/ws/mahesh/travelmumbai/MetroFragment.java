@@ -3,12 +3,13 @@ package ws.mahesh.travelmumbai;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.location.LocationListener;
+import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +37,6 @@ import ws.mahesh.travelmumbai.metro.MetroFareBase;
 import ws.mahesh.travelmumbai.metro.MetroListAdapter;
 import ws.mahesh.travelmumbai.metro.MetroListItem;
 import ws.mahesh.travelmumbai.metro.MetroStations;
-import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 import ws.mahesh.travelmumbai.utils.MyTagHandler;
 import ws.mahesh.travelmumbai.utils.StationFinder;
 
@@ -42,9 +49,6 @@ public class MetroFragment extends Fragment {
     ImageButton getLoc;
     MetroFareBase metro=new MetroFareBase();
     private List<MetroListItem> metroItem=new ArrayList<MetroListItem>();
-
-    LocationManager locationManager=null;
-    LocationListener locationListener;
 
     public MetroFragment() {
         super();
@@ -100,21 +104,17 @@ public class MetroFragment extends Fragment {
                     }
                 }).start();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
         getLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
             }
         });
-
         source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
-
     }
 
     private void setValues() {
@@ -137,7 +137,6 @@ public class MetroFragment extends Fragment {
                 list.setAdapter(adapter);
             }
         });
-
     }
 
     private String readFromFile(String fname) {
@@ -155,23 +154,5 @@ public class MetroFragment extends Fragment {
             e.printStackTrace();
         }
         return str;
-    }
-
-    @Override
-    public void onPause(){
-        if(locationManager!=null) {
-            locationManager.removeUpdates(locationListener);
-            locationManager = null;
-        }
-        super.onPause();
-    }
-    @Override
-    public void onResume() {
-        if(locationManager==null) {
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            locationListener = new CustomLocationListener();
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 2, locationListener);
-        }
-        super.onResume();
     }
 }

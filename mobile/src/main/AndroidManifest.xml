@@ -52,8 +52,12 @@
                 <category android:name="ws.mahesh.travelmumbai" />
             </intent-filter>
         </receiver>
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="b8fe08f91e61cf7d02123a549628ffa20e04bfbe"/>
-
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="b8fe08f91e61cf7d02123a549628ffa20e04bfbe"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

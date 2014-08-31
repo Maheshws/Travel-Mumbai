@@ -29,7 +29,6 @@ import ws.mahesh.travelmumbai.monorail.MonoFareBase;
 import ws.mahesh.travelmumbai.monorail.MonoListAdapter;
 import ws.mahesh.travelmumbai.monorail.MonoListItem;
 import ws.mahesh.travelmumbai.monorail.MonoStations;
-import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 import ws.mahesh.travelmumbai.utils.MyTagHandler;
 import ws.mahesh.travelmumbai.utils.StationFinder;
 
@@ -41,9 +40,6 @@ public class MonorailFragment extends Fragment {
     Button moreInfo;
     ImageButton getLoc;
     MonoFareBase mono=new MonoFareBase();
-
-    LocationManager locationManager=null;
-    LocationListener locationListener;
 
     private List<MonoListItem> monoItem=new ArrayList<MonoListItem>();
 
@@ -99,7 +95,6 @@ public class MonorailFragment extends Fragment {
                         setValues();
                     }
                 }).start();
-
             }
 
             @Override
@@ -153,24 +148,6 @@ public class MonorailFragment extends Fragment {
             e.printStackTrace();
         }
         return str;
-    }
-
-    @Override
-    public void onPause(){
-        if(locationManager!=null) {
-            locationManager.removeUpdates(locationListener);
-            locationManager = null;
-        }
-        super.onPause();
-    }
-    @Override
-    public void onResume() {
-        if(locationManager==null) {
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            locationListener = new CustomLocationListener();
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 2, locationListener);
-        }
-        super.onResume();
     }
 
 }

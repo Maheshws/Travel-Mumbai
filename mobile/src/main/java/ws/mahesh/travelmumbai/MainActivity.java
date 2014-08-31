@@ -1,18 +1,33 @@
 package ws.mahesh.travelmumbai;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.support.v4.app.Fragment;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
-public class MainActivity extends ActionBarActivity {
+import ws.mahesh.travelmumbai.local.Base;
+
+public class MainActivity extends ActionBarActivity  implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+
+    LocationRequest locationRequest;
+    LocationClient locationClient;
+    boolean locationEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +39,65 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        locationClient = new LocationClient(this, this, this);
+        locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(1000);
+
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            locationEnabled = false;
+        }
+        else locationEnabled = true;
         ActionBar actionBar = getSupportActionBar();
         actionBar.show();
         actionBar.setTitle("Travel Mumbai");
-
-
     }
 
     public void setActionBarTitle(String title){
         ActionBar actionBar = getSupportActionBar();
         actionBar.show();
         actionBar.setTitle(title);
+    }
+
+    @Override
+    public void onStart() {
+        locationClient.connect();
+        super.onStart();
+    }
+    @Override
+    public void onStop() {
+        locationClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Location location = locationClient.getLastLocation();
+        if (location != null) {
+            Base.lastKnownLon= location.getLongitude();
+            Base.lastKnownLat= location.getLatitude();
+            Base.lastKnownLocation=location;
+        }
+        else if (location == null && locationEnabled) {
+            locationClient.requestLocationUpdates(locationRequest, this);
+        }
+    }
+
+    @Override
+    public void onDisconnected() {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        locationClient.removeLocationUpdates(this);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
     }
 
 /*

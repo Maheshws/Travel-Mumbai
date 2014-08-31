@@ -7,7 +7,6 @@ import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import ws.mahesh.travelmumbai.local.Base;
 import ws.mahesh.travelmumbai.local.LocalSelectorFragment;
 import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;
 import ws.mahesh.travelmumbai.misc.WebViewActivity;
-import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 
 /**
  * Created by Mahesh on 7/25/2014.
@@ -25,8 +23,6 @@ import ws.mahesh.travelmumbai.utils.CustomLocationListener;
 public class LocalFragment extends Fragment {
 
     Button MegaBlock,RailMap,WR,CR,HR;
-    LocationManager locationManager=null;
-    LocationListener locationListener;
 
     @Override
     public void onAttach(Activity activity) {
@@ -100,22 +96,5 @@ public class LocalFragment extends Fragment {
                 startActivity(i);
             }
         });
-    }
-    @Override
-    public void onPause(){
-        if(locationManager!=null) {
-            locationManager.removeUpdates(locationListener);
-            locationManager = null;
-        }
-        super.onPause();
-    }
-    @Override
-    public void onResume() {
-        if(locationManager==null) {
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            locationListener = new CustomLocationListener();
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 2, locationListener);
-        }
-        super.onResume();
     }
 }
