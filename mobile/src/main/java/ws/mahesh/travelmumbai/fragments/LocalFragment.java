@@ -1,4 +1,4 @@
-package ws.mahesh.travelmumbai;
+package ws.mahesh.travelmumbai.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import ws.mahesh.travelmumbai.MainActivity;
+import ws.mahesh.travelmumbai.R;
 import ws.mahesh.travelmumbai.local.Base;
 import ws.mahesh.travelmumbai.local.LocalSelectorFragment;
 import ws.mahesh.travelmumbai.misc.MegaBlockInfoActivity;

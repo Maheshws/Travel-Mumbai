@@ -1,8 +1,9 @@
-package ws.mahesh.travelmumbai;
+package ws.mahesh.travelmumbai.fragments;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,25 +13,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
 
-import ws.mahesh.travelmumbai.auto.AutoCompleteFareList;
-import ws.mahesh.travelmumbai.auto.AutoFareBase;
+import ws.mahesh.travelmumbai.MainActivity;
+import ws.mahesh.travelmumbai.R;
+import ws.mahesh.travelmumbai.taxi.TaxiCompleteFareList;
+import ws.mahesh.travelmumbai.taxi.TaxiFareBase;
 import ws.mahesh.travelmumbai.utils.TravelInfo;
 
 /**
  * Created by Mahesh on 7/9/2014.
  */
-public class AutoFragment extends Fragment {
+public class TaxiFragment extends Fragment {
     TextView distance, reading, day_fare, night_fare, info_txt;
     Button calcReading, calcDistance, show_chart;
     EditText meter_reading, distance_km;
 
+    TaxiFareBase taxi = new TaxiFareBase();
 
-    AutoFareBase auto = new AutoFareBase();
-
-
-    public AutoFragment() {
+    public TaxiFragment() {
         super();
     }
 
@@ -48,11 +48,8 @@ public class AutoFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Auto");
-
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Taxi");
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "font/rupee.ttf");
-
         distance = (TextView) getActivity().findViewById(R.id.textViewDistance);
         reading = (TextView) getActivity().findViewById(R.id.textViewReading);
         day_fare = (TextView) getActivity().findViewById(R.id.textViewDayFare);
@@ -69,7 +66,7 @@ public class AutoFragment extends Fragment {
         calcReading = (Button) getActivity().findViewById(R.id.buttoncalcReading);
         show_chart = (Button) getActivity().findViewById(R.id.buttonChart);
 
-        info_txt.setText(TravelInfo.AUTO_INFO);
+        info_txt.setText(TravelInfo.TAXI_INFO);
 
         calcDistance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +76,7 @@ public class AutoFragment extends Fragment {
                         FareonDistance();
                     } catch (Exception e) {
                         Toast.makeText(getActivity(), "Invalid Input", Toast.LENGTH_LONG).show();
-                        Log.e("AUTO", "Invalid input");
+                        Log.e("TAXI", "Invalid input");
                     }
             }
         });
@@ -92,17 +89,16 @@ public class AutoFragment extends Fragment {
                         FareonReading();
                     } catch (Exception e) {
                         Toast.makeText(getActivity(), "Invalid Input", Toast.LENGTH_LONG).show();
-                        Log.e("AUTO", "Invalid input");
+                        Log.e("TAXI", "Invalid input");
                     }
 
             }
         });
-
         show_chart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container, new AutoCompleteFareList())
+                        .replace(R.id.container, new TaxiCompleteFareList())
                         .addToBackStack(null)
                         .commit();
             }
@@ -111,19 +107,19 @@ public class AutoFragment extends Fragment {
 
     private void FareonDistance() {
         double distanced = Double.parseDouble(distance_km.getText().toString());
-        auto.distanceBased(distanced);
-        distance.setText("" + auto.getDistance());
-        reading.setText("" + auto.getReading());
-        day_fare.setText("` " + auto.getFare());
-        night_fare.setText("` " + auto.getNightFare());
+        taxi.calcDistanceBased(distanced);
+        distance.setText("" + taxi.getDistance());
+        reading.setText("" + taxi.getReading());
+        day_fare.setText("` " + taxi.getFare());
+        night_fare.setText("` " + taxi.getNightFare());
     }
 
     private void FareonReading() {
         double meterd = Double.parseDouble(meter_reading.getText().toString());
-        auto.readingBased(meterd);
-        distance.setText("" + auto.getDistance());
-        reading.setText("" + auto.getReading());
-        day_fare.setText("` " + auto.getFare());
-        night_fare.setText("` " + auto.getNightFare());
+        taxi.readingBased(meterd);
+        distance.setText("" + taxi.getDistance());
+        reading.setText("" + taxi.getReading());
+        day_fare.setText("` " + taxi.getFare());
+        night_fare.setText("` " + taxi.getNightFare());
     }
 }

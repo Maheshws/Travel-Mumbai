@@ -1,14 +1,15 @@
-package ws.mahesh.travelmumbai;
+package ws.mahesh.travelmumbai.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.location.LocationListener;
+import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,32 +19,40 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ws.mahesh.travelmumbai.MainActivity;
+import ws.mahesh.travelmumbai.R;
 import ws.mahesh.travelmumbai.local.Base;
-import ws.mahesh.travelmumbai.monorail.MonoFareBase;
-import ws.mahesh.travelmumbai.monorail.MonoListAdapter;
-import ws.mahesh.travelmumbai.monorail.MonoListItem;
-import ws.mahesh.travelmumbai.monorail.MonoStations;
+import ws.mahesh.travelmumbai.metro.MetroFareBase;
+import ws.mahesh.travelmumbai.metro.MetroListAdapter;
+import ws.mahesh.travelmumbai.metro.MetroListItem;
+import ws.mahesh.travelmumbai.metro.MetroStations;
 import ws.mahesh.travelmumbai.utils.MyTagHandler;
 import ws.mahesh.travelmumbai.utils.StationFinder;
 
 /**
  * Created by Mahesh on 7/9/2014.
  */
-public class MonorailFragment extends Fragment {
+public class MetroFragment extends Fragment {
     Spinner source;
     Button moreInfo;
     ImageButton getLoc;
-    MonoFareBase mono=new MonoFareBase();
+    MetroFareBase metro=new MetroFareBase();
+    private List<MetroListItem> metroItem=new ArrayList<MetroListItem>();
 
-    private List<MonoListItem> monoItem=new ArrayList<MonoListItem>();
-
-    public MonorailFragment() {
+    public MetroFragment() {
         super();
     }
 
@@ -54,14 +63,16 @@ public class MonorailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.mono_fare_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.metro_fare_fragment, container, false);
         return rootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Monorail");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Metro");
+
+        final StationFinder sf=new StationFinder();
 
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
 
@@ -69,14 +80,13 @@ public class MonorailFragment extends Fragment {
 
         getLoc= (ImageButton) getActivity().findViewById(R.id.imageButtonLoc);
 
-        final StationFinder sf=new StationFinder();
 
         moreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setTitle("Mono Information");
-                alertDialogBuilder.setMessage(Html.fromHtml(readFromFile("monorail/timing.tm"), null, new MyTagHandler()));
+                alertDialogBuilder.setTitle("Metro Information");
+                alertDialogBuilder.setMessage(Html.fromHtml(readFromFile("metro/timing.tm"), null, new MyTagHandler()));
                 alertDialogBuilder.setNeutralButton("Close", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -96,20 +106,19 @@ public class MonorailFragment extends Fragment {
                     }
                 }).start();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         getLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
+                source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
             }
         });
-        source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
+        source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
     }
+
     private void setValues() {
         int current=source.getSelectedItemPosition();
         if(current>0)
@@ -117,20 +126,19 @@ public class MonorailFragment extends Fragment {
     }
 
     private void calculateFare(int src) {
-        monoItem.clear();
-        monoItem.add(new MonoListItem("Destination","Token Fare","Card Fare"));
-        for(int i=0;i< MonoStations.COUNT;i++) {
-            monoItem.add(new MonoListItem(MonoStations.STATIONS[i], "" + mono.getTokenFare(src, i), "" + mono.getCardFare(src, i)));
+        metroItem.clear();
+        metroItem.add(new MetroListItem("Destination","Token Fare","Card Fare"));
+        for(int i=0;i< MetroStations.COUNT;i++) {
+            metroItem.add(new MetroListItem(MetroStations.STATIONS[i], "" + metro.getTokenFare(src, i), "" + metro.getCardFare(src, i)));
         }
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                MonoListAdapter adapter=new MonoListAdapter(getActivity(),R.layout.metro_mono_list_item,monoItem);
+                MetroListAdapter adapter=new MetroListAdapter(getActivity(),R.layout.metro_mono_list_item,metroItem);
                 ListView list = (ListView) getActivity().findViewById(R.id.listView1);
                 list.setAdapter(adapter);
             }
         });
-
     }
 
     private String readFromFile(String fname) {
@@ -149,5 +157,4 @@ public class MonorailFragment extends Fragment {
         }
         return str;
     }
-
 }

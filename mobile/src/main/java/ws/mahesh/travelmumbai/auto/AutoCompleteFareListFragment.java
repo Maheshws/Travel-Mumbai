@@ -17,7 +17,7 @@ import ws.mahesh.travelmumbai.R;
 /**
  * Created by Mahesh on 7/15/2014.
  */
-public class AutoCompleteFareList extends Fragment {
+public class AutoCompleteFareListFragment extends Fragment {
 
     AutoFareBase abc = new AutoFareBase();
     private List<AutoListItem> auto = new ArrayList<AutoListItem>();
