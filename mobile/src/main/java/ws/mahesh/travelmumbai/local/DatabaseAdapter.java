@@ -134,7 +134,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
 
     private void copyDataBase()
             throws IOException {
-         Log.i(getClass().getSimpleName(), "Inside copyDatabase");
+        Log.i(getClass().getSimpleName(), "Inside copyDatabase");
         InputStream localInputStream = this.myContext.getAssets().open(DB_NAME_PATH);
         FileOutputStream localFileOutputStream = new FileOutputStream(DB_PATH);
         byte[] arrayOfByte = new byte[1024];
@@ -144,7 +144,7 @@ public class DatabaseAdapter extends SQLiteOpenHelper {
                 localFileOutputStream.flush();
                 localFileOutputStream.close();
                 localInputStream.close();
-                 Log.i(getClass().getSimpleName(), "Copy Database completed");
+                Log.i(getClass().getSimpleName(), "Copy Database completed");
                 //    Log.i(getClass().getSimpleName(), "DB copied at " + DB_PATH);
                 return;
             }

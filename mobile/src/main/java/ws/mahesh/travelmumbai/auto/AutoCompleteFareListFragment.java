@@ -1,8 +1,8 @@
 package ws.mahesh.travelmumbai.auto;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +44,7 @@ public class AutoCompleteFareListFragment extends Fragment {
     private void populate() {
         for (double i = 1.0; i < 10.0; i = (i + 0.1)) {
             abc.readingBased(i);
-            auto.add(new AutoListItem("" + abc.getReading(), "" + abc.getDistance(),  ""+abc.getFare(), ""+ abc.getNightFare()));
+            auto.add(new AutoListItem("" + abc.getReading(), "" + abc.getDistance(), "" + abc.getFare(), "" + abc.getNightFare()));
         }
         AutoListAdapter adapter = new AutoListAdapter(getActivity(), R.layout.auto_taxi_item, auto);
         ListView list = (ListView) getActivity().findViewById(R.id.listView);

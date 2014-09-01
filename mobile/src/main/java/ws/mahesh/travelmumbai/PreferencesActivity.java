@@ -34,11 +34,10 @@ public class PreferencesActivity extends PreferenceActivity {
                 Log.d("MyApp", "Pref " + preference.getKey() + " changed to " + newValue.toString());
                 editor.putBoolean("MegaBlock", (Boolean) newValue);
                 editor.apply();
-                if((Boolean)newValue) {
+                if ((Boolean) newValue) {
                     PushService.setDefaultPushCallback(PreferencesActivity.this, null);
                     Notification.setSummary("Notifications are off for MegaBlock.");
-                }
-                else {
+                } else {
                     PushService.setDefaultPushCallback(PreferencesActivity.this, MegaBlockInfoActivity.class);
                     Notification.setSummary("Notifications are on for MegaBlock.");
                 }
@@ -74,22 +73,22 @@ public class PreferencesActivity extends PreferenceActivity {
             }
         });
 
-        Preference MegaBlockInfo=findPreference("MegaBlockInfo");
+        Preference MegaBlockInfo = findPreference("MegaBlockInfo");
         MegaBlockInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivity(new Intent(PreferencesActivity.this,MegaBlockInfoActivity.class));
+                startActivity(new Intent(PreferencesActivity.this, MegaBlockInfoActivity.class));
                 return false;
             }
         });
 
-        Preference RailMap =findPreference("RailMap");
+        Preference RailMap = findPreference("RailMap");
         RailMap.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
-                i.putExtra("asset",true);
-                i.putExtra("location","railmap/railmap.html");
+                i.putExtra("asset", true);
+                i.putExtra("location", "railmap/railmap.html");
                 startActivity(i);
                 return false;
             }

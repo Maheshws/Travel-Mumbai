@@ -34,24 +34,24 @@ public class TravelMumbai extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Parse.initialize(this,getString(R.string.parseAppID),getString(R.string.parseClientKey));
+        Parse.initialize(this, getString(R.string.parseAppID), getString(R.string.parseClientKey));
         ParseACL defaultACL = new ParseACL();
         defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
-        String  android_id = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+        String android_id = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
 
         SharedPreferences pref = getSharedPreferences("user_settings", 0); // 0 - for private mode
-        Boolean Subscriber=pref.getBoolean("MegaBlock",false);
-        if(!Subscriber)
+        Boolean Subscriber = pref.getBoolean("MegaBlock", false);
+        if (!Subscriber)
             PushService.setDefaultPushCallback(this, MegaBlockInfoActivity.class);
         else
-            PushService.setDefaultPushCallback(this,null);
+            PushService.setDefaultPushCallback(this, null);
 
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-        installation.put("UniqueId",android_id);
-        installation.put("IPAddress",getLocalIpAddress());
-        installation.put("MACAddress",getMACAddress());
-        installation.put("Email",getUsername());
+        installation.put("UniqueId", android_id);
+        installation.put("IPAddress", getLocalIpAddress());
+        installation.put("MACAddress", getMACAddress());
+        installation.put("Email", getUsername());
         installation.saveEventually();
         getLocation();
     }
@@ -73,6 +73,7 @@ public class TravelMumbai extends Application {
         }
         return "NA";
     }
+
     private String getMACAddress() {
         String macadd;
         try {
@@ -82,14 +83,14 @@ public class TravelMumbai extends Application {
             macadd = info.getMacAddress();
         } catch (Exception e1) {
             macadd = "NA";
-           // Log.e("log_tag", "Error Optaining MAC ID " + e1.toString());
+            // Log.e("log_tag", "Error Optaining MAC ID " + e1.toString());
         }
-        if(macadd==null)
-            macadd="NA";
+        if (macadd == null)
+            macadd = "NA";
         return macadd;
     }
 
-    private String getUsername(){
+    private String getUsername() {
         AccountManager manager = AccountManager.get(this);
         Account[] accounts = manager.getAccountsByType("com.google");
         List<String> possibleEmails = new LinkedList<String>();
@@ -99,11 +100,12 @@ public class TravelMumbai extends Application {
             possibleEmails.add(account.name);
         }
 
-        if(!possibleEmails.isEmpty() && possibleEmails.get(0) != null){
+        if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
             return possibleEmails.get(0);
-        }else
+        } else
             return "NA";
     }
+
     private void getLocation() {
         int i = 0;
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);

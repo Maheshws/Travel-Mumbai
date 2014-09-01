@@ -1,12 +1,9 @@
 package ws.mahesh.travelmumbai.fragments;
 
 import android.app.Activity;
-import android.content.Context;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +21,7 @@ import ws.mahesh.travelmumbai.misc.WebViewActivity;
  */
 public class LocalFragment extends Fragment {
 
-    Button MegaBlock,RailMap,WR,CR,HR;
+    Button MegaBlock, RailMap, WR, CR, HR;
 
     @Override
     public void onAttach(Activity activity) {
@@ -41,17 +38,17 @@ public class LocalFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Local");
-        MegaBlock= (Button) getActivity().findViewById(R.id.buttonMegaBlockInfo);
-        RailMap= (Button) getActivity().findViewById(R.id.buttonRailMap);
-        WR= (Button) getActivity().findViewById(R.id.buttonWR);
-        CR= (Button) getActivity().findViewById(R.id.buttonCR);
-        HR= (Button) getActivity().findViewById(R.id.buttonHR);
+        MegaBlock = (Button) getActivity().findViewById(R.id.buttonMegaBlockInfo);
+        RailMap = (Button) getActivity().findViewById(R.id.buttonRailMap);
+        WR = (Button) getActivity().findViewById(R.id.buttonWR);
+        CR = (Button) getActivity().findViewById(R.id.buttonCR);
+        HR = (Button) getActivity().findViewById(R.id.buttonHR);
 
         WR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Base.alltrains = false;
-                Base.trainLine="WR";
+                Base.trainLine = "WR";
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new LocalSelectorFragment())
                         .addToBackStack(null)
@@ -62,7 +59,7 @@ public class LocalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Base.alltrains = false;
-                Base.trainLine="CR";
+                Base.trainLine = "CR";
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new LocalSelectorFragment())
                         .addToBackStack(null)
@@ -73,7 +70,7 @@ public class LocalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Base.alltrains = false;
-                Base.trainLine="HR";
+                Base.trainLine = "HR";
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new LocalSelectorFragment())
                         .addToBackStack(null)
@@ -93,8 +90,8 @@ public class LocalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), WebViewActivity.class);
-                i.putExtra("asset",true);
-                i.putExtra("location","railmap/railmap.html");
+                i.putExtra("asset", true);
+                i.putExtra("location", "railmap/railmap.html");
                 startActivity(i);
             }
         });

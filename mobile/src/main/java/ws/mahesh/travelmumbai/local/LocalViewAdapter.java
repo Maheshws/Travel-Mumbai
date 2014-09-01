@@ -38,7 +38,7 @@ public class LocalViewAdapter extends ArrayAdapter<LocalViewItem> {
         Time.setText(local.getTIME().toUpperCase());
         Station.setText(local.getSTATION().toUpperCase());
 
-        if(local.getMAJOR()!=null && local.getMAJOR().equalsIgnoreCase("yes")) {
+        if (local.getMAJOR() != null && local.getMAJOR().equalsIgnoreCase("yes")) {
             Time.setTextColor(Color.CYAN);
             Station.setTextColor(Color.CYAN);
         }

@@ -2,8 +2,6 @@ package ws.mahesh.travelmumbai.local;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -178,8 +176,8 @@ public class LocalSelectorFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Base.local=local;
-        Base.pos1=posCount;
+        Base.local = local;
+        Base.pos1 = posCount;
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

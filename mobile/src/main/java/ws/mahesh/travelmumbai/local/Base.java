@@ -59,6 +59,6 @@ public class Base {
         info = "callMap";
         trainLine = "CR";
         alltrains = false;
-        distancebtn=0.0;
+        distancebtn = 0.0;
     }
 }

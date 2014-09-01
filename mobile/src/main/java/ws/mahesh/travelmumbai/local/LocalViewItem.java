@@ -11,7 +11,7 @@ public class LocalViewItem {
     public LocalViewItem(String TIME, String STATION, String MAJOR) {
         this.TIME = TIME;
         this.STATION = STATION;
-        this.MAJOR=MAJOR;
+        this.MAJOR = MAJOR;
     }
 
     public String getTIME() {

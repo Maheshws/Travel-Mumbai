@@ -2,14 +2,10 @@ package ws.mahesh.travelmumbai.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
-import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +14,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,8 +38,8 @@ public class MetroFragment extends Fragment {
     Spinner source;
     Button moreInfo;
     ImageButton getLoc;
-    MetroFareBase metro=new MetroFareBase();
-    private List<MetroListItem> metroItem=new ArrayList<MetroListItem>();
+    MetroFareBase metro = new MetroFareBase();
+    private List<MetroListItem> metroItem = new ArrayList<MetroListItem>();
 
     public MetroFragment() {
         super();
@@ -72,13 +61,13 @@ public class MetroFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Travel Mumbai - Metro");
 
-        final StationFinder sf=new StationFinder();
+        final StationFinder sf = new StationFinder();
 
         source = (Spinner) getActivity().findViewById(R.id.spinnerSource);
 
         moreInfo = (Button) getActivity().findViewById(R.id.buttonmoreInfo);
 
-        getLoc= (ImageButton) getActivity().findViewById(R.id.imageButtonLoc);
+        getLoc = (ImageButton) getActivity().findViewById(R.id.imageButtonLoc);
 
 
         moreInfo.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +95,7 @@ public class MetroFragment extends Fragment {
                     }
                 }).start();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -113,28 +103,28 @@ public class MetroFragment extends Fragment {
         getLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
+                source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat, Base.lastKnownLon) + 1);
             }
         });
-        source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat,Base.lastKnownLon)+1);
+        source.setSelection(sf.getNearbyMetroStation(Base.lastKnownLat, Base.lastKnownLon) + 1);
     }
 
     private void setValues() {
-        int current=source.getSelectedItemPosition();
-        if(current>0)
-            calculateFare(current-1);
+        int current = source.getSelectedItemPosition();
+        if (current > 0)
+            calculateFare(current - 1);
     }
 
     private void calculateFare(int src) {
         metroItem.clear();
-        metroItem.add(new MetroListItem("Destination","Token Fare","Card Fare"));
-        for(int i=0;i< MetroStations.COUNT;i++) {
+        metroItem.add(new MetroListItem("Destination", "Token Fare", "Card Fare"));
+        for (int i = 0; i < MetroStations.COUNT; i++) {
             metroItem.add(new MetroListItem(MetroStations.STATIONS[i], "" + metro.getTokenFare(src, i), "" + metro.getCardFare(src, i)));
         }
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                MetroListAdapter adapter=new MetroListAdapter(getActivity(),R.layout.metro_mono_list_item,metroItem);
+                MetroListAdapter adapter = new MetroListAdapter(getActivity(), R.layout.metro_mono_list_item, metroItem);
                 ListView list = (ListView) getActivity().findViewById(R.id.listView1);
                 list.setAdapter(adapter);
             }

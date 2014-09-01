@@ -2,7 +2,6 @@ package ws.mahesh.travelmumbai.metro;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,8 @@ public class MetroListAdapter extends ArrayAdapter<MetroListItem> {
 
     public MetroListAdapter(Context context, int resource, List<MetroListItem> values) {
         super(context, resource, values);
-        this.context=context;
-        this.values=values;
+        this.context = context;
+        this.values = values;
         tf = Typeface.createFromAsset(context.getAssets(), "font/rupee.ttf");
     }
 
@@ -34,27 +33,27 @@ public class MetroListAdapter extends ArrayAdapter<MetroListItem> {
         View rowView = inflater.inflate(R.layout.metro_mono_list_item, parent, false);
 
 
-            TextView dest = (TextView) rowView.findViewById(R.id.textViewDest);
-            TextView token = (TextView) rowView.findViewById(R.id.textViewTokenFare);
-            TextView card = (TextView) rowView.findViewById(R.id.textViewCardFare);
+        TextView dest = (TextView) rowView.findViewById(R.id.textViewDest);
+        TextView token = (TextView) rowView.findViewById(R.id.textViewTokenFare);
+        TextView card = (TextView) rowView.findViewById(R.id.textViewCardFare);
         MetroListItem metro = values.get(position);
 
         token.setTypeface(tf);
         card.setTypeface(tf);
 
         dest.setText(metro.getDESTINATION());
-        token.setText("` "+metro.getTOKEN());
-        card.setText("` "+metro.getCARD());
+        token.setText("` " + metro.getTOKEN());
+        card.setText("` " + metro.getCARD());
 
         if (position == 0) {
             dest.setTypeface(null, Typeface.BOLD);
             token.setTypeface(null, Typeface.BOLD);
             card.setTypeface(null, Typeface.BOLD);
-            token.setText(""+metro.getTOKEN());
-            card.setText(""+metro.getCARD());
+            token.setText("" + metro.getTOKEN());
+            card.setText("" + metro.getCARD());
         }
 
-        if(metro.getCARD().equals("0"))        {
+        if (metro.getCARD().equals("0")) {
             rowView = inflater.inflate(R.layout.metro_mono_current_list_item, parent, false);
             TextView curr = (TextView) rowView.findViewById(R.id.textView);
             curr.setText(metro.getDESTINATION());

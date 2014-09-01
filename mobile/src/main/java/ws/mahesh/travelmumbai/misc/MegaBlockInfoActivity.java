@@ -15,10 +15,11 @@ import android.widget.Toast;
 import ws.mahesh.travelmumbai.R;
 
 public class MegaBlockInfoActivity extends Activity {
-    private WebView webview;
     private static final String TAG = "Main";
+    private final String Location = "http://mahesh.ws/sites/tm/megablock.html";
+    private WebView webview;
     private ProgressDialog progressBar;
-    private final String Location="http://mahesh.ws/sites/tm/megablock.html";
+
     /**
      * Called when the activity is first created.
      */

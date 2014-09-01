@@ -47,8 +47,8 @@ public class AutoListAdapter extends ArrayAdapter<AutoListItem> {
 
         meter.setText(auto.getREADING());
         distance.setText(auto.getDISTANCE());
-        day_fare.setText("` "+auto.getDAY_FARE());
-        night_fare.setText("` "+auto.getNIGHT_FARE());
+        day_fare.setText("` " + auto.getDAY_FARE());
+        night_fare.setText("` " + auto.getNIGHT_FARE());
 
         return rowView;
     }

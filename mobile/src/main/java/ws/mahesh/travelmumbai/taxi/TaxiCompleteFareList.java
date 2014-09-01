@@ -1,8 +1,8 @@
 package ws.mahesh.travelmumbai.taxi;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,10 +44,10 @@ public class TaxiCompleteFareList extends Fragment {
     private void populate() {
         for (double i = 1.0; i < 10.0; i = (i + 0.1)) {
             abc.readingBased(i);
-            String tempd=""+abc.getDistance();
-            if(tempd.length()<4)
-                tempd=tempd+"0";
-            auto.add(new TaxiListItem("" + abc.getReading(), "" +tempd, "" + abc.getFare(), "" + abc.getNightFare()));
+            String tempd = "" + abc.getDistance();
+            if (tempd.length() < 4)
+                tempd = tempd + "0";
+            auto.add(new TaxiListItem("" + abc.getReading(), "" + tempd, "" + abc.getFare(), "" + abc.getNightFare()));
         }
         TaxiListAdapter adapter = new TaxiListAdapter(getActivity(), R.layout.auto_taxi_item, auto);
         ListView list = (ListView) getActivity().findViewById(R.id.listView);

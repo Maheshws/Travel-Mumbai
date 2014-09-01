@@ -10,6 +10,7 @@ import ws.mahesh.travelmumbai.R;
 public class WebViewActivity extends ActionBarActivity {
     String location;
     WebView wv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,9 +19,9 @@ public class WebViewActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         Boolean asset;
         if (extras != null) {
-            asset=extras.getBoolean("asset");
+            asset = extras.getBoolean("asset");
             location = extras.getString("location");
-            if(asset)
+            if (asset)
                 setAssetView();
             else
                 setWebView();
@@ -34,7 +35,7 @@ public class WebViewActivity extends ActionBarActivity {
         wv.getSettings().setUseWideViewPort(true);
         wv.getSettings().setBuiltInZoomControls(true);
         wv.getSettings().setLoadWithOverviewMode(true);
-        wv.loadUrl("file:///android_asset/"+location);
+        wv.loadUrl("file:///android_asset/" + location);
     }
 
     private void setWebView() {

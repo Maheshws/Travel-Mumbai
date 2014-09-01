@@ -3,6 +3,7 @@ package ws.mahesh.travelmumbai.fragments;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
 
 import ws.mahesh.travelmumbai.MainActivity;
 import ws.mahesh.travelmumbai.R;
@@ -58,7 +58,7 @@ public class AutoFragment extends Fragment {
         reading = (TextView) getActivity().findViewById(R.id.textViewReading);
         day_fare = (TextView) getActivity().findViewById(R.id.textViewDayFare);
         night_fare = (TextView) getActivity().findViewById(R.id.textViewNightFare);
-        info_txt= (TextView) getActivity().findViewById(R.id.textViewInformation);
+        info_txt = (TextView) getActivity().findViewById(R.id.textViewInformation);
 
         day_fare.setTypeface(tf);
         night_fare.setTypeface(tf);

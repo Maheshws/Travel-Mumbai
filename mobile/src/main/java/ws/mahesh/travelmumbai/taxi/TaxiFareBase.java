@@ -8,10 +8,10 @@ import java.text.DecimalFormat;
 public class TaxiFareBase {
     public double dist, fare, meter, night_fare;
     DecimalFormat df2 = new DecimalFormat("00.00");
-    boolean distbased=true;
+    boolean distbased = true;
 
     public void calcDistanceBased(double tdist) {
-        distbased=true;
+        distbased = true;
         distanceBased(tdist);
     }
 
@@ -20,7 +20,7 @@ public class TaxiFareBase {
             defaultValues();
         else {
             dist = tdist;
-            if(distbased)
+            if (distbased)
                 calculateReading();
             calculateFare();
         }
@@ -30,7 +30,7 @@ public class TaxiFareBase {
         dist = TaxiBase.MIN_DISTANCE;
         fare = TaxiBase.MIN_FARE;
         meter = 1.0;
-        night_fare = fare + (fare * TaxiBase.NIGHT_RATE_FACTOR)-1;
+        night_fare = fare + (fare * TaxiBase.NIGHT_RATE_FACTOR) - 1;
     }
 
     public void readingBased(double tread) {
@@ -39,10 +39,10 @@ public class TaxiFareBase {
         } else {
             double tempread = tread - 1.0;
             tempread = (tempread * 1.67) + TaxiBase.MIN_DISTANCE;
-            distbased=false;
+            distbased = false;
             tempread = Double.valueOf(df2.format(tempread));
             tread = Double.valueOf(df2.format(tread));
-            meter=tread;
+            meter = tread;
             distanceBased(tempread);
         }
     }

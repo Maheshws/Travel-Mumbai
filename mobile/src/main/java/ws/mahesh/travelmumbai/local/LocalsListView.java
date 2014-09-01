@@ -73,8 +73,8 @@ public class LocalsListView extends Fragment {
     }
 
     private void populate() {
-        local=Base.local;
-        posCount=Base.pos1;
+        local = Base.local;
+        posCount = Base.pos1;
         if (local == null) {
             Toast.makeText(getActivity(), "No Trains Found", Toast.LENGTH_LONG).show();
             info.setText("No Direct Train available on selected route");

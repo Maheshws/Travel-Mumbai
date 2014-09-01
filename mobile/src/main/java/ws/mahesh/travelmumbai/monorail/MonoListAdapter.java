@@ -2,7 +2,6 @@ package ws.mahesh.travelmumbai.monorail;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,19 +41,18 @@ public class MonoListAdapter extends ArrayAdapter<MonoListItem> {
         card.setTypeface(tf);
 
         dest.setText(mono.getDESTINATION());
-        token.setText("` "+mono.getTOKEN());
-        card.setText("` "+mono.getCARD());
+        token.setText("` " + mono.getTOKEN());
+        card.setText("` " + mono.getCARD());
 
         if (position == 0) {
             dest.setTypeface(null, Typeface.BOLD);
             token.setTypeface(null, Typeface.BOLD);
             card.setTypeface(null, Typeface.BOLD);
-            token.setText(""+mono.getTOKEN());
-            card.setText(""+mono.getCARD());
+            token.setText("" + mono.getTOKEN());
+            card.setText("" + mono.getCARD());
         }
 
-        if(mono.getCARD().equals("0"))
-        {
+        if (mono.getCARD().equals("0")) {
             rowView = inflater.inflate(R.layout.metro_mono_current_list_item, parent, false);
             TextView curr = (TextView) rowView.findViewById(R.id.textView);
             curr.setText(mono.getDESTINATION());

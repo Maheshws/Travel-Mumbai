@@ -2,12 +2,9 @@ package ws.mahesh.travelmumbai.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +38,9 @@ public class MonorailFragment extends Fragment {
     Spinner source;
     Button moreInfo;
     ImageButton getLoc;
-    MonoFareBase mono=new MonoFareBase();
+    MonoFareBase mono = new MonoFareBase();
 
-    private List<MonoListItem> monoItem=new ArrayList<MonoListItem>();
+    private List<MonoListItem> monoItem = new ArrayList<MonoListItem>();
 
     public MonorailFragment() {
         super();
@@ -69,9 +66,9 @@ public class MonorailFragment extends Fragment {
 
         moreInfo = (Button) getActivity().findViewById(R.id.buttonmoreInfo);
 
-        getLoc= (ImageButton) getActivity().findViewById(R.id.imageButtonLoc);
+        getLoc = (ImageButton) getActivity().findViewById(R.id.imageButtonLoc);
 
-        final StationFinder sf=new StationFinder();
+        final StationFinder sf = new StationFinder();
 
         moreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,27 +104,28 @@ public class MonorailFragment extends Fragment {
         getLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
+                source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat, Base.lastKnownLon) + 1);
             }
         });
-        source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat,Base.lastKnownLon)+1);
+        source.setSelection(sf.getNearbyMonoStation(Base.lastKnownLat, Base.lastKnownLon) + 1);
     }
+
     private void setValues() {
-        int current=source.getSelectedItemPosition();
-        if(current>0)
-            calculateFare(current-1);
+        int current = source.getSelectedItemPosition();
+        if (current > 0)
+            calculateFare(current - 1);
     }
 
     private void calculateFare(int src) {
         monoItem.clear();
-        monoItem.add(new MonoListItem("Destination","Token Fare","Card Fare"));
-        for(int i=0;i< MonoStations.COUNT;i++) {
+        monoItem.add(new MonoListItem("Destination", "Token Fare", "Card Fare"));
+        for (int i = 0; i < MonoStations.COUNT; i++) {
             monoItem.add(new MonoListItem(MonoStations.STATIONS[i], "" + mono.getTokenFare(src, i), "" + mono.getCardFare(src, i)));
         }
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                MonoListAdapter adapter=new MonoListAdapter(getActivity(),R.layout.metro_mono_list_item,monoItem);
+                MonoListAdapter adapter = new MonoListAdapter(getActivity(), R.layout.metro_mono_list_item, monoItem);
                 ListView list = (ListView) getActivity().findViewById(R.id.listView1);
                 list.setAdapter(adapter);
             }

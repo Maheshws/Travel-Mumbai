@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.support.v4.app.Fragment;
+
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -21,9 +21,14 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
+import ws.mahesh.travelmumbai.fragments.AutoFragment;
+import ws.mahesh.travelmumbai.fragments.LocalFragment;
+import ws.mahesh.travelmumbai.fragments.MetroFragment;
+import ws.mahesh.travelmumbai.fragments.MonorailFragment;
+import ws.mahesh.travelmumbai.fragments.TaxiFragment;
 import ws.mahesh.travelmumbai.local.Base;
 
-public class MainActivity extends ActionBarActivity  implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+public class MainActivity extends ActionBarActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 
     LocationRequest locationRequest;
     LocationClient locationClient;
@@ -48,14 +53,13 @@ public class MainActivity extends ActionBarActivity  implements GooglePlayServic
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locationEnabled = false;
-        }
-        else locationEnabled = true;
+        } else locationEnabled = true;
         ActionBar actionBar = getSupportActionBar();
         actionBar.show();
         actionBar.setTitle("Travel Mumbai");
     }
 
-    public void setActionBarTitle(String title){
+    public void setActionBarTitle(String title) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.show();
         actionBar.setTitle(title);
@@ -66,8 +70,10 @@ public class MainActivity extends ActionBarActivity  implements GooglePlayServic
         locationClient.connect();
         super.onStart();
     }
+
     @Override
     public void onStop() {
+        locationClient.removeLocationUpdates(this);
         locationClient.disconnect();
         super.onStop();
     }
@@ -76,11 +82,10 @@ public class MainActivity extends ActionBarActivity  implements GooglePlayServic
     public void onConnected(Bundle bundle) {
         Location location = locationClient.getLastLocation();
         if (location != null) {
-            Base.lastKnownLon= location.getLongitude();
-            Base.lastKnownLat= location.getLatitude();
-            Base.lastKnownLocation=location;
-        }
-        else if (location == null && locationEnabled) {
+            Base.lastKnownLon = location.getLongitude();
+            Base.lastKnownLat = location.getLatitude();
+            Base.lastKnownLocation = location;
+        } else if (location == null && locationEnabled) {
             locationClient.requestLocationUpdates(locationRequest, this);
         }
     }
@@ -92,7 +97,11 @@ public class MainActivity extends ActionBarActivity  implements GooglePlayServic
 
     @Override
     public void onLocationChanged(Location location) {
-        locationClient.removeLocationUpdates(this);
+        if (location != null) {
+            Base.lastKnownLon = location.getLongitude();
+            Base.lastKnownLat = location.getLatitude();
+            Base.lastKnownLocation = location;
+        }
     }
 
     @Override
@@ -150,7 +159,7 @@ public class MainActivity extends ActionBarActivity  implements GooglePlayServic
             ImageButton taxi = (ImageButton) getActivity().findViewById(R.id.imageButtonTaxi);
             ImageButton mono = (ImageButton) getActivity().findViewById(R.id.imageButtonMono);
             ImageButton prefs = (ImageButton) getActivity().findViewById(R.id.imageButtonPreferences);
-            ImageButton local= (ImageButton) getActivity().findViewById(R.id.imageButtonLocal);
+            ImageButton local = (ImageButton) getActivity().findViewById(R.id.imageButtonLocal);
 
             local.setOnClickListener(new View.OnClickListener() {
                 @Override
