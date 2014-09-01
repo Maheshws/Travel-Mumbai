@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity implements GooglePlayService
 
     LocationRequest locationRequest;
     LocationClient locationClient;
-    boolean locationEnabled;
+    boolean locationEnabled,isConnected=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,9 @@ public class MainActivity extends ActionBarActivity implements GooglePlayService
 
     @Override
     public void onStop() {
-        locationClient.removeLocationUpdates(this);
+        if(isConnected) {
+            locationClient.removeLocationUpdates(this);
+        }
         locationClient.disconnect();
         super.onStop();
     }
@@ -87,6 +89,7 @@ public class MainActivity extends ActionBarActivity implements GooglePlayService
             Base.lastKnownLocation = location;
         } else if (location == null && locationEnabled) {
             locationClient.requestLocationUpdates(locationRequest, this);
+            isConnected=true;
         }
     }
 
