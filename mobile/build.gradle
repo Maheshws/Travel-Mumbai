@@ -24,7 +24,7 @@ android {
         minSdkVersion 10
         targetSdkVersion 21
         versionCode 1
-        versionName "0.1.13"
+        versionName "0.1.14"
     }
     buildTypes {
         release {
@@ -44,7 +44,7 @@ android {
         lPreview {
             minSdkVersion 'L'
             targetSdkVersion 'L'
-            versionName "0.1.13 L Preview"
+            versionName "0.1.14 L Preview"
         }
     }
 }
